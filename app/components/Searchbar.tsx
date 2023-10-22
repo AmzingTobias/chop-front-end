@@ -25,7 +25,7 @@ const Searchbar = () => {
           setInFocus(false);
         }}
       />
-      <div className="text-xl p-2.5 -ml-10 text-gray-900">
+      <div className="text-xl p-2.5 -ml-10 text-gray-900 hover:cursor-pointer">
         <FaSearch />
       </div>
     </div>
