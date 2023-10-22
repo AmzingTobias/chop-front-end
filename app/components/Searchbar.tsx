@@ -6,7 +6,7 @@ import { FaSearch } from "react-icons/fa";
 const Searchbar = () => {
   const [inFocus, setInFocus] = useState(false);
 
-  const focusStyles = "outline outline-3 outline-amber-400";
+  const focusStyles = "outline outline-3 outline-gray-900";
 
   return (
     <div
