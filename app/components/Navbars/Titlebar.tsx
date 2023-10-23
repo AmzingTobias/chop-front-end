@@ -1,10 +1,8 @@
-import { BiUser } from "react-icons/bi";
-import WebsiteTitle from "../Website-Title";
-import Searchbar from "../Searchbar";
-import ShoppingCartBtn from "../ShoppingCartBtn";
-import AccountBtn from "../AccountBtn";
-import { IoIosArrowDropdown } from "react-icons/io";
-import { FiSearch } from "react-icons/fi";
+import WebsiteTitle from "./common/Website-Title";
+import Searchbar from "../searchbars/Searchbar";
+import ShoppingCartBtn from "./common/ShoppingCartBtn";
+import AccountBtn from "./common/AccountBtn";
+import MobileOpenSearchPage from "./common/MobileOpenSearchPage";
 
 const Titlebar = () => {
   return (
@@ -18,8 +16,8 @@ const Titlebar = () => {
         </div>
       </div>
       <div className="justify-end text-4xl mx-2 lg:mx-4 xl:mx-6 text-gray-900 flex visible w-full md:w-fit items-center">
-        <div className="text-3xl font-bold text-gray-900 hover:cursor-pointer mr-6 md:hidden">
-          <FiSearch />
+        <div className="text-3xl mr-6 md:hidden">
+          <MobileOpenSearchPage />
         </div>
         <div className="mr-6">
           <AccountBtn />

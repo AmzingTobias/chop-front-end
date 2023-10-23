@@ -4,7 +4,6 @@ import Image from "next/image";
 import { useState } from "react";
 
 const WebsiteTitle = () => {
-  const WEBSITE_TITLE = "chop";
   const [hover, setHover] = useState(false);
 
   const pathToChop = "../chop.svg";
