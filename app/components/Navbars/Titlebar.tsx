@@ -7,7 +7,7 @@ import AccountBtn from "../AccountBtn";
 const Titlebar = () => {
   return (
     <nav className="w-full bg-emerald-600 flex flex-row py-2 items-center">
-      <div className="flex mx-6 align-middle hover:cursor-pointer h-[36px]">
+      <div className="flex mx-6 align-middle hover:cursor-pointer min-w-[146px] min-h-[36px]">
         <WebsiteTitle />
       </div>
       <div className="flex justify-center w-full">
