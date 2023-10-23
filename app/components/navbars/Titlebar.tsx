@@ -6,7 +6,7 @@ import MobileOpenSearchPage from "./common/MobileOpenSearchPage";
 
 const Titlebar = () => {
   return (
-    <nav className="w-full bg-gradient-to-b from-emerald-600 to-emerald-700 flex flex-row py-2 items-center">
+    <nav className="w-full bg-gradient-to-b from-blue-950 to-sky-950 flex flex-row py-2 items-center">
       <div className="flex mx-6 align-middle hover:cursor-pointer min-w-[146px] min-h-[36px] ">
         <WebsiteTitle />
       </div>
@@ -15,7 +15,7 @@ const Titlebar = () => {
           <Searchbar />
         </div>
       </div>
-      <div className="justify-end text-4xl mx-2 lg:mx-4 xl:mx-6 text-gray-900 flex visible w-full md:w-fit items-center">
+      <div className="justify-end text-4xl mx-2 lg:mx-4 xl:mx-6 text-white flex visible w-full md:w-fit items-center">
         <div className="text-3xl mr-6 md:hidden">
           <MobileOpenSearchPage />
         </div>

@@ -6,13 +6,11 @@ interface IShoppingCartBtnProps {
 
 const ShoppingCartBtn: React.FC<IShoppingCartBtnProps> = ({ numInCart }) => {
   return (
-    <div className="hover:cursor-pointer flex justify-center ">
+    <div className="hover:cursor-pointer flex justify-center hover:text-gray-300">
       {numInCart > 0 ? (
         <>
-          <div className="">
-            <BsCartFill />
-          </div>
-          <span className="text-sm ml-0.5 mt-1.5 font-bold absolute text-white">
+          <BsCartFill />
+          <span className="text-sm ml-0.5 mt-1.5 font-bold absolute text-sky-950">
             {numInCart > 9 ? "9+" : numInCart}
           </span>
         </>

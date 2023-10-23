@@ -10,7 +10,7 @@ const MobileOpenSearchPage = () => {
   return (
     <div>
       <div
-        className="hover:cursor-pointer text-gray-900"
+        className="hover:cursor-pointer text-white"
         onClick={() => setNavBarOpen((prevToggle) => !prevToggle)}
       >
         {navBarOpen ? <FiX /> : <FiSearch />}

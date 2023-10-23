@@ -2,12 +2,10 @@ import Searchbar from "./Searchbar";
 
 const MobileSearchBar = () => {
   return (
-    <div
-      className={`h-screen w-screen bg-emerald-900 fixed left-0 top-[3.25rem] z-10`}
-    >
+    <div className={`h-screen w-screen bg-sky-900 fixed left-0 top-16 z-10`}>
       <div className="flex flex-col w-full p-4">
         <div className="w-full text-lg">
-          <div className="mt-1">
+          <div className="mt-1 text-gray-900">
             <Searchbar />
           </div>
         </div>

@@ -6,8 +6,8 @@ import Titlebar from "./components/navbars/Titlebar";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Chop",
-  description: "Chop, an ecommerce solution",
+  title: "chop",
+  description: "chop, an ecommerce solution",
 };
 
 export default function RootLayout({
