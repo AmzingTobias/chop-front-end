@@ -17,7 +17,7 @@ const Searchbar = () => {
         name="search"
         id="search"
         placeholder="Search..."
-        className="w-full rounded-2xl p-2 focus:outline-none pl-4 bg-gray-100"
+        className="w-full rounded-2xl p-1.5 focus:outline-none pl-4 bg-gray-100"
         onFocus={() => {
           setInFocus(true);
         }}
@@ -25,7 +25,7 @@ const Searchbar = () => {
           setInFocus(false);
         }}
       />
-      <div className="text-xl p-2.5 -ml-10 text-gray-900 hover:cursor-pointer">
+      <div className="text-xl p-1.5 -ml-10 text-gray-900 hover:cursor-pointer">
         <FaSearch />
       </div>
     </div>

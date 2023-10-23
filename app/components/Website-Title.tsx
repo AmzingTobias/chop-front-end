@@ -7,8 +7,8 @@ const WebsiteTitle = () => {
   const WEBSITE_TITLE = "chop";
   const [hover, setHover] = useState(false);
 
-  const pathToChop = "../chop-fill.svg";
-  const pathToChopHover = "../chop.svg";
+  const pathToChop = "../chop.svg";
+  const pathToChopHover = "../chop-fill.svg";
 
   return (
     <Image
