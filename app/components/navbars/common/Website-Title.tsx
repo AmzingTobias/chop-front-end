@@ -1,23 +1,16 @@
-"use client";
-
-import Image from "next/image";
 import { useState } from "react";
+import { Raleway } from "next/font/google";
+const raleway = Raleway({ subsets: ["latin"], weight: "800" });
 
 const WebsiteTitle = () => {
-  const [hover, setHover] = useState(false);
-
-  const pathToChop = "../chop.svg";
-  const pathToChopHover = "../chop-fill.svg";
-
   return (
-    <Image
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-      src={hover ? pathToChopHover : pathToChop}
-      alt="Logo"
-      width={170}
-      height={36}
-    />
+    <div className="w-full">
+      <h1
+        className={`text-5xl text-white hover:text-gray-300 text-center ${raleway.className}`}
+      >
+        chop
+      </h1>
+    </div>
   );
 };
 
