@@ -19,7 +19,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} min-h-screen`}>
         <Titlebar />
-        {children}
+        <div
+          id="container"
+          className="flex w-full max-w-screen-2xl md:w-11/12 p-4 bg-gray-900 bg-opacity-5 mx-auto"
+        >
+          {children}
+        </div>
       </body>
     </html>
   );
