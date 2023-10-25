@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Titlebar from "./components/navbars/Titlebar";
+import Infobar from "./components/navbars/Infobar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,6 +19,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} min-h-screen`}>
+        <div className="hidden md:flex">
+          <Infobar />
+        </div>
         <Titlebar />
         <div
           id="container"
