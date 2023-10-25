@@ -10,7 +10,7 @@ const ShoppingCartBtn: React.FC<IShoppingCartBtnProps> = ({ numInCart }) => {
       {numInCart > 0 ? (
         <>
           <BsCartFill />
-          <span className="text-sm ml-0.5 mt-1.5 font-bold absolute text-sky-950">
+          <span className="text-sm ml-0.5 mt-1.5 font-bold absolute select-none text-sky-950">
             {numInCart > 9 ? "9+" : numInCart}
           </span>
         </>
