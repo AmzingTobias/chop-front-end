@@ -1,0 +1,35 @@
+"use client";
+
+import { useState } from "react";
+import { FaSearch } from "react-icons/fa";
+
+const Searchbar = () => {
+  const [inFocus, setInFocus] = useState(false);
+
+  const focusStyles = "outline outline-3 outline-gray-900";
+
+  return (
+    <div
+      className={`flex items-center rounded-2xl ${inFocus ? focusStyles : ""}`}
+    >
+      <input
+        type="text"
+        name="search"
+        id="search"
+        placeholder="Search..."
+        className="w-full rounded-2xl p-1.5 focus:outline-none pl-4 bg-gray-100"
+        onFocus={() => {
+          setInFocus(true);
+        }}
+        onBlur={() => {
+          setInFocus(false);
+        }}
+      />
+      <div className="text-xl p-1.5 -ml-10 text-gray-900 hover:cursor-pointer">
+        <FaSearch />
+      </div>
+    </div>
+  );
+};
+
+export default Searchbar;
