@@ -1,19 +1,24 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AdBanner, { IAdBannerProps } from "./AdBanner";
 import {
   BsArrowLeftCircleFill,
   BsArrowRightCircleFill,
   BsPauseCircleFill,
   BsFillPlayCircleFill,
+  BsPlayCircleFill,
 } from "react-icons/bs";
 
 interface IAdCarousel {
+  defaultNextSlideDurationMs: number;
   adsToDisplay: IAdBannerProps[];
 }
 
-const AdCarousel: React.FC<IAdCarousel> = ({ adsToDisplay }) => {
+const AdCarousel: React.FC<IAdCarousel> = ({
+  defaultNextSlideDurationMs,
+  adsToDisplay,
+}) => {
   const [currentAdIndex, setCurrentAdIndex] = useState(0);
 
   const nextSlide = () => {
@@ -27,6 +32,20 @@ const AdCarousel: React.FC<IAdCarousel> = ({ adsToDisplay }) => {
       prevIndex - 1 < 0 ? adsToDisplay.length - 1 : prevIndex - 1
     );
   };
+
+  const [nextSlideDuration, setNextSlideDuration] = useState(
+    defaultNextSlideDurationMs
+  );
+
+  // Move the slideshow along every x seconds
+  useEffect(() => {
+    if (nextSlideDuration !== 0) {
+      const interval = setInterval(() => {
+        nextSlide();
+      }, nextSlideDuration);
+      return () => clearInterval(interval);
+    }
+  }, [nextSlideDuration, adsToDisplay.length]);
 
   const carouselArrowCommonStyles =
     "hover:opacity-100 hover:cursor-pointer hidden opacity-25 transition-opacity duration-400 text-white absolute w-8 h-8 md:flex";
@@ -62,7 +81,15 @@ const AdCarousel: React.FC<IAdCarousel> = ({ adsToDisplay }) => {
             }`}
           ></button>
         ))}
-        <BsPauseCircleFill className="hover:cursor-pointer ml-4 text-white text-3xl" />
+        <div className="hover:cursor-pointer ml-4 text-white text-3xl">
+          {nextSlideDuration === 0 ? (
+            <BsPlayCircleFill
+              onClick={() => setNextSlideDuration(defaultNextSlideDurationMs)}
+            />
+          ) : (
+            <BsPauseCircleFill onClick={() => setNextSlideDuration(0)} />
+          )}
+        </div>
       </span>
     </div>
   );
