@@ -25,7 +25,7 @@ const ProductImageWithHover: React.FC<IProductImageWithHoverProps> = ({
       onMouseOver={() =>
         image.hoverLink !== undefined ? setImageToShow(image.hoverLink) : <></>
       }
-      onMouseLeave={() => setImageToShow(image.primaryLink)}
+      onMouseOut={() => setImageToShow(image.primaryLink)}
       src={imageToShow}
       alt={image.altText}
       width={image.width}
