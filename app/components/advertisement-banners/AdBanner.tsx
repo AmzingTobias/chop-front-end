@@ -8,7 +8,7 @@ type TImageDetails = {
   height: number;
 };
 
-interface IAdBannerProps {
+export interface IAdBannerProps {
   image: TImageDetails;
   link: string;
 }
