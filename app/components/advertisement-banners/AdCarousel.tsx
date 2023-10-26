@@ -9,6 +9,7 @@ import {
   BsFillPlayCircleFill,
   BsPlayCircleFill,
 } from "react-icons/bs";
+import { useCallback } from "react";
 
 interface IAdCarousel {
   defaultNextSlideDurationMs: number;
@@ -21,11 +22,11 @@ const AdCarousel: React.FC<IAdCarousel> = ({
 }) => {
   const [currentAdIndex, setCurrentAdIndex] = useState(0);
 
-  const nextSlide = () => {
+  const nextSlide = useCallback(() => {
     setCurrentAdIndex((prevIndex) =>
       prevIndex + 1 >= adsToDisplay.length ? 0 : prevIndex + 1
     );
-  };
+  }, [adsToDisplay.length]);
 
   const prevSlide = () => {
     setCurrentAdIndex((prevIndex) =>
@@ -45,7 +46,7 @@ const AdCarousel: React.FC<IAdCarousel> = ({
       }, nextSlideDuration);
       return () => clearInterval(interval);
     }
-  }, [nextSlideDuration, adsToDisplay.length]);
+  }, [nextSlideDuration, adsToDisplay.length, nextSlide]);
 
   const carouselArrowCommonStyles =
     "hover:opacity-100 hover:cursor-pointer hidden opacity-25 transition-opacity duration-400 text-white absolute w-8 h-8 md:flex";
