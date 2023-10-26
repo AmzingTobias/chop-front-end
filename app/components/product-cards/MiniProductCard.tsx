@@ -5,7 +5,7 @@ import ProductImageWithHover, {
 } from "./common/ProductImageWithHover";
 import ProductFavouriteBtn from "./common/ProductFavouriteBtn";
 
-interface IMiniProductCardProps {
+export interface IMiniProductCardProps {
   productName: string;
   productPrice: number;
   discountPrice?: number;
