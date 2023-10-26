@@ -11,7 +11,7 @@ const VerticalNavbar: React.FC<IVerticalNavbarProps> = ({
   setMobileNavbarOpen,
 }) => {
   return (
-    <div className="absolute top-0 left-0 min-w-full min-h-screen bg-gradient-to-b from-blue-950 to-sky-950 text-white">
+    <div className="absolute top-0 left-0 min-w-full min-h-screen bg-gradient-to-b from-blue-950 to-sky-950 text-white z-10">
       <div className="flex right-0 justify-end m-2">
         <div
           onClick={() => setMobileNavbarOpen((prevToggle) => !prevToggle)}
