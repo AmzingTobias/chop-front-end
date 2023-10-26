@@ -24,7 +24,7 @@ const MiniProductCard: React.FC<IMiniProductCardProps> = ({
     <div style={{ maxWidth: image.width }}>
       <Link href={productPageLink} className="w-full h-full">
         <div className="relative">
-          <div className="absolute top-0 right-0 m-2 p-1.5 text-3xl cursor-default bg-gray-100 rounded-full">
+          <div className="absolute top-0 right-0 m-2 text-3xl">
             <ProductFavouriteBtn />
           </div>
           <ProductImageWithHover image={image} />

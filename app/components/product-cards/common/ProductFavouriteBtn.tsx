@@ -1,26 +1,21 @@
-"use client";
-
-import { useState } from "react";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 
 const ProductFavouriteBtn = () => {
-  const [previewFavourite, setPreviewFavourite] = useState(false);
-
   //TODO Load from API
   const isFavourite = false;
 
   return (
-    <div
-      onMouseOver={() => setPreviewFavourite(true)}
-      onMouseLeave={() => setPreviewFavourite(false)}
-    >
-      {isFavourite || previewFavourite ? (
-        <div className="text-red-500">
-          <AiFillHeart />
-        </div>
-      ) : (
-        <AiOutlineHeart />
-      )}
+    <div className="relative flex justify-center  cursor-default bg-gray-100 rounded-full p-1.5">
+      <AiFillHeart
+        className={`absolute hover:opacity-100 text-red-500 ${
+          isFavourite ? "opacity-100" : "opacity-0"
+        }`}
+      />
+      <AiOutlineHeart
+        className={`text-red-500 hover:opacity-0 ${
+          isFavourite ? "opacity-0" : ""
+        }`}
+      />
     </div>
   );
 };
