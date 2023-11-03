@@ -5,8 +5,13 @@ import Infobar from "./navbars/Infobar";
 import HorizontalNavbar from "./navbars/HorizontalNavbar";
 import VerticalNavbar from "./navbars/VerticalNavbar";
 import { useState } from "react";
+import { TNavigationLinks } from "../data/navigationLinks";
 
-const Navigation = () => {
+interface INavigationProps {
+  minorNavbarBtns: TNavigationLinks[];
+}
+
+const Navigation: React.FC<INavigationProps> = ({ minorNavbarBtns }) => {
   const [mobileNavbarOpen, setMobileNavbarOpen] = useState(false);
 
   return (
@@ -16,12 +21,15 @@ const Navigation = () => {
       </div>
       <Titlebar setMobileNavbarOpen={setMobileNavbarOpen} />
       {mobileNavbarOpen ? (
-        <VerticalNavbar setMobileNavbarOpen={setMobileNavbarOpen} />
+        <VerticalNavbar
+          setMobileNavbarOpen={setMobileNavbarOpen}
+          navigationBtns={minorNavbarBtns}
+        />
       ) : (
         <></>
       )}
       <div className="hidden md:flex">
-        <HorizontalNavbar />
+        <HorizontalNavbar navigationBtns={minorNavbarBtns} />
       </div>
     </>
   );
