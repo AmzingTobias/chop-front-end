@@ -1,11 +1,17 @@
 import Link from "next/link";
-import { navigationbarBtns } from "@/app/data/navigationLinks";
+import { TNavigationLinks } from "@/app/data/navigationLinks";
 
-const HorizontalNavbar = () => {
+interface IHorizonNavbarProps {
+  navigationBtns: TNavigationLinks[];
+}
+
+const HorizontalNavbar: React.FC<IHorizonNavbarProps> = ({
+  navigationBtns,
+}) => {
   return (
     <nav className="w-full bg-sky-900 text-white text-xl p-2">
       <ul className="flex mx-4 overflow-hidden">
-        {navigationbarBtns.map((item, index) => {
+        {navigationBtns.map((item, index) => {
           return (
             <li
               key={index}
