@@ -19,8 +19,10 @@ export const getRandomProducts = async (
   amount: number
 ): Promise<IBaseProductEntry[]> => {
   return new Promise((resolve, reject) => {
+    // TODO add tagging to enable revalidate when new products are added
     fetch(
-      `${process.env.SERVER_API_HOST_ADDRESS}/v1/products/random?amount=${amount}`
+      `${process.env.SERVER_API_HOST_ADDRESS}/v1/products/random?amount=${amount}`,
+      { next: { revalidate: 600 } }
     )
       .then((response) => {
         if (!response.ok) {

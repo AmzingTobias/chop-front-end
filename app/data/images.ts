@@ -10,6 +10,7 @@ interface IImageEntry {
  */
 export const getProductImages = (productId: number): Promise<IImageEntry[]> => {
   return new Promise((resolve, reject) => {
+    // TODO add tagging to enable revalidate when new images are added
     fetch(
       `${process.env.SERVER_API_HOST_ADDRESS}/v1/images/product/${productId}`
     )
