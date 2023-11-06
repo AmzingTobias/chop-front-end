@@ -59,7 +59,11 @@ const AdCarousel: React.FC<IAdCarousel> = ({
           className="flex flex-shrink-0 w-full transition-transform ease-out duration-500"
           style={{ transform: `translateX(-${currentAdIndex * 100}%)` }}
         >
-          <AdBanner image={adToDisplay.image} link={adToDisplay.link} />
+          <AdBanner
+            className="flex"
+            image={adToDisplay.image}
+            link={adToDisplay.link}
+          />
         </div>
       ))}
       <BsArrowLeftCircleFill

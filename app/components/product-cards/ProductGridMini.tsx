@@ -15,7 +15,7 @@ const ProductGridMini: React.FC<IProductGridMini> = ({
         style={{
           gridTemplateColumns: `repeat(auto-fill, minmax(min(${gridColumnMinRem}rem, 100%), 1fr))`,
         }}
-        className="grid w-full justify-items-center gap-x-2 gap-y-2"
+        className="grid w-full justify-items-center gap-x-6 gap-y-2"
       >
         {products.map((product, index) => {
           return (

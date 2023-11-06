@@ -9,21 +9,35 @@ type TImageDetails = {
 };
 
 export interface IAdBannerProps {
+  className?: string;
   image: TImageDetails;
-  link: string;
+  link?: string;
 }
 
-const AdBanner: React.FC<IAdBannerProps> = ({ image, link }) => {
+const AdBanner: React.FC<IAdBannerProps> = ({
+  className = "",
+  image,
+  link,
+}) => {
   return (
-    <div className="flex w-full">
-      <Link href={link}>
+    <div className={`w-full ${className}`}>
+      {link ? (
+        <Link href={link}>
+          <Image
+            alt={image.altText}
+            src={image.src}
+            height={image.height}
+            width={image.width}
+          />
+        </Link>
+      ) : (
         <Image
           alt={image.altText}
           src={image.src}
           height={image.height}
           width={image.width}
         />
-      </Link>
+      )}
     </div>
   );
 };
