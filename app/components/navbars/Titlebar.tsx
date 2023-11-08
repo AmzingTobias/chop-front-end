@@ -12,7 +12,7 @@ interface ITitlebarProps {
 
 const Titlebar: React.FC<ITitlebarProps> = ({ setMobileNavbarOpen }) => {
   return (
-    <nav className="w-full bg-gradient-to-b from-blue-950 to-sky-950 flex flex-row py-2.5 items-center">
+    <nav className="w-full bg-gradient-to-b from-light-blue-900 to-blue-900 flex flex-row py-2.5 items-center">
       <div className="md:hidden text-white text-2xl ml-2 p-2 hover:cursor-pointer hover:bg-black hover:bg-opacity-10 active:bg-black active:bg-opacity-30 rounded-full">
         <div onClick={() => setMobileNavbarOpen((prevToggle) => !prevToggle)}>
           <AiOutlineMenu />

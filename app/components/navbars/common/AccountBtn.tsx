@@ -3,7 +3,7 @@ import { BiUser } from "react-icons/bi";
 
 const AccountBtn = () => {
   return (
-    <div className="hover:cursor-pointer hover:text-gray-300">
+    <div className="hover:cursor-pointer hover:text-gray-400">
       <Link href={"/login"}>
         <BiUser />
       </Link>

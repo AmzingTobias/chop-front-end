@@ -12,13 +12,13 @@ const AccountFormSwitch: React.FC<IAccountFormSwitch> = ({ tabs, active }) => {
         <div
           key={index}
           className={`py-4 border-b-2 
-          ${index === active ? "border-b-sky-600" : "border-black/20"}`}
+          ${index === active ? "border-b-blue-800" : "border-black/20"}`}
         >
           <Link
             className={`
             ${index < tabs.length - 1 ? "border-r-2" : ""}
-             border-black/20 px-10 hover:text-sky-600 transition-colors duration-200 
-            ${index === active ? "text-sky-600" : ""} font-bold`}
+             border-black/20 px-10 hover:text-blue-800 transition-colors duration-200 
+            ${index === active ? "text-blue-800" : ""} font-bold`}
             href={tab.linkPath}
           >
             {tab.display}

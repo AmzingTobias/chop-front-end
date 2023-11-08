@@ -13,7 +13,7 @@ const VerticalNavbar: React.FC<IVerticalNavbarProps> = ({
   navigationBtns,
 }) => {
   return (
-    <div className="absolute top-0 left-0 min-w-full min-h-screen bg-gradient-to-b from-blue-950 to-sky-950 text-white z-10">
+    <div className="absolute top-0 left-0 min-w-full min-h-screen bg-gradient-to-b from-light-blue-900 to-blue-900 text-white z-10">
       <div className="flex right-0 justify-end m-2">
         <div
           onClick={() => setMobileNavbarOpen((prevToggle) => !prevToggle)}
@@ -29,7 +29,7 @@ const VerticalNavbar: React.FC<IVerticalNavbarProps> = ({
               <li
                 key={index}
                 className={`select-none p-3 transition-colors duration-150 font-semibold w-fit
-                hover:cursor-pointer hover:text-sky-400 hover:opacity-90 
+                hover:cursor-pointer hover:text-gray-400 hover:opacity-90 
                 active:opacity-100`}
               >
                 <Link href={item.path}>{item.displayName}</Link>
