@@ -33,7 +33,7 @@ const Titlebar: React.FC<ITitlebarProps> = ({ setMobileNavbarOpen }) => {
         <div className="mr-6">
           <AccountBtn />
         </div>
-        <ShoppingCartBtn numInCart={10} />
+        <ShoppingCartBtn />
       </div>
     </nav>
   );

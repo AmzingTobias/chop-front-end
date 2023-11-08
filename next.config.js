@@ -7,6 +7,11 @@ const nextConfig = {
         hostname: "api.chop.tdmd.co.uk",
         pathname: "/images/**",
       },
+      {
+        protocol: "http",
+        hostname: "localhost",
+        pathname: "/images/**",
+      },
     ],
   },
 };

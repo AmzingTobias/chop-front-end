@@ -1,10 +1,21 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 import { BsCartFill, BsCart } from "react-icons/bs";
 
-interface IShoppingCartBtnProps {
-  numInCart: number;
-}
+const ShoppingCartBtn = () => {
+  const [numInCart, setNumInCart] = useState(0);
+  const [cookies] = useCookies(["auth"]);
+  useEffect(() => {
+    if (cookies["auth"] !== undefined) {
+      // Make request for number in cart
+      setNumInCart(1);
+    } else {
+      setNumInCart(0);
+    }
+  }, [cookies]);
 
-const ShoppingCartBtn: React.FC<IShoppingCartBtnProps> = ({ numInCart }) => {
   return (
     <div className="hover:cursor-pointer flex justify-center hover:text-gray-400">
       {numInCart > 0 ? (

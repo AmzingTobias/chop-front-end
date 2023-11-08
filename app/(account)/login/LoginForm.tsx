@@ -5,6 +5,7 @@ import AccountFormButton from "../AccountFormButton";
 import AccountFormInput from "../AccountFormInput";
 import { Alert, Spinner } from "@material-tailwind/react";
 import { useRouter } from "next/navigation";
+import { useCookies } from "react-cookie";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -14,6 +15,8 @@ const LoginForm = () => {
   const [loginRequestLoading, setLoginRequestLoading] = useState(false);
   const [warningText, setWarningText] = useState("");
   const [openWarning, setOpenWarning] = useState(false);
+  const [_, setCookie] = useCookies(["auth"]);
+
   const submitLoginForm = (event: FormEvent<HTMLFormElement>) => {
     setLoginRequestLoading(true);
     event.preventDefault();
@@ -35,8 +38,25 @@ const LoginForm = () => {
           setLoginRequestLoading(false);
           if (response.ok) {
             // User has logged in succesfully
-            router.push("/");
-            setOpenWarning(false);
+            response
+              .json()
+              .then((jsonResponse) => {
+                const expireDate = new Date(
+                  new Date().setDate(new Date().getDate() + 7)
+                );
+                setCookie("auth", jsonResponse["token"], {
+                  secure: true,
+                  expires: expireDate,
+                  sameSite: "lax",
+                });
+                setOpenWarning(false);
+                router.push("/");
+              })
+              .catch((err) => {
+                console.error(err);
+                setWarningText("Internal error.");
+                setOpenWarning(true);
+              });
           } else if (response.status === 401) {
             // Credentials invalid
             setWarningText("Email or password invalid.");
