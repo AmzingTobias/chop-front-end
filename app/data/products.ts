@@ -21,7 +21,7 @@ export const getRandomProducts = async (
   return new Promise((resolve, reject) => {
     // TODO add tagging to enable revalidate when new products are added
     fetch(
-      `${process.env.SERVER_API_HOST_ADDRESS}/v1/products/random?amount=${amount}`,
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/products/random?amount=${amount}`,
       { next: { revalidate: 600 } }
     )
       .then((response) => {
@@ -68,12 +68,12 @@ export const mapProductsToImages = async (
         image: {
           primaryLink:
             images.length > 0
-              ? `${process.env.SERVER_API_HOST_ADDRESS}/images/products/${product.id}/${images[0].fileName}`
+              ? `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/images/products/${product.id}/${images[0].fileName}`
               : // TODO make this a no image found image
                 "",
           hoverLink:
             images.length > 1
-              ? `${process.env.SERVER_API_HOST_ADDRESS}/images/products/${product.id}/${images[1].fileName}`
+              ? `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/images/products/${product.id}/${images[1].fileName}`
               : undefined,
           width: imageWidth,
           height: imageHeight,

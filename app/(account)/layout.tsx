@@ -21,7 +21,7 @@ export default async function RootLayout({
         <MinimalTitlebar />
         <div
           id="container"
-          className="flex w-full max-w-screen-2xl md:w-11/12 p-4 mx-auto items-center justify-center"
+          className="flex w-full max-w-screen-2xl md:w-11/12 mx-auto items-center justify-center"
         >
           {children}
         </div>
