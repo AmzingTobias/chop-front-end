@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@material-tailwind/react";
+import { Button } from "@/components/ui/button";
 
 interface IAccountFormButton {
   display: string;
@@ -9,7 +9,11 @@ interface IAccountFormButton {
 const AccountFormButton: React.FC<IAccountFormButton> = ({ display }) => {
   return (
     <div className="flex w-full">
-      <Button variant="gradient" color="blue" fullWidth type="submit">
+      <Button
+        color="blue"
+        type="submit"
+        className="w-full bg-blue-800 hover:bg-blue-900"
+      >
         {display}
       </Button>
     </div>

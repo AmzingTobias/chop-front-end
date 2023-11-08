@@ -3,9 +3,10 @@
 import { FormEvent, useRef, useState } from "react";
 import AccountFormButton from "../AccountFormButton";
 import AccountFormInput from "../AccountFormInput";
-import { Alert, Spinner } from "@material-tailwind/react";
+// import { Alert, Spinner } from "@material-tailwind/react";
 import { useRouter } from "next/navigation";
 import { useCookies } from "react-cookie";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -94,19 +95,15 @@ const LoginForm = () => {
         placeholder="Password"
         inputRef={passwordRef}
       />
-      <Alert
-        className="w-[20rem]"
-        open={openWarning}
-        color="red"
-        animate={{
-          mount: { y: 0 },
-          unmount: { y: 100 },
-        }}
-      >
-        {warningText}
-      </Alert>
+      {openWarning ? (
+        <Alert className="w-full bg-red-600 text-white">
+          <AlertDescription>{warningText}</AlertDescription>
+        </Alert>
+      ) : (
+        <></>
+      )}
       <AccountFormButton display="LOGIN" />
-      {loginRequestLoading ? <Spinner className="w-full h-8" /> : <></>}
+      {/* {loginRequestLoading ? <Spinner className="w-full h-8" /> : <></>} */}
     </form>
   );
 };

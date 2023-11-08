@@ -1,6 +1,7 @@
 "use client";
 
-import { Input } from "@material-tailwind/react";
+// import { Input } from "@material-tailwind/react";
+import { Input } from "@/components/ui/input";
 import React from "react";
 import { BiUser, BiKey } from "react-icons/bi";
 
@@ -18,16 +19,12 @@ const AccountFormInput: React.FC<IAccountFormInput> = ({
   return (
     <div className="flex w-[20rem]">
       <Input
-        inputRef={inputRef}
+        ref={inputRef}
         color="blue"
-        variant="outlined"
-        size="lg"
         required
-        label={placeholder}
         type={inputType}
-        crossOrigin={""}
-        icon={inputType === "email" ? <BiUser /> : <BiKey />}
-      ></Input>
+        placeholder={placeholder}
+      />
     </div>
   );
 };
