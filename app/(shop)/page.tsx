@@ -1,6 +1,6 @@
-import AdBanner from "./components/advertisement-banners/AdBanner";
-import ProductGridMini from "./components/product-cards/ProductGridMini";
-import { getRandomProducts, mapProductsToImages } from "./data/products";
+import AdBanner from "../components/advertisement-banners/AdBanner";
+import ProductGridMini from "../components/product-cards/ProductGridMini";
+import { getRandomProducts, mapProductsToImages } from "../data/products";
 import summerAdBanner from "@/public/Ads/Summer promotion/summer-long.png";
 import summerMobileAdBanner from "@/public/Ads/Summer promotion/summer-mobile.png";
 
