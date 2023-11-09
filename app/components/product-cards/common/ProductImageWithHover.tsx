@@ -22,6 +22,7 @@ const ProductImageWithHover: React.FC<IProductImageWithHoverProps> = ({
 
   return (
     <Image
+      className="rounded-lg"
       onMouseOver={() =>
         image.hoverLink !== undefined ? setImageToShow(image.hoverLink) : <></>
       }

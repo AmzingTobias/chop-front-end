@@ -9,7 +9,7 @@ const HorizontalNavbar: React.FC<IHorizonNavbarProps> = ({
   navigationBtns,
 }) => {
   return (
-    <nav className="w-full bg-indigo-900 border-t-4 border-black/30 text-white text-xl p-2 py-3">
+    <nav className="w-full bg-indigo-900 border-t-2 border-white/80 text-white text-xl p-2 py-3">
       <ul className="flex mx-4 overflow-hidden">
         {navigationBtns.map((item, index) => {
           return (

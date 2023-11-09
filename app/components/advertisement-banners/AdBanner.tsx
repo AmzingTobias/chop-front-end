@@ -24,6 +24,7 @@ const AdBanner: React.FC<IAdBannerProps> = ({
       {link ? (
         <Link href={link}>
           <Image
+            className="rounded-lg"
             alt={image.altText}
             src={image.src}
             height={image.height}
@@ -32,6 +33,7 @@ const AdBanner: React.FC<IAdBannerProps> = ({
         </Link>
       ) : (
         <Image
+          className="rounded-lg"
           alt={image.altText}
           src={image.src}
           height={image.height}
