@@ -3,18 +3,19 @@
 // import { Input } from "@material-tailwind/react";
 import { Input } from "@/components/ui/input";
 import React from "react";
-import { BiUser, BiKey } from "react-icons/bi";
 
 interface IAccountFormInput {
   inputType: "email" | "password";
   placeholder?: string;
   inputRef: React.Ref<HTMLInputElement>;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
 const AccountFormInput: React.FC<IAccountFormInput> = ({
   inputType,
   placeholder,
   inputRef,
+  onChange,
 }) => {
   return (
     <div className="flex w-[20rem]">
@@ -24,6 +25,7 @@ const AccountFormInput: React.FC<IAccountFormInput> = ({
         required
         type={inputType}
         placeholder={placeholder}
+        onChange={onChange}
       />
     </div>
   );

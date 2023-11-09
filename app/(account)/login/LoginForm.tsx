@@ -3,23 +3,24 @@
 import { FormEvent, useRef, useState } from "react";
 import AccountFormButton from "../AccountFormButton";
 import AccountFormInput from "../AccountFormInput";
-// import { Alert, Spinner } from "@material-tailwind/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useCookies } from "react-cookie";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 const LoginForm = () => {
   const router = useRouter();
   const emailRef = useRef<null | HTMLInputElement>(null);
   const passwordRef = useRef<null | HTMLInputElement>(null);
-
-  const [loginRequestLoading, setLoginRequestLoading] = useState(false);
+  const searchParams = useSearchParams();
+  const [redirectFromAccountCreated, setRedirectedFromAccountCreated] =
+    useState(searchParams.get("account-created") === "true");
+  const [loginRequestPending, setLoginRequestPending] = useState(false);
   const [warningText, setWarningText] = useState("");
   const [openWarning, setOpenWarning] = useState(false);
   const [_, setCookie] = useCookies(["auth"]);
 
   const submitLoginForm = (event: FormEvent<HTMLFormElement>) => {
-    setLoginRequestLoading(true);
+    setLoginRequestPending(true);
     event.preventDefault();
     if (emailRef.current !== null && passwordRef.current !== null) {
       fetch(
@@ -36,7 +37,8 @@ const LoginForm = () => {
         }
       )
         .then((response) => {
-          setLoginRequestLoading(false);
+          setRedirectedFromAccountCreated(false);
+          setLoginRequestPending(false);
           if (response.ok) {
             // User has logged in succesfully
             response
@@ -69,7 +71,7 @@ const LoginForm = () => {
           }
         })
         .catch((err) => {
-          setLoginRequestLoading(false);
+          setLoginRequestPending(false);
           console.error(err);
           // Do the same as if there was a server error
           setWarningText("Internal error.");
@@ -102,8 +104,14 @@ const LoginForm = () => {
       ) : (
         <></>
       )}
-      <AccountFormButton display="LOGIN" />
-      {/* {loginRequestLoading ? <Spinner className="w-full h-8" /> : <></>} */}
+      {redirectFromAccountCreated ? (
+        <Alert className="w-full bg-green-600 text-white">
+          <AlertDescription>Account created.</AlertDescription>
+        </Alert>
+      ) : (
+        <></>
+      )}
+      <AccountFormButton display="LOGIN" disabled={loginRequestPending} />
     </form>
   );
 };
