@@ -9,14 +9,14 @@ const HorizontalNavbar: React.FC<IHorizonNavbarProps> = ({
   navigationBtns,
 }) => {
   return (
-    <nav className="w-full bg-sky-900 text-white text-xl p-2">
+    <nav className="w-full bg-indigo-900 border-t-4 border-black/30 text-white text-xl p-2 py-3">
       <ul className="flex mx-4 overflow-hidden">
         {navigationBtns.map((item, index) => {
           return (
             <li
               key={index}
               className={`px-4 mx-2 select-none transition-colors duration-150 font-semibold
-                hover:cursor-pointer hover:text-sky-400 hover:opacity-90 
+                hover:cursor-pointer hover:text-gray-400 hover:opacity-90 
                 active:opacity-100`}
             >
               <Link href={item.path}>{item.displayName}</Link>

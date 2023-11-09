@@ -5,7 +5,7 @@ export type TNavigationLinks = {
 
 export const getProductTypes = async (): Promise<TNavigationLinks[]> => {
   const res = await fetch(
-    `${process.env.SERVER_API_HOST_ADDRESS}/v1/product-types`
+    `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/product-types`
   );
   if (!res.ok) {
     return [];
