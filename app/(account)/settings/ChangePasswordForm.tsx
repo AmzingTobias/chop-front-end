@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -80,7 +79,7 @@ export function ChangePasswordForm() {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>New password</FormLabel>
+              <FormLabel className="text-lg">New password*</FormLabel>
               <FormControl>
                 <Input type="password" placeholder="password" {...field} />
               </FormControl>
@@ -93,7 +92,7 @@ export function ChangePasswordForm() {
           name="confirm"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Confirm password</FormLabel>
+              <FormLabel className="text-lg">Confirm password*</FormLabel>
               <FormControl>
                 <Input
                   type="password"

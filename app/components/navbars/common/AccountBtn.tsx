@@ -34,15 +34,6 @@ const AccountBtn: React.FC<{ loggedIn: boolean }> = ({ loggedIn }) => {
             </DropdownMenuItem>
             <DropdownMenuItem>
               <Link
-                href="/"
-                className="flex flex-row items-center gap-1.5 w-full"
-              >
-                <BsHouse />
-                Addresses
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Link
                 href="/settings"
                 className="flex flex-row items-center gap-1.5 w-full"
               >
