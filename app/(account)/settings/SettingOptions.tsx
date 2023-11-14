@@ -1,52 +1,55 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ReactNode } from "react";
 
-export const SettingOptions = () => {
+export type TSettingOptions = {
+  optionDisplayName: string;
+  optionHeaderName: string;
+  optionContent: ReactNode;
+};
+
+export const SettingOptions: React.FC<{ settingTabs: TSettingOptions[] }> = ({
+  settingTabs,
+}) => {
   return (
-    <Tabs
-      defaultValue="account"
-      className="flex text-xl"
-      orientation="vertical"
-    >
+    <Tabs defaultValue="0" className="flex" orientation="vertical">
       <TabsList className="basis-1/4 p-0 w-[200px] bg-transparent">
-        <div className="basis-1/4 bg-green-400 w-full min-h-[96px] mb-10 flex">
-          <div className="bg-black w-[40px] h-[40px] rounded-full"></div>
-          <div className="">
-            <p>Hi,</p>
-            <p>tobias@tdmd.co.uk</p>
+        <div className="basis-1/4 bg-slate-200 w-full min-h-[112px] mb-2  rounded-sm">
+          <div className="flex self-center items-center gap-2 m-4">
+            <div className="bg-gradient-to-t from-indigo-900 to-blue-900 w-[80px] h-[80px] rounded-full"></div>
+            <div className="text-black font-bold mt-2">
+              <p>Hi,</p>
+              <p>email@email.co.uk</p>
+            </div>
           </div>
         </div>
-        <div className="bg-green-400 p-2">
-          <TabsTrigger className="w-full text-lg" value="account">
-            Overview
-          </TabsTrigger>
-          <TabsTrigger className="w-full text-lg" value="security">
-            Account security
-          </TabsTrigger>
-          <TabsTrigger className="w-full text-lg" value="address">
-            Address book
-          </TabsTrigger>
-          <TabsTrigger className="w-full text-lg" value="balance">
-            Gift cards & balance
-          </TabsTrigger>
+        <div className="bg-slate-200 p-2 w-full rounded-sm">
+          {settingTabs.map((settingTab, index) => (
+            <TabsTrigger
+              className="w-full text-lg"
+              value={`${index}`}
+              key={index}
+            >
+              {settingTab.optionDisplayName}
+            </TabsTrigger>
+          ))}
           <TabsTrigger className="w-full text-lg" value="logout">
             Logout
           </TabsTrigger>
         </div>
       </TabsList>
       <div className="mx-4 basis-3/4 w-[1000px] ">
-        <TabsContent value="account" className="bg-blue-500">
-          Make changes to your account here.
-        </TabsContent>
-        <TabsContent value="security" className="mt-0">
-          <div className="min-h-[96px] bg-blue-400 mb-10">
-            <h1>Account Settings</h1>
-          </div>
-          <div className="bg-red-500 min-h-full">
-            Change your password here.
-          </div>
-        </TabsContent>
-        <TabsContent value="address">Change your address here.</TabsContent>
-        <TabsContent value="balance">Change your balance here.</TabsContent>
+        {settingTabs.map((setting, index) => (
+          <TabsContent value={`${index}`} key={index} className="mt-0">
+            <div className="min-h-[96px] bg-slate-200 mb-2 rounded-sm p-2 flex">
+              <h1 className="self-center text-4xl font-semibold mt-4">
+                {setting.optionHeaderName}
+              </h1>
+            </div>
+            <div className="bg-slate-200 min-h-full rounded-sm p-2">
+              {setting.optionContent}
+            </div>
+          </TabsContent>
+        ))}
       </div>
     </Tabs>
   );
