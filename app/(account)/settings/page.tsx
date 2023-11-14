@@ -16,9 +16,9 @@ const settings: TSettingOptions[] = [
 
 const SettingsPage = () => {
   return (
-    <div className="mt-10">
+    <main className="flex flex-col w-full max-w-screen-2xl p-4 mx-auto">
       <SettingOptions settingTabs={settings} />
-    </div>
+    </main>
   );
 };
 

@@ -11,9 +11,13 @@ export const SettingOptions: React.FC<{ settingTabs: TSettingOptions[] }> = ({
   settingTabs,
 }) => {
   return (
-    <Tabs defaultValue="0" className="flex" orientation="vertical">
-      <TabsList className="basis-1/4 p-0 w-[200px] bg-transparent">
-        <div className="basis-1/4 bg-slate-200 w-full min-h-[112px] mb-2  rounded-sm">
+    <Tabs
+      defaultValue="0"
+      className="flex flex-col sm:flex-row"
+      orientation="vertical"
+    >
+      <TabsList className="sm:basis-1/4 p-0 w-[200px] bg-transparent">
+        <div className="basis-1/4 bg-slate-200 w-full min-h-[112px] mb-2 rounded-sm hidden md:flex">
           <div className="flex self-center items-center gap-2 m-4">
             <div className="bg-gradient-to-t from-indigo-900 to-blue-900 w-[80px] h-[80px] rounded-full"></div>
             <div className="text-black font-bold mt-2">
@@ -37,7 +41,7 @@ export const SettingOptions: React.FC<{ settingTabs: TSettingOptions[] }> = ({
           </TabsTrigger>
         </div>
       </TabsList>
-      <div className="mx-4 basis-3/4 w-[1000px] ">
+      <div className="mt-4 sm:mt-0 sm:mx-4 sm:basis-3/4 sm:w-full ">
         {settingTabs.map((setting, index) => (
           <TabsContent value={`${index}`} key={index} className="mt-0">
             <div className="min-h-[96px] bg-slate-200 mb-2 rounded-sm p-2 flex">
