@@ -19,7 +19,7 @@ export const SettingOptions: React.FC<{ settingTabs: TSettingOptions[] }> = ({
       className="flex flex-col sm:flex-row"
       orientation="vertical"
     >
-      <TabsList className="sm:basis-1/4 p-0 w-[200px] bg-transparent">
+      <TabsList className="sm:basis-1/4 p-0 w-[200px] bg-transparent justify-normal">
         <div className="basis-1/4 bg-slate-200 w-full min-h-[112px] mb-2 rounded-sm hidden md:flex shadow-sm">
           <Welcome />
         </div>

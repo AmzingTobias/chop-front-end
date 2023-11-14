@@ -1,3 +1,4 @@
+import { ChangePasswordForm } from "./ChangePasswordForm";
 import { SettingOptions, TSettingOptions } from "./SettingOptions";
 import SettingsContent from "./SettingsContent";
 
@@ -5,7 +6,11 @@ const settings: TSettingOptions[] = [
   {
     optionDisplayName: "Account Security",
     optionHeaderName: "Security",
-    optionContent: <SettingsContent />,
+    optionContent: (
+      <div className="lg:w-1/2">
+        <ChangePasswordForm />
+      </div>
+    ),
   },
   {
     optionDisplayName: "Address Book",
