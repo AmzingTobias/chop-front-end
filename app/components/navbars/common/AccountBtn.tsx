@@ -1,8 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { useCookies } from "react-cookie";
 import { BiUser, BiSolidUser, BiExit } from "react-icons/bi";
 import { BsHouse, BsBasket, BsGear } from "react-icons/bs";
 import {
@@ -13,21 +11,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useRouter } from "next/navigation";
 
-const AccountBtn = () => {
-  const [cookies, _, removeCookie] = useCookies(["auth"]);
-  const [loggedIn, setLoggedIn] = useState(false);
-  const router = useRouter();
-  useEffect(() => {
-    setLoggedIn(cookies["auth"] !== undefined);
-  }, [cookies]);
-
-  const logout = () => {
-    removeCookie("auth");
-    router.refresh();
-  };
-
+const AccountBtn: React.FC<{ loggedIn: boolean }> = ({ loggedIn }) => {
   return (
     <div className="hover:cursor-pointer hover:text-gray-400">
       {loggedIn ? (
@@ -67,13 +52,13 @@ const AccountBtn = () => {
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
-              <div
-                onClick={() => logout()}
+              <Link
+                href={"/logout"}
                 className="flex flex-row items-center gap-1.5 w-full cursor-pointer"
               >
                 <BiExit />
                 Logout
-              </div>
+              </Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

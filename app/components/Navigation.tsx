@@ -9,9 +9,13 @@ import { TNavigationLinks } from "../data/navigationLinks";
 
 interface INavigationProps {
   minorNavbarBtns: TNavigationLinks[];
+  accountLoggedIn: boolean;
 }
 
-const Navigation: React.FC<INavigationProps> = ({ minorNavbarBtns }) => {
+const Navigation: React.FC<INavigationProps> = ({
+  minorNavbarBtns,
+  accountLoggedIn,
+}) => {
   const [mobileNavbarOpen, setMobileNavbarOpen] = useState(false);
 
   return (
@@ -19,7 +23,10 @@ const Navigation: React.FC<INavigationProps> = ({ minorNavbarBtns }) => {
       <div className="hidden md:flex">
         <Infobar />
       </div>
-      <Titlebar setMobileNavbarOpen={setMobileNavbarOpen} />
+      <Titlebar
+        setMobileNavbarOpen={setMobileNavbarOpen}
+        accountLoggedIn={accountLoggedIn}
+      />
       {mobileNavbarOpen ? (
         <VerticalNavbar
           setMobileNavbarOpen={setMobileNavbarOpen}

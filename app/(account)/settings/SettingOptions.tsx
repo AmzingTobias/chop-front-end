@@ -2,6 +2,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ReactNode } from "react";
 import Welcome from "./Welcome";
 import SettingOptionHeader from "./SettingOptionHeader";
+import Link from "next/link";
 
 export type TSettingOptions = {
   optionDisplayName: string;
@@ -36,7 +37,7 @@ export const SettingOptions: React.FC<{ settingTabs: TSettingOptions[] }> = ({
             className="w-full text-lg rounded-sm hover:bg-white hover:bg-opacity-20"
             value="logout"
           >
-            Logout
+            <Link href={"/logout"}>Logout</Link>
           </TabsTrigger>
         </div>
       </TabsList>

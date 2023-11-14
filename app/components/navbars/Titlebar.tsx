@@ -8,9 +8,13 @@ import { Dispatch, SetStateAction } from "react";
 
 interface ITitlebarProps {
   setMobileNavbarOpen: Dispatch<SetStateAction<boolean>>;
+  accountLoggedIn: boolean;
 }
 
-const Titlebar: React.FC<ITitlebarProps> = ({ setMobileNavbarOpen }) => {
+const Titlebar: React.FC<ITitlebarProps> = ({
+  setMobileNavbarOpen,
+  accountLoggedIn,
+}) => {
   return (
     <nav className="w-full bg-gradient-to-t from-indigo-900 to-blue-900 flex flex-row py-2.5 items-center">
       <div className="md:hidden text-white text-2xl ml-2 p-2 hover:cursor-pointer hover:bg-black hover:bg-opacity-10 active:bg-black active:bg-opacity-30 rounded-full">
@@ -31,7 +35,7 @@ const Titlebar: React.FC<ITitlebarProps> = ({ setMobileNavbarOpen }) => {
           <MobileOpenSearchPage />
         </div>
         <div className="mr-6">
-          <AccountBtn />
+          <AccountBtn loggedIn={accountLoggedIn} />
         </div>
         <ShoppingCartBtn />
       </div>
