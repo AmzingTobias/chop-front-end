@@ -58,7 +58,7 @@ const AccountBtn = () => {
             </DropdownMenuItem>
             <DropdownMenuItem>
               <Link
-                href="/"
+                href="/settings"
                 className="flex flex-row items-center gap-1.5 w-full"
               >
                 <BsGear />
