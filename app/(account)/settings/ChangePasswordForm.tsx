@@ -125,13 +125,17 @@ export function ChangePasswordForm() {
               </FormItem>
             )}
           />
-          <Button disabled={passwordChangeLoading} type="submit">
+          <Button
+            disabled={passwordChangeLoading}
+            type="submit"
+            className="text-sm font-bold"
+          >
             {passwordChangeLoading ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             ) : (
               <></>
             )}
-            Submit
+            Update
           </Button>
         </form>
       </Form>
