@@ -13,6 +13,14 @@ import {
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import { useState, useEffect } from "react";
 
 const formSchema = z
   .object({
@@ -34,6 +42,13 @@ const formSchema = z
   });
 
 export function ChangePasswordForm() {
+  const [confirmBoxOpen, setConfirmBoxOpen] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -60,57 +75,65 @@ export function ChangePasswordForm() {
     )
       .then((response) => {
         if (response.ok) {
-          alert("Password updated");
+          setConfirmBoxOpen(true);
         } else {
-          alert("Didn't update");
+          console.error("Password change failed");
         }
       })
       .catch((err) => {
-        alert(err);
         console.error(err);
       });
-    console.log(values);
   }
+
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-lg">New password*</FormLabel>
-              <FormControl>
-                <Input type="password" placeholder="password" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="confirm"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-lg">Confirm password*</FormLabel>
-              <FormControl>
-                <Input
-                  type="password"
-                  placeholder="confirm password"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button
-          className="bg-gradient-to-t from-indigo-900 to-blue-900 hover:from-indigo-900/60 hover:to-blue-900/60 active:bg-none active:bg-blue-800"
-          type="submit"
-        >
-          Submit
-        </Button>
-      </form>
-    </Form>
+    <>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-lg">New password*</FormLabel>
+                <FormControl>
+                  <Input type="password" placeholder="password" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="confirm"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-lg">Confirm password*</FormLabel>
+                <FormControl>
+                  <Input
+                    type="password"
+                    placeholder="confirm password"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button type="submit">Submit</Button>
+        </form>
+      </Form>
+      {isMounted ? (
+        <AlertDialog open={confirmBoxOpen} onOpenChange={setConfirmBoxOpen}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Password updated</AlertDialogTitle>
+            </AlertDialogHeader>
+            <AlertDialogAction>Ok</AlertDialogAction>
+          </AlertDialogContent>
+        </AlertDialog>
+      ) : (
+        <></>
+      )}
+    </>
   );
 }
