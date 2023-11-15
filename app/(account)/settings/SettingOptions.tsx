@@ -13,8 +13,9 @@ export type TSettingOptions = {
 
 export const SettingOptions: React.FC<{
   settingTabs: TSettingOptions[];
+  accountEmail: string;
   active?: number;
-}> = ({ settingTabs, active = 0 }) => {
+}> = ({ settingTabs, active = 0, accountEmail }) => {
   return (
     <Tabs
       defaultValue={`${active}`}
@@ -23,7 +24,7 @@ export const SettingOptions: React.FC<{
     >
       <TabsList className="sm:basis-1/4 p-0 w-[200px] bg-transparent justify-normal">
         <div className="basis-1/4 bg-slate-200 w-full min-h-[112px] mb-2 rounded-sm hidden md:flex shadow-sm">
-          <Welcome />
+          <Welcome email={accountEmail} />
         </div>
         <div className="bg-slate-200 p-2 w-full rounded-sm shadow-sm">
           {settingTabs.map((settingTab, index) => (
@@ -39,7 +40,9 @@ export const SettingOptions: React.FC<{
             className="w-full text-lg rounded-sm hover:bg-white hover:bg-opacity-20"
             value="logout"
           >
-            <Link href={"/logout"}>Logout</Link>
+            <Link className="w-full" href={"/logout"}>
+              Logout
+            </Link>
           </TabsTrigger>
         </div>
       </TabsList>
