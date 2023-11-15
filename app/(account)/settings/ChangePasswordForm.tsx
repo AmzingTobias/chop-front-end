@@ -21,6 +21,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { useState, useEffect } from "react";
+import { Loader2 } from "lucide-react";
 
 const formSchema = z
   .object({
@@ -44,6 +45,7 @@ const formSchema = z
 export function ChangePasswordForm() {
   const [confirmBoxOpen, setConfirmBoxOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const [passwordChangeLoading, setPasswordChangeLoading] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
@@ -60,6 +62,7 @@ export function ChangePasswordForm() {
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
+    setPasswordChangeLoading(true);
     fetch(
       `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/auth/change-password`,
       {
@@ -76,12 +79,15 @@ export function ChangePasswordForm() {
       .then((response) => {
         if (response.ok) {
           setConfirmBoxOpen(true);
+          setPasswordChangeLoading(false);
         } else {
           console.error("Password change failed");
+          setPasswordChangeLoading(false);
         }
       })
       .catch((err) => {
         console.error(err);
+        setPasswordChangeLoading(false);
       });
   }
 
@@ -119,7 +125,14 @@ export function ChangePasswordForm() {
               </FormItem>
             )}
           />
-          <Button type="submit">Submit</Button>
+          <Button disabled={passwordChangeLoading} type="submit">
+            {passwordChangeLoading ? (
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            ) : (
+              <></>
+            )}
+            Submit
+          </Button>
         </form>
       </Form>
       {isMounted ? (
