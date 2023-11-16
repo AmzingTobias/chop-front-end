@@ -9,7 +9,7 @@ const LogoutPage = () => {
     if (formRef.current !== null) {
       formRef.current.requestSubmit();
     }
-  }, [formRef.current]);
+  }, []);
 
   return <form ref={formRef} action={logoutAction} />;
 };

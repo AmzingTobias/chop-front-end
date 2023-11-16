@@ -93,7 +93,7 @@ const SignupForm = () => {
         passwordRef.current.classList.add("bg-red-300");
       }
     }
-  }, [passwordRef.current, passwordValid]);
+  }, [passwordValid]);
 
   return (
     <form

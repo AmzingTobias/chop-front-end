@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import AccountFormSwitch from "../AccountSwitch";
 import LoginForm from "./LoginForm";
 
@@ -15,7 +16,9 @@ const LoginPage = () => {
                 { display: "SIGNUP", linkPath: "/signup" },
               ]}
             />
-            <LoginForm />
+            <Suspense>
+              <LoginForm />
+            </Suspense>
           </div>
         </div>
       </div>
