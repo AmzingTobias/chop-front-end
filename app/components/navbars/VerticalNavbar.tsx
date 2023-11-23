@@ -27,7 +27,7 @@ const VerticalNavbar: React.FC<IVerticalNavbarProps> = ({
               return (
                 <li
                   key={index}
-                  className={`select-none p-3 transition-colors duration-150 font-semibold w-fit
+                  className={`select-none p-3 transition-colors duration-150 font-semibold w-fit overflow-hidden
                 hover:cursor-pointer  hover:opacity-80 text-xl
                 active:opacity-100`}
                 >

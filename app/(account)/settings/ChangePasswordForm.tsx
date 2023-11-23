@@ -102,7 +102,7 @@ export function ChangePasswordForm() {
               <FormItem>
                 <FormLabel className="text-lg">New password*</FormLabel>
                 <FormControl>
-                  <Input type="password" placeholder="password" {...field} />
+                  <Input type="password" placeholder="Password" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -116,8 +116,9 @@ export function ChangePasswordForm() {
                 <FormLabel className="text-lg">Confirm password*</FormLabel>
                 <FormControl>
                   <Input
+                    className="active:outline-none focus-visible:outline-none focus-visible:border-none"
                     type="password"
-                    placeholder="confirm password"
+                    placeholder="Confirm password"
                     {...field}
                   />
                 </FormControl>
@@ -128,15 +129,15 @@ export function ChangePasswordForm() {
           <Button
             disabled={passwordChangeLoading}
             type="submit"
-            className="text-sm font-bold"
+            className="w-full text-base"
             variant={"secondary"}
           >
             {passwordChangeLoading ? (
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
             ) : (
               <></>
             )}
-            Update
+            Update password
           </Button>
         </form>
       </Form>
@@ -146,7 +147,7 @@ export function ChangePasswordForm() {
             <AlertDialogHeader>
               <AlertDialogTitle>Password updated</AlertDialogTitle>
             </AlertDialogHeader>
-            <AlertDialogAction>Ok</AlertDialogAction>
+            <AlertDialogAction className="bg-secondary">Ok</AlertDialogAction>
           </AlertDialogContent>
         </AlertDialog>
       ) : (
