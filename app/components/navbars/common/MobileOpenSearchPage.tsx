@@ -1,26 +1,24 @@
 "use client";
 
-import { useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { FiSearch, FiX } from "react-icons/fi";
-import MobileSearchBar from "../../searchbars/MobileSearchBar";
 
-const MobileOpenSearchPage = () => {
-  const [navBarOpen, setNavBarOpen] = useState(false);
+interface IMobileOpenSearchPageProps {
+  setSearchOpen: Dispatch<SetStateAction<boolean>>;
+  searchOpen: boolean;
+}
 
+const MobileOpenSearchPage: React.FC<IMobileOpenSearchPageProps> = ({
+  searchOpen,
+  setSearchOpen,
+}) => {
   return (
     <div>
       <div
-        className="hover:cursor-pointer text-white"
-        onClick={() => setNavBarOpen((prevToggle) => !prevToggle)}
+        className="cursor-pointer hover:opacity-80"
+        onClick={() => setSearchOpen((prevToggle) => !prevToggle)}
       >
-        {navBarOpen ? <FiX /> : <FiSearch />}
-      </div>
-      <div
-        className={`${
-          navBarOpen ? "opacity-100" : "invisible opacity-0 "
-        } transition-opacity duration-200`}
-      >
-        <MobileSearchBar />
+        {searchOpen ? <FiX /> : <FiSearch />}
       </div>
     </div>
   );

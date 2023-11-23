@@ -1,44 +1,50 @@
 import Link from "next/link";
 import { AiOutlineClose } from "react-icons/ai";
 import { TNavigationLinks } from "@/app/data/navigationLinks";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, HTMLAttributes, SetStateAction } from "react";
+import { Button } from "@/components/ui/button";
+import { AlertDialog, AlertDialogContent } from "@/components/ui/alert-dialog";
 
 interface IVerticalNavbarProps {
   setMobileNavbarOpen: Dispatch<SetStateAction<boolean>>;
+  navbarOpen: boolean;
+
   navigationBtns: TNavigationLinks[];
+  className?: string;
 }
 
 const VerticalNavbar: React.FC<IVerticalNavbarProps> = ({
   setMobileNavbarOpen,
+  navbarOpen,
   navigationBtns,
 }) => {
   return (
-    <div className="absolute top-0 left-0 min-w-full min-h-screen bg-gradient-to-t from-indigo-900 to-blue-900 text-white z-10">
-      <div className="flex right-0 justify-end m-2">
-        <div
+    <AlertDialog open={navbarOpen} onOpenChange={setMobileNavbarOpen}>
+      <AlertDialogContent className="flex min-w-full min-h-screen border-0 sm:rounded-none bg-primary">
+        <nav className="flex w-full">
+          <ul className="flex flex-col h-full overflow-y-scroll">
+            {navigationBtns.map((item, index) => {
+              return (
+                <li
+                  key={index}
+                  className={`select-none p-3 transition-colors duration-150 font-semibold w-fit
+                hover:cursor-pointer  hover:opacity-80 text-xl
+                active:opacity-100`}
+                >
+                  <Link href={item.path}>{item.displayName}</Link>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
+        <Button
           onClick={() => setMobileNavbarOpen((prevToggle) => !prevToggle)}
-          className="text-4xl p-1 hover:cursor-pointer rounded-full hover:bg-black hover:bg-opacity-10 active:bg-black active:bg-opacity-30"
+          className="flex justify-end p-2 text-4xl text-accent hover:opacity-80"
         >
           <AiOutlineClose />
-        </div>
-      </div>
-      <nav className="flex flex-col text-xl px-4 pb-6 ">
-        <ul className="flex flex-col overflow-y-scroll h-full">
-          {navigationBtns.map((item, index) => {
-            return (
-              <li
-                key={index}
-                className={`select-none p-3 transition-colors duration-150 font-semibold w-fit
-                hover:cursor-pointer hover:text-gray-400 hover:opacity-90 
-                active:opacity-100`}
-              >
-                <Link href={item.path}>{item.displayName}</Link>
-              </li>
-            );
-          })}
-        </ul>
-      </nav>
-    </div>
+        </Button>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 };
 

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { BiUser, BiSolidUser, BiExit } from "react-icons/bi";
-import { BsHouse, BsBasket, BsGear } from "react-icons/bs";
+import { BsBasket, BsGear } from "react-icons/bs";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,17 +13,21 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 const AccountBtn: React.FC<{ loggedIn: boolean }> = ({ loggedIn }) => {
+  const textStyles = "text-md";
+
   return (
-    <div className="hover:cursor-pointer hover:text-gray-400">
+    <div className="hover:cursor-pointer hover:opacity-80">
       {loggedIn ? (
         <DropdownMenu>
-          <DropdownMenuTrigger className="focus:outline-none flex">
+          <DropdownMenuTrigger className="flex focus:outline-none">
             <BiSolidUser />
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuLabel className={textStyles}>
+              My Account
+            </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem className={textStyles}>
               <Link
                 href="/"
                 className="flex flex-row items-center gap-1.5 w-full"
@@ -32,7 +36,7 @@ const AccountBtn: React.FC<{ loggedIn: boolean }> = ({ loggedIn }) => {
                 Orders
               </Link>
             </DropdownMenuItem>
-            <DropdownMenuItem>
+            <DropdownMenuItem className={textStyles}>
               <Link
                 href="/settings"
                 className="flex flex-row items-center gap-1.5 w-full"
@@ -42,7 +46,7 @@ const AccountBtn: React.FC<{ loggedIn: boolean }> = ({ loggedIn }) => {
               </Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem className={textStyles}>
               <Link
                 href={"/logout"}
                 className="flex flex-row items-center gap-1.5 w-full cursor-pointer"
