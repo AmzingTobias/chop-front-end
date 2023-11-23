@@ -129,6 +129,7 @@ export function ChangePasswordForm() {
             disabled={passwordChangeLoading}
             type="submit"
             className="text-sm font-bold"
+            variant={"secondary"}
           >
             {passwordChangeLoading ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
