@@ -14,10 +14,11 @@ const AccountFormButton: React.FC<IAccountFormButton> = ({
   return (
     <div className="flex w-full">
       <Button
+        variant={"secondary"}
         color="blue"
         type="submit"
         disabled={disabled}
-        className="w-full bg-blue-800 hover:bg-blue-900"
+        className="w-full"
       >
         {display}
       </Button>

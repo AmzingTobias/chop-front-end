@@ -18,7 +18,7 @@ const AccountFormInput: React.FC<IAccountFormInput> = ({
   onChange,
 }) => {
   return (
-    <div className="flex w-[20rem]">
+    <div className="flex w-full">
       <Input
         ref={inputRef}
         color="blue"

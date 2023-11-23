@@ -3,20 +3,18 @@ import SignupForm from "./SignupForm";
 
 const LoginBox = () => {
   return (
-    <main className="flex flex-col w-full items-center">
+    <main className="flex flex-col items-center w-full">
       <br className="my-4" />
-      <div className="max-w-[32rem] w-full h-[26rem]  rounded-xl bg-white shadow-lg">
-        <div className="flex items-center align-middle mt-8">
-          <div className="flex flex-col w-full justify-center items-center">
-            <AccountFormSwitch
-              active={1}
-              tabs={[
-                { display: "LOGIN", linkPath: "/login" },
-                { display: "SIGNUP", linkPath: "/signup" },
-              ]}
-            />
-            <SignupForm />
-          </div>
+      <div className="flex max-w-[456px] w-full py-8 pb-16 rounded-md bg-accent shadow-md justify-center">
+        <div className="flex flex-col w-9/12">
+          <AccountFormSwitch
+            active={1}
+            tabs={[
+              { display: "LOGIN", linkPath: "/login" },
+              { display: "SIGNUP", linkPath: "/signup" },
+            ]}
+          />
+          <SignupForm />
         </div>
       </div>
     </main>

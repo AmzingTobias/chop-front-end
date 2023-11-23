@@ -13,6 +13,8 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
+// TODO use zod for form
+
 const validatePassword = (password: string): boolean => {
   // Password should be length of 7 or more
   // Password should contain a mix of numbers, and characters
@@ -34,7 +36,10 @@ const SignupForm = () => {
   const passwordRef = useRef<null | HTMLInputElement>(null);
 
   const [signupRequestPending, setSignupRequestPending] = useState(false);
-  const [warningDialog, setWarningDialog] = useState({ open: false, msg: "" });
+  const [warningDialog, setWarningDialog] = useState({
+    open: false,
+    msg: "",
+  });
   const [passwordValid, setPasswordValid] = useState(false);
 
   const submitSignupForm = (event: FormEvent<HTMLFormElement>) => {
@@ -88,9 +93,9 @@ const SignupForm = () => {
   useEffect(() => {
     if (passwordRef.current !== null) {
       if (passwordValid) {
-        passwordRef.current.classList.remove("bg-red-300");
+        passwordRef.current.classList.remove("bg-destructive");
       } else {
-        passwordRef.current.classList.add("bg-red-300");
+        passwordRef.current.classList.add("bg-destructive");
       }
     }
   }, [passwordValid]);
@@ -120,7 +125,7 @@ const SignupForm = () => {
             />
           </TooltipTrigger>
           <TooltipContent>
-            <ul className="list-disc px-4 max-w-xs">
+            <ul className="max-w-xs px-4 list-disc">
               <li>
                 <p>Passwords should be at least 7 characters</p>
               </li>
@@ -139,7 +144,7 @@ const SignupForm = () => {
       </TooltipProvider>
 
       {warningDialog.open ? (
-        <Alert className="w-full bg-red-600 text-white">
+        <Alert className="w-full text-white border-none bg-destructive">
           <AlertDescription>{warningDialog.msg}</AlertDescription>
         </Alert>
       ) : (

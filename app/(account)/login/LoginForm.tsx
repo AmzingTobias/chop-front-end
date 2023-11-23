@@ -82,7 +82,7 @@ const LoginForm = () => {
 
   return (
     <form
-      className="flex flex-col gap-4 mt-6"
+      className="flex flex-col w-full gap-4 mt-6"
       action=""
       method="post"
       onSubmit={(event) => submitLoginForm(event)}
@@ -98,14 +98,14 @@ const LoginForm = () => {
         inputRef={passwordRef}
       />
       {openWarning ? (
-        <Alert className="w-full bg-red-600 text-white">
+        <Alert className="w-full text-white border-none bg-destructive">
           <AlertDescription>{warningText}</AlertDescription>
         </Alert>
       ) : (
         <></>
       )}
       {redirectFromAccountCreated ? (
-        <Alert className="w-full bg-green-600 text-white">
+        <Alert className="w-full border-none text-accent bg-primary">
           <AlertDescription>Account created.</AlertDescription>
         </Alert>
       ) : (
