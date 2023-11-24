@@ -5,6 +5,7 @@ import "../globals.css";
 import Navigation from "../components/Navigation";
 import { getProductTypes } from "../data/navigationLinks";
 import { cookies } from "next/headers";
+import Footer from "../components/footer/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,17 +23,18 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={`${inter.className} min-h-screen`}>
+      <body className={`${inter.className} min-h-screen flex flex-col`}>
         <Navigation
           minorNavbarBtns={await getProductTypes()}
           accountLoggedIn={accountLoggedIn}
         />
         <div
           id="container"
-          className="flex w-full max-w-screen-2xl md:w-11/12 p-4 mx-auto"
+          className="flex flex-grow w-full p-4 mx-auto max-w-screen-2xl md:w-11/12"
         >
           {children}
         </div>
+        <Footer />
       </body>
     </html>
   );
