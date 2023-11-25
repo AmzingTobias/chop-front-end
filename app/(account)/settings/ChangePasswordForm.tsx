@@ -27,13 +27,13 @@ const formSchema = z
   .object({
     password: z
       .string()
-      .min(5)
-      .max(25)
+      .min(5, "Password must have a minimum of 5 characters")
+      .max(25, "Password must not be longer than 25 characters")
       .regex(/[0-9]/, { message: "Must contain a number" }),
     confirm: z
       .string()
-      .min(5)
-      .max(25)
+      .min(5, "Password must have a minimum of 5 characters")
+      .max(25, "Password must not be longer than 25 characters")
       .regex(/[0-9]/, { message: "Must contain a number" }),
   })
   .required()
