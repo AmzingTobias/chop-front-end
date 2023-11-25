@@ -4,6 +4,7 @@ import ProductImageWithHover, {
   TImageDetails,
 } from "./common/ProductImageWithHover";
 import ProductFavouriteBtn from "./common/ProductFavouriteBtn";
+import AddToBasketBtn from "./common/AddToBasketBtn";
 
 export interface IMiniProductCardProps {
   productName: string;
@@ -21,17 +22,25 @@ const MiniProductCard: React.FC<IMiniProductCardProps> = ({
   image,
 }) => {
   return (
-    <div style={{ maxWidth: image.width }}>
-      <Link href={productPageLink} className="w-full h-full">
-        <div className="relative">
-          <div className="absolute top-0 right-0 m-2 text-3xl">
-            <ProductFavouriteBtn />
+    <div
+      style={{ maxWidth: image.width }}
+      className="bg-primary rounded-md flex flex-col"
+    >
+      <Link href={productPageLink} className="flex flex-col w-full h-full">
+        <div className="mb-2">
+          <div className="relative ">
+            {/* <div className="absolute top-0 right-0 m-2 text-3xl"> */}
+            {/* <ProductFavouriteBtn /> */}
+            {/* </div> */}
+            <ProductImageWithHover image={image} />
           </div>
-          <ProductImageWithHover image={image} />
+          <div className="p-1 text-accent">
+            <h2 className="text-lg font-semibold  inline">{productName}</h2>
+          </div>
         </div>
-        <div className="p-3">
-          <h2 className="text-xl font-semibold">{productName}</h2>
-          <PriceLabel price={productPrice} discountPrice={discountPrice} />
+        <div className="mt-auto p-1">
+          <PriceLabel price={productPrice} discountPrice={10} />
+          <AddToBasketBtn />
         </div>
       </Link>
     </div>

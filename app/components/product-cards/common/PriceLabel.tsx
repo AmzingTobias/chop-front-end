@@ -7,13 +7,13 @@ const PriceLabel: React.FC<IPriceLabel> = ({ price, discountPrice }) => {
   return (
     <div>
       {discountPrice === undefined ? (
-        <h4 className="text-lg font-bold text-blue-800">£{price.toFixed(2)}</h4>
+        <h4 className="text-lg font-medium ">£{price.toFixed(2)}</h4>
       ) : (
-        <h4 className="text-lg font-bold">
-          <span className="text-blue-800 text-sm line-through decoration-2">
+        <h4 className="text-lg font-medium">
+          <span className=" text-sm font-light line-through decoration-2">
             £{price.toFixed(2)}
           </span>{" "}
-          <span className="text-pink-700">
+          <span>
             {`£${discountPrice.toFixed(2)}`}{" "}
             <span className="text-sm">
               {`(${(((discountPrice - price) / price) * 100).toFixed(0)}%)`}

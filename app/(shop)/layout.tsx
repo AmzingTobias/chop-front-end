@@ -23,16 +23,20 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={`${inter.className} min-h-screen flex flex-col`}>
+      <body
+        className={`${inter.className} min-h-screen flex flex-col bg-accent`}
+      >
         <Navigation
           minorNavbarBtns={await getProductTypes()}
           accountLoggedIn={accountLoggedIn}
         />
-        <div
-          id="container"
-          className="flex flex-grow w-full p-4 mx-auto max-w-screen-2xl md:w-11/12"
-        >
-          {children}
+        <div className="w-full bg-accent-foreground">
+          <div
+            id="container"
+            className="flex flex-grow w-full p-4 mx-auto max-w-screen-2xl md:w-11/12"
+          >
+            {children}
+          </div>
         </div>
         <Footer />
       </body>
