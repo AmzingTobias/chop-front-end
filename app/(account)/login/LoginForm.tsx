@@ -1,11 +1,8 @@
 "use client";
 
-import { FormEvent, useRef, useState } from "react";
-import AccountFormButton from "../AccountFormButton";
-import AccountFormInput from "../AccountFormInput";
+import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCookies } from "react-cookie";
-import { Alert, AlertDescription } from "@/components/ui/alert";
 import AccountForm, { formSchema } from "../AccountForm";
 import {
   AlertDialog,
