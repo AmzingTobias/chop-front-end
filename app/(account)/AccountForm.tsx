@@ -32,6 +32,7 @@ interface IAccountFormProps {
   formBtnText: string;
   formSubmitted?: boolean;
   emailErrorMsg?: string;
+  passwordErrorMsg?: string;
 }
 
 const AccountForm: React.FC<IAccountFormProps> = ({
@@ -39,6 +40,7 @@ const AccountForm: React.FC<IAccountFormProps> = ({
   formBtnText,
   formSubmitted = false,
   emailErrorMsg = "",
+  passwordErrorMsg = "",
 }) => {
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -56,6 +58,18 @@ const AccountForm: React.FC<IAccountFormProps> = ({
       form.setError("email", { message: emailErrorMsg }, { shouldFocus: true });
     }
   }, [form, emailErrorMsg]);
+
+  useEffect(() => {
+    if (passwordErrorMsg.length === 0) {
+      form.clearErrors("password");
+    } else {
+      form.setError(
+        "password",
+        { message: passwordErrorMsg },
+        { shouldFocus: true }
+      );
+    }
+  }, [form, passwordErrorMsg]);
 
   return (
     <Form {...form}>

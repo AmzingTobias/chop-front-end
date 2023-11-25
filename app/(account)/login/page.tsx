@@ -15,6 +15,7 @@ const LoginPage = () => {
               { display: "SIGNUP", linkPath: "/signup" },
             ]}
           />
+          <br className="my-1.5" />
           <Suspense>
             <LoginForm />
           </Suspense>

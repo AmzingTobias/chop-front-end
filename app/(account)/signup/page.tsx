@@ -14,6 +14,7 @@ const LoginBox = () => {
               { display: "SIGNUP", linkPath: "/signup" },
             ]}
           />
+          <br className="my-1.5" />
           <SignupForm />
         </div>
       </div>
