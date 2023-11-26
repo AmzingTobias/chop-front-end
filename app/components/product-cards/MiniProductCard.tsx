@@ -39,7 +39,7 @@ const MiniProductCard: React.FC<IMiniProductCardProps> = ({
           </div>
         </div>
         <div className="mt-auto p-1">
-          <PriceLabel price={productPrice} discountPrice={10} />
+          <PriceLabel price={productPrice} discountPrice={discountPrice} />
           <AddToBasketBtn />
         </div>
       </Link>
