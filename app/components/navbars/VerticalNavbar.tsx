@@ -23,7 +23,7 @@ const VerticalNavbar: React.FC<IVerticalNavbarProps> = ({
       <AlertDialogContent className="flex flex-col min-w-full min-h-screen max-h-screen border-0 sm:rounded-none bg-primary p-1 overflow-y-scroll">
         <Button
           onClick={() => setMobileNavbarOpen((prevToggle) => !prevToggle)}
-          className="flex justify-end p-2 text-4xl text-accent hover:opacity-80"
+          className="flex justify-end mt-8 p-2 text-4xl text-accent hover:opacity-80"
         >
           <AiOutlineClose />
         </Button>
