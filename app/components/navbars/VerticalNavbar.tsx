@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { AiOutlineClose } from "react-icons/ai";
 import { TNavigationLinks } from "@/app/data/navigationLinks";
-import { Dispatch, HTMLAttributes, SetStateAction } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { Button } from "@/components/ui/button";
 import { AlertDialog, AlertDialogContent } from "@/components/ui/alert-dialog";
 
@@ -20,14 +20,20 @@ const VerticalNavbar: React.FC<IVerticalNavbarProps> = ({
 }) => {
   return (
     <AlertDialog open={navbarOpen} onOpenChange={setMobileNavbarOpen}>
-      <AlertDialogContent className="flex min-w-full min-h-screen border-0 sm:rounded-none bg-primary">
-        <nav className="flex w-full">
-          <ul className="flex flex-col h-full overflow-y-scroll">
+      <AlertDialogContent className="flex flex-col min-w-full min-h-screen max-h-screen border-0 sm:rounded-none bg-primary p-1 overflow-y-scroll">
+        <Button
+          onClick={() => setMobileNavbarOpen((prevToggle) => !prevToggle)}
+          className="flex justify-end p-2 text-4xl text-accent hover:opacity-80"
+        >
+          <AiOutlineClose />
+        </Button>
+        <nav className="flex w-full  -mt-10">
+          <ul className="flex flex-col h-full">
             {navigationBtns.map((item, index) => {
               return (
                 <li
                   key={index}
-                  className={`select-none p-3 transition-colors duration-150 font-semibold w-fit overflow-hidden
+                  className={`select-none p-2.5 transition-colors duration-150 font-semibold w-fit
                 hover:cursor-pointer  hover:opacity-80 text-xl
                 active:opacity-100`}
                 >
@@ -37,12 +43,6 @@ const VerticalNavbar: React.FC<IVerticalNavbarProps> = ({
             })}
           </ul>
         </nav>
-        <Button
-          onClick={() => setMobileNavbarOpen((prevToggle) => !prevToggle)}
-          className="flex justify-end p-2 text-4xl text-accent hover:opacity-80"
-        >
-          <AiOutlineClose />
-        </Button>
       </AlertDialogContent>
     </AlertDialog>
   );
