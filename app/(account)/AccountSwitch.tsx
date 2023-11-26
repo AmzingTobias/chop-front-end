@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { Raleway } from "next/font/google";
+const raleway = Raleway({ subsets: ["latin"] });
 
 interface IAccountFormSwitch {
   tabs: { display: string; linkPath: string }[];
@@ -7,18 +9,20 @@ interface IAccountFormSwitch {
 
 const AccountFormSwitch: React.FC<IAccountFormSwitch> = ({ tabs, active }) => {
   return (
-    <div className="flex flex-row text-2xl my-2">
+    <div className="flex flex-row justify-center my-2 text-2xl">
       {tabs.map((tab, index) => (
         <div
           key={index}
-          className={`py-4 border-b-2 
-          ${index === active ? "border-b-blue-800" : "border-black/20"}`}
+          className={`py-4 border-b-[1px] 
+          ${index === active ? "border-b-primary" : "border-white"}`}
         >
           <Link
             className={`
-            ${index < tabs.length - 1 ? "border-r-2" : ""}
-             border-black/20 px-10 hover:text-blue-800 transition-colors duration-200 
-            ${index === active ? "text-blue-800" : ""} font-bold`}
+            ${index < tabs.length - 1 ? "border-r-[1px]" : ""}
+             border-white sm:px-10 px-6 hover:text-primary transition-colors duration-200 
+            ${index === active ? "text-primary" : "text-white"} font-bold ${
+              raleway.className
+            }`}
             href={tab.linkPath}
           >
             {tab.display}

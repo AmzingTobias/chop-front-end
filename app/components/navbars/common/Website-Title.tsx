@@ -6,7 +6,7 @@ const WebsiteTitle = () => {
   return (
     <div className="w-full">
       <h1
-        className={`text-5xl text-white font-extrabold hover:text-gray-400 text-center select-none ${raleway.className}`}
+        className={`text-5xl font-extrabold text-primary hover:opacity-80 text-center select-none ${raleway.className}`}
       >
         <Link href="/">chop</Link>
       </h1>

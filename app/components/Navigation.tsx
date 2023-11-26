@@ -1,11 +1,11 @@
 "use client";
 
 import Titlebar from "./navbars/Titlebar";
-import Infobar from "./navbars/Infobar";
 import HorizontalNavbar from "./navbars/HorizontalNavbar";
 import VerticalNavbar from "./navbars/VerticalNavbar";
 import { useState } from "react";
 import { TNavigationLinks } from "../data/navigationLinks";
+import MobileSearchBar from "./searchbars/MobileSearchBar";
 
 interface INavigationProps {
   minorNavbarBtns: TNavigationLinks[];
@@ -17,24 +17,23 @@ const Navigation: React.FC<INavigationProps> = ({
   accountLoggedIn,
 }) => {
   const [mobileNavbarOpen, setMobileNavbarOpen] = useState(false);
+  const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
 
   return (
     <>
-      <div className="hidden md:flex">
-        <Infobar />
-      </div>
       <Titlebar
         setMobileNavbarOpen={setMobileNavbarOpen}
         accountLoggedIn={accountLoggedIn}
+        setMobileSearchOpen={setMobileSearchOpen}
+        mobileSearchOpen={mobileSearchOpen}
       />
-      {mobileNavbarOpen ? (
-        <VerticalNavbar
-          setMobileNavbarOpen={setMobileNavbarOpen}
-          navigationBtns={minorNavbarBtns}
-        />
-      ) : (
-        <></>
-      )}
+      <VerticalNavbar
+        className="flex md:hidden"
+        navbarOpen={mobileNavbarOpen}
+        setMobileNavbarOpen={setMobileNavbarOpen}
+        navigationBtns={minorNavbarBtns}
+      />
+      <MobileSearchBar className="flex md:hidden" display={mobileSearchOpen} />
       <div className="hidden md:flex">
         <HorizontalNavbar navigationBtns={minorNavbarBtns} />
       </div>

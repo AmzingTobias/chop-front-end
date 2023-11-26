@@ -17,11 +17,11 @@ const ShoppingCartBtn = () => {
   }, [cookies]);
 
   return (
-    <div className="hover:cursor-pointer flex justify-center hover:text-gray-400">
+    <div className="hover:cursor-pointer flex justify-center hover:opacity-80">
       {numInCart > 0 ? (
         <>
           <BsCartFill />
-          <span className="text-sm ml-0.5 mt-1.5 font-bold absolute select-none text-indigo-900">
+          <span className="text-sm ml-0.5 mt-1.5 font-bold absolute select-none text-accent">
             {numInCart > 9 ? "9+" : numInCart}
           </span>
         </>

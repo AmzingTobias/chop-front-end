@@ -1,5 +1,6 @@
+import SectionHeading from "../components/SectionHeading";
 import AdBanner from "../components/advertisement-banners/AdBanner";
-import ProductGridMini from "../components/product-cards/ProductGridMini";
+import ProductCarousel from "../components/product-cards/ProductCarousel";
 import { getRandomProducts, mapProductsToImages } from "../data/products";
 import summerAdBanner from "@/public/Ads/Summer promotion/summer-long.png";
 import summerMobileAdBanner from "@/public/Ads/Summer promotion/summer-mobile.png";
@@ -34,7 +35,9 @@ export default async function Home() {
         }}
       />
       <br className="my-4" />
-      <ProductGridMini gridColumnMinRem={16} products={productsToDisplay} />
+      <SectionHeading text={"We know you'll love"} />
+      <br className="my-2" />
+      <ProductCarousel products={productsToDisplay} />
     </main>
   );
 }

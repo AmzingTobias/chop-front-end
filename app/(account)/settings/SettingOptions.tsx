@@ -3,11 +3,12 @@ import { ReactNode } from "react";
 import Welcome from "./Welcome";
 import Link from "next/link";
 import { IconType } from "react-icons/lib";
+import { Raleway } from "next/font/google";
+const raleway = Raleway({ subsets: ["latin"] });
 
 export type TSettingOptions = {
   optionDisplayName: string;
   optionHeaderName: string;
-  optionHeaderIcon?: IconType;
   optionContent: ReactNode;
 };
 
@@ -23,45 +24,33 @@ export const SettingOptions: React.FC<{
       orientation="vertical"
     >
       <TabsList className="sm:basis-1/4 p-0 w-[200px] bg-transparent justify-normal">
-        <div className="basis-1/4 bg-slate-200 w-full min-h-[112px] mb-2 rounded-sm hidden md:flex shadow-sm">
+        <div className="basis-1/4 bg-accent  w-full min-h-[112px] mb-6 rounded-sm shadow-md hidden md:flex">
           <Welcome email={accountEmail} />
         </div>
-        <div className="bg-slate-200 p-2 w-full rounded-sm shadow-sm">
+        <div className="flex flex-col w-full gap-2 p-2 rounded-sm shadow-md bg-accent">
           {settingTabs.map((settingTab, index) => (
-            <TabsTrigger
-              className="w-full text-lg hover:bg-white hover:bg-opacity-20"
-              value={`${index}`}
-              key={index}
-            >
+            <TabsTrigger className="text-lg" value={`${index}`} key={index}>
               {settingTab.optionDisplayName}
             </TabsTrigger>
           ))}
-          <TabsTrigger
-            className="w-full text-lg rounded-sm hover:bg-white hover:bg-opacity-20"
-            value="logout"
-          >
-            <Link className="w-full" href={"/logout"}>
-              Logout
-            </Link>
+          <TabsTrigger className="w-full text-lg " value="logout">
+            <Link href={"/logout"}>Logout</Link>
           </TabsTrigger>
         </div>
       </TabsList>
-      <div className="mt-4 sm:mt-0 sm:mx-4 sm:basis-3/4 sm:w-full ">
+      <div className="mt-4 sm:mt-0 sm:ml-2 md:ml-6 lg:ml-10 sm:basis-3/4 sm:w-full ">
         {settingTabs.map((setting, index) => (
           <TabsContent value={`${index}`} key={index} className="mt-0">
-            <div className="min-h-[96px] bg-slate-200 mb-2 rounded-sm p-2 flex items-center shadow-sm">
-              <div className="flex ml-4 mt-4 gap-2">
-                <h1 className="text-4xl font-semibold">
+            <div className="min-h-[96px] bg-primary mb-4 p-2 flex items-center shadow-md">
+              <div className="flex gap-2 mt-4 ml-4">
+                <h1
+                  className={`text-4xl font-semibold ${raleway.className} uppercase`}
+                >
                   {setting.optionHeaderName}
                 </h1>
-                {setting.optionHeaderIcon ? (
-                  <setting.optionHeaderIcon size={40} />
-                ) : (
-                  <></>
-                )}
               </div>
             </div>
-            <div className="bg-slate-200 min-h-full rounded-sm p-6 shadow-sm">
+            <div className="min-h-full p-6 rounded-sm shadow-md bg-primary">
               {setting.optionContent}
             </div>
           </TabsContent>

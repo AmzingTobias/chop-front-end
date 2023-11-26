@@ -9,35 +9,45 @@ import { Dispatch, SetStateAction } from "react";
 interface ITitlebarProps {
   setMobileNavbarOpen: Dispatch<SetStateAction<boolean>>;
   accountLoggedIn: boolean;
+  setMobileSearchOpen: Dispatch<SetStateAction<boolean>>;
+  mobileSearchOpen: boolean;
 }
 
 const Titlebar: React.FC<ITitlebarProps> = ({
   setMobileNavbarOpen,
   accountLoggedIn,
+  setMobileSearchOpen,
+  mobileSearchOpen,
 }) => {
   return (
-    <nav className="w-full bg-gradient-to-t from-indigo-900 to-blue-900 flex flex-row py-2.5 items-center">
-      <div className="md:hidden text-white text-2xl ml-2 p-2 hover:cursor-pointer hover:bg-black hover:bg-opacity-10 active:bg-black active:bg-opacity-30 rounded-full">
-        <div onClick={() => setMobileNavbarOpen((prevToggle) => !prevToggle)}>
+    <nav className="bg-accent text-secondary py-2.5 flex md:justify-center text-3xl sm:text-4xl">
+      <div className="flex items-center w-full gap-2 mx-2 sm:gap-4 sm:mx-4 md:mx-0 max-w-screen-2xl md:w-11/12">
+        <div
+          onClick={() => setMobileNavbarOpen((prevToggle) => !prevToggle)}
+          className="p-2 rounded-full md:hidden hover:cursor-pointer hover:bg-black hover:bg-opacity-10 active:bg-black active:bg-opacity-30"
+        >
           <AiOutlineMenu />
         </div>
-      </div>
-      <div className="flex mx-0 sm:mx-6 align-middle hover:cursor-pointer min-w-[146px] min-h-[36px] ">
-        <WebsiteTitle />
-      </div>
-      <div className="justify-center items-baseline w-full hidden md:flex">
-        <div className="w-11/12 md:w-full">
-          <Searchbar />
+        <div className="flex align-middle">
+          <WebsiteTitle />
         </div>
-      </div>
-      <div className="justify-end text-4xl mr-2 sm:mx-2 lg:mx-4 xl:mx-6 text-white flex visible w-full md:w-fit items-center">
-        <div className="text-3xl mr-6 md:hidden">
-          <MobileOpenSearchPage />
+        <div className="items-baseline hidden w-full md:flex">
+          <div className="w-full lg:w-1/2 ">
+            <Searchbar />
+          </div>
         </div>
-        <div className="mr-6">
-          <AccountBtn loggedIn={accountLoggedIn} />
+        <div className="flex items-center justify-end visible w-full mr-2 sm:mx-2 lg:mx-4 xl:mx-6 md:w-fit">
+          <div className="mr-6 md:hidden">
+            <MobileOpenSearchPage
+              searchOpen={mobileSearchOpen}
+              setSearchOpen={setMobileSearchOpen}
+            />
+          </div>
+          <div className="mr-6">
+            <AccountBtn loggedIn={accountLoggedIn} />
+          </div>
+          <ShoppingCartBtn />
         </div>
-        <ShoppingCartBtn />
       </div>
     </nav>
   );

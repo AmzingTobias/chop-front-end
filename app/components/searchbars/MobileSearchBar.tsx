@@ -1,16 +1,21 @@
 import Searchbar from "./Searchbar";
 
-const MobileSearchBar = () => {
+interface IMobileSearchBar {
+  display: boolean;
+  className?: string;
+}
+
+const MobileSearchBar: React.FC<IMobileSearchBar> = ({
+  display,
+  className,
+}) => {
+  if (!display) return <></>;
   return (
     <div
-      className={`h-screen w-screen bg-gradient-to-b from-indigo-900 to-blue-900 fixed left-0 top-16 z-10`}
+      className={`p-4 border-t-2 rounded-none bg-accent border-secondary/80 ${className}`}
     >
-      <div className="flex flex-col w-full p-4">
-        <div className="w-full text-lg">
-          <div className="mt-1 text-gray-900">
-            <Searchbar />
-          </div>
-        </div>
+      <div className="w-full">
+        <Searchbar />
       </div>
     </div>
   );
