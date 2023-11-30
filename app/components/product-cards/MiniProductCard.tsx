@@ -3,10 +3,10 @@ import PriceLabel from "./common/PriceLabel";
 import ProductImageWithHover, {
   TImageDetails,
 } from "./common/ProductImageWithHover";
-import ProductFavouriteBtn from "./common/ProductFavouriteBtn";
 import AddToBasketBtn from "./common/AddToBasketBtn";
 
 export interface IMiniProductCardProps {
+  productId: number;
   productName: string;
   productPrice: number;
   discountPrice?: number;
