@@ -3,6 +3,8 @@ import {
   mapProductsToImages,
 } from "@/app/data/products";
 import Image from "next/image";
+import ProductCard from "./ProductCard";
+import Searchbar from "@/app/components/searchbars/Searchbar";
 
 export async function generateStaticParams() {
   const productTypes = await fetch(
@@ -19,8 +21,36 @@ export default async function Page({ params }: { params: { id: number } }) {
   // Mapped to the structure that allows them to be displayed in a grid
   const productsToDisplay = await mapProductsToImages(
     productsForType,
-    640,
-    853
+    188,
+    250
   );
-  return <main className="flex flex-col w-full"></main>;
+  return (
+    <main className="flex flex-col w-full">
+      <Searchbar variant="accent" />
+      <br className="my-4" />
+      <div className="flex flex-row">
+        <div className="w-1/3 min-h-full"></div>
+        <div className="flex flex-col gap-8 w-2/3">
+          {productsToDisplay.map((product) => (
+            <div key={product.productId}>
+              <ProductCard
+                productId={product.productId}
+                productPageLink={product.productPageLink}
+                productName={product.productName}
+                brandName={product.brandName}
+                brandId={product.brandId}
+                productDescription={
+                  typeof product.productDescription === "string"
+                    ? product.productDescription
+                    : ""
+                }
+                productPrice={product.productPrice}
+                image={product.image}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </main>
+  );
 }

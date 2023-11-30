@@ -4,14 +4,10 @@ import ProductImageWithHover, {
   TImageDetails,
 } from "./common/ProductImageWithHover";
 import AddToBasketBtn from "./common/AddToBasketBtn";
+import { IProductEntryWithImages } from "@/app/data/products";
 
-export interface IMiniProductCardProps {
-  productId: number;
-  productName: string;
-  productPrice: number;
+export interface IMiniProductCardProps extends IProductEntryWithImages {
   discountPrice?: number;
-  productPageLink: string;
-  image: TImageDetails;
 }
 
 const MiniProductCard: React.FC<IMiniProductCardProps> = ({

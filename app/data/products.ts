@@ -5,6 +5,8 @@ interface IProductEntry {
   id: number;
   name: string;
   description?: string;
+  brandId?: number;
+  brandName?: string;
   available: boolean;
   stock_count: number;
   price: number;
@@ -14,6 +16,8 @@ export interface IProductEntryWithImages {
   productId: number;
   productName: string;
   productPrice: number;
+  brandId?: number;
+  brandName?: string;
   productPageLink: string;
   productDescription?: string;
   image: TImageDetails;
@@ -78,6 +82,7 @@ export const getProductsByProductType = async (
           response
             .json()
             .then((jsonData) => {
+              console.log(jsonData);
               resolve(jsonData);
             })
             .catch((err) => {
@@ -112,6 +117,8 @@ export const mapProductsToImages = async (
         productName: product.name,
         productDescription: product.description,
         productPrice: product.price,
+        brandId: product.brandId,
+        brandName: product.brandName,
         productPageLink: `/product/${product.id}`,
         image: {
           primaryLink:
