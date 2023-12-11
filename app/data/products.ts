@@ -1,5 +1,6 @@
 import { TImageDetails } from "../components/product-cards/common/ProductImageWithHover";
 import { getProductImages } from "./images";
+import noProductImage from "../../public/no-product.png";
 
 interface IProductEntry {
   id: number;
@@ -125,7 +126,7 @@ export const mapProductsToImages = async (
             images.length > 0
               ? `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/images/products/${product.id}/${images[0].fileName}`
               : // TODO make this a no image found image
-                "",
+                noProductImage.src,
           hoverLink:
             images.length > 1
               ? `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/images/products/${product.id}/${images[1].fileName}`
