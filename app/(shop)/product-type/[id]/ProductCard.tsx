@@ -23,7 +23,7 @@ const ProductCard: React.FC<IProductCardProps> = ({
       <Link href={productPageLink} className="min-w-fit">
         <ProductImageWithHover
           image={image}
-          className="rounded-l-md rounded-r-none"
+          className="rounded-tr-none rounded-l-md "
         />
       </Link>
       <div className="w-full h-full flex flex-row py-2.5 pr-2.5">
