@@ -22,8 +22,6 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({ products }) => {
         productDivRef.current !== null &&
         scrollAreaRef.current.parentElement !== null
       ) {
-        console.log(scrollAreaRef.current.parentElement);
-        console.log(scrollAreaRef.current);
         scrollAreaRef.current.scrollLeft +=
           scrollAreaRef.current.parentElement.clientWidth * multiplier;
       }

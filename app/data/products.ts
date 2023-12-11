@@ -83,7 +83,6 @@ export const getProductsByProductType = async (
           response
             .json()
             .then((jsonData) => {
-              console.log(jsonData);
               resolve(jsonData);
             })
             .catch((err) => {
