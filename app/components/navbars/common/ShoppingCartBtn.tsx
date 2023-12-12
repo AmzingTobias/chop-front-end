@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { BsCartFill, BsCart } from "react-icons/bs";
@@ -17,7 +18,10 @@ const ShoppingCartBtn = () => {
   }, [cookies]);
 
   return (
-    <div className="hover:cursor-pointer flex justify-center hover:opacity-80">
+    <Link
+      href={"/basket"}
+      className="hover:cursor-pointer flex justify-center hover:opacity-80"
+    >
       {numInCart > 0 ? (
         <>
           <BsCartFill />
@@ -28,7 +32,7 @@ const ShoppingCartBtn = () => {
       ) : (
         <BsCart />
       )}
-    </div>
+    </Link>
   );
 };
 
