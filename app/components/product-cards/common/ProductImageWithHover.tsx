@@ -12,17 +12,19 @@ export type TImageDetails = {
 };
 
 interface IProductImageWithHoverProps {
+  className?: string;
   image: TImageDetails;
 }
 
 const ProductImageWithHover: React.FC<IProductImageWithHoverProps> = ({
+  className,
   image,
 }) => {
   const [imageToShow, setImageToShow] = useState(image.primaryLink);
 
   return (
     <Image
-      className="rounded-t-md"
+      className={`rounded-t-md ${className}`}
       onMouseOver={() =>
         image.hoverLink !== undefined ? setImageToShow(image.hoverLink) : <></>
       }

@@ -32,7 +32,7 @@ const Titlebar: React.FC<ITitlebarProps> = ({
           <WebsiteTitle />
         </div>
         <div className="items-baseline hidden w-full md:flex">
-          <div className="w-full lg:w-1/2 ">
+          <div className="w-full lg:w-1/2 text-background">
             <Searchbar />
           </div>
         </div>

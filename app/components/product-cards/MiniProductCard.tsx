@@ -3,15 +3,11 @@ import PriceLabel from "./common/PriceLabel";
 import ProductImageWithHover, {
   TImageDetails,
 } from "./common/ProductImageWithHover";
-import ProductFavouriteBtn from "./common/ProductFavouriteBtn";
 import AddToBasketBtn from "./common/AddToBasketBtn";
+import { IProductEntryWithImages } from "@/app/data/products";
 
-export interface IMiniProductCardProps {
-  productName: string;
-  productPrice: number;
+export interface IMiniProductCardProps extends IProductEntryWithImages {
   discountPrice?: number;
-  productPageLink: string;
-  image: TImageDetails;
 }
 
 const MiniProductCard: React.FC<IMiniProductCardProps> = ({

@@ -16,18 +16,3 @@ export const getProductTypes = async (): Promise<TNavigationLinks[]> => {
     path: `/product-type/${productType.id}`,
   }));
 };
-
-export const infobarBtns: TNavigationLinks[] = [
-  {
-    displayName: "Help & FAQ",
-    path: "/",
-  },
-  {
-    displayName: "Track my order",
-    path: "/",
-  },
-  {
-    displayName: "Contact us",
-    path: "/",
-  },
-];

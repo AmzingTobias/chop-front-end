@@ -13,14 +13,14 @@ const ProductFavouriteBtn = () => {
         event.preventDefault();
         setIsFavourite((prevToggle) => !prevToggle);
       }}
-      className="relative flex justify-center  cursor-default bg-gray-100 rounded-full p-1.5 text-red-500"
+      className="relative flex justify-center cursor-default bg-accent rounded-full p-1.5 text-secondary text-xl "
     >
       <AiFillHeart
         className={`absolute hover:opacity-100 ${
           isFavourite ? "opacity-100" : "opacity-0"
         }`}
       />
-      <AiOutlineHeart />
+      <AiOutlineHeart style={{ strokeWidth: "50px" }} />
     </div>
   );
 };
