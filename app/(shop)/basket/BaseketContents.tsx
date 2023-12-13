@@ -73,10 +73,10 @@ const BasketContents = () => {
   return (
     <div className="flex flex-col space-y-4">
       {basket.map(
-        (product, key) =>
+        (product, index) =>
           product && (
             <BasketEntry
-              key={key}
+              key={index}
               productId={product.productId}
               productName={product.productName}
               productPrice={product.productPrice}
