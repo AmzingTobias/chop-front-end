@@ -1,6 +1,4 @@
-import ProductImageWithHover, {
-  TImageDetails,
-} from "@/app/components/product-cards/common/ProductImageWithHover";
+import { TImageDetails } from "@/app/components/product-cards/common/ProductImageWithHover";
 import Link from "next/link";
 import RemoveFromBasketBtn from "./RemoveFromBasketBtn";
 import BasketEntryQuantity from "./BasketEntryQuantity";

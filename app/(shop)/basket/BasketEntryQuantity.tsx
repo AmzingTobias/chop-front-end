@@ -27,6 +27,7 @@ const BasketEntryQuantity: React.FC<IBasketEntryQuantityProps> = ({
         variant={"secondary"}
         className="w-10 h-10 p-0.5"
         onClick={() => decreaseQuantity()}
+        disabled={quantity <= 1}
       >
         <IoRemove className={"text-xl"} />
       </Button>

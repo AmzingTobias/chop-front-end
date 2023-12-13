@@ -90,10 +90,13 @@ const BasketContents = () => {
       </div>
       <div className="flex w-full md:w-1/4">
         <BasketCheckoutSection
-          numInBasket={basket.length}
+          numInBasket={basket.reduce(
+            (prev: number, current: any) => prev + current.quantity,
+            0
+          )}
           subTotal={basket.reduce((prev, current) => {
             if (current) {
-              return prev + current.productPrice;
+              return prev + current.productPrice * current.quantity;
             } else {
               return prev;
             }
