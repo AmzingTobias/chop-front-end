@@ -26,10 +26,10 @@ const ProductCard: React.FC<IProductCardProps> = ({
             className="rounded-tr-none rounded-l-md "
           />
         </Link>
-        <div className="flex flex-col p-2 max-h-[250px]">
+        <div className="flex flex-col p-2 max-h-[250px] w-full">
           <div className="flex flex-row items-start">
             <Link href={productPageLink}>
-              <h2 className="text-2xl font-semibold hover:underline">
+              <h2 className="text-md md:text-2xl font-semibold hover:underline">
                 {productName}
               </h2>
             </Link>

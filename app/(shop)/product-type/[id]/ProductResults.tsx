@@ -6,9 +6,15 @@ import { IProductEntryWithImages } from "@/app/data/products";
 import { useState } from "react";
 interface IProductResultsProps {
   products: IProductEntryWithImages[];
+  productImageWidth?: number;
+  productImageHeight?: number;
 }
 
-const ProductResults: React.FC<IProductResultsProps> = ({ products }) => {
+const ProductResults: React.FC<IProductResultsProps> = ({
+  products,
+  productImageWidth,
+  productImageHeight,
+}) => {
   const maxProductPrice = products.reduce(
     (prev, item) => (item.productPrice > prev.productPrice ? item : prev),
     { productPrice: 0 }
@@ -17,7 +23,7 @@ const ProductResults: React.FC<IProductResultsProps> = ({ products }) => {
   const [filteredProducts, setfilteredProducts] = useState(products);
 
   return (
-    <div>
+    <div className="w-full">
       <Searchbar variant="accent" />
       <br className="md:my-4" />
       <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8">
@@ -30,24 +36,32 @@ const ProductResults: React.FC<IProductResultsProps> = ({ products }) => {
           />
         </div>
         <div className="flex flex-col gap-8 w-full md:w-2/3">
-          {filteredProducts.map((product) => (
-            <div key={product.productId}>
-              <ProductCard
-                productId={product.productId}
-                productPageLink={product.productPageLink}
-                productName={product.productName}
-                brandName={product.brandName}
-                brandId={product.brandId}
-                productDescription={
-                  typeof product.productDescription === "string"
-                    ? product.productDescription
-                    : ""
-                }
-                productPrice={product.productPrice}
-                image={product.image}
-              />
-            </div>
-          ))}
+          {filteredProducts.map((product) => {
+            if (productImageHeight !== undefined) {
+              product.image.height = productImageHeight;
+            }
+            if (productImageWidth !== undefined) {
+              product.image.width = productImageWidth;
+            }
+            return (
+              <div key={product.productId}>
+                <ProductCard
+                  productId={product.productId}
+                  productPageLink={product.productPageLink}
+                  productName={product.productName}
+                  brandName={product.brandName}
+                  brandId={product.brandId}
+                  productDescription={
+                    typeof product.productDescription === "string"
+                      ? product.productDescription
+                      : ""
+                  }
+                  productPrice={product.productPrice}
+                  image={product.image}
+                />
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

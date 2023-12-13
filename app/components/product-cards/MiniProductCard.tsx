@@ -31,11 +31,11 @@ const MiniProductCard: React.FC<IMiniProductCardProps> = ({
             {/* </div> */}
             <ProductImageWithHover image={image} />
           </div>
-          <div className="p-1 text-accent">
+          <div className="p-2 text-accent">
             <h2 className="text-lg font-semibold  inline">{productName}</h2>
           </div>
         </div>
-        <div className="mt-auto p-1">
+        <div className="mt-auto p-2">
           <PriceLabel price={productPrice} discountPrice={discountPrice} />
           <AddToBasketBtn productId={productId} />
         </div>

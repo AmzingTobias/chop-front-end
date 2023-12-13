@@ -25,8 +25,17 @@ export default async function Page({ params }: { params: { id: number } }) {
   );
 
   return (
-    <main className="flex flex-col w-full">
-      <ProductResults products={productsToDisplay} />
+    <main className="flex flex-col w-full overflow-x-clip">
+      <div className="md:hidden w-full">
+        <ProductResults
+          products={productsToDisplay}
+          productImageHeight={120}
+          productImageWidth={120}
+        />
+      </div>
+      <div className="hidden md:flex w-full">
+        <ProductResults products={productsToDisplay} />
+      </div>
     </main>
   );
 }

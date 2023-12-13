@@ -35,7 +35,7 @@ export default async function RootLayout({
           <div className="w-full bg-accent-foreground">
             <div
               id="container"
-              className="flex flex-grow w-full p-4 mx-auto max-w-screen-2xl md:w-11/12"
+              className="flex flex-grow w-full p-4 mx-auto max-w-screen-2xl md:w-11/12 min-h-screen"
             >
               {children}
             </div>

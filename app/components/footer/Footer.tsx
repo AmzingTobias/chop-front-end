@@ -80,7 +80,7 @@ const Footer = () => {
   return (
     <footer className="bg-accent text-accent-foreground items-center flex justify-center mt-4 w-full py-[56px] sm:py-[112px]">
       <div
-        className={`flex flex-col items-center gap-8 sm:items-start sm:gap-0 sm:flex-row ${raleway.className} w-full max-w-screen-2xl md:w-11/12`}
+        className={`flex flex-col pl-8 md:pl-0 items-center gap-8 sm:items-start sm:gap-0 sm:flex-row ${raleway.className} w-full max-w-screen-2xl md:w-11/12`}
       >
         <FooterContents columns={FOOTER_CONTENTS} />
       </div>
