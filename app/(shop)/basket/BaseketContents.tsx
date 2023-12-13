@@ -72,8 +72,8 @@ const BasketContents = () => {
   }, [loading, basketItems]);
 
   return (
-    <div className="flex flex-row w-full space-x-12">
-      <div className="flex flex-col space-y-8 w-3/4">
+    <div className="flex flex-col md:flex-row w-full space-y-4 md:space-y-0 md:space-x-4 xl:space-x-12">
+      <div className="flex flex-col space-y-4 md:space-y-8 w-full md:w-3/4">
         {basket.map(
           (product, index) =>
             product && (
@@ -88,7 +88,7 @@ const BasketContents = () => {
             )
         )}
       </div>
-      <div className="flex w-1/4">
+      <div className="flex w-full md:w-1/4">
         <BasketCheckoutSection
           numInBasket={basket.length}
           subTotal={basket.reduce((prev, current) => {
