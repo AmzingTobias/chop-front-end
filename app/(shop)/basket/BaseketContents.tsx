@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import BasketEntry from "./BasketEntry";
 import { TImageDetails } from "@/app/components/product-cards/common/ProductImageWithHover";
 import { useSelector } from "react-redux";
+import BasketCheckoutSection from "./BasketCheckoutSection";
 
 const BasketContents = () => {
   const { loading, basketItems } = useSelector(
@@ -71,20 +72,34 @@ const BasketContents = () => {
   }, [loading, basketItems]);
 
   return (
-    <div className="flex flex-col space-y-4">
-      {basket.map(
-        (product, index) =>
-          product && (
-            <BasketEntry
-              key={index}
-              productId={product.productId}
-              productName={product.productName}
-              productPrice={product.productPrice}
-              quantity={product.quantity}
-              productImage={product.productImage}
-            />
-          )
-      )}
+    <div className="flex flex-row w-full space-x-12">
+      <div className="flex flex-col space-y-8 w-3/4">
+        {basket.map(
+          (product, index) =>
+            product && (
+              <BasketEntry
+                key={index}
+                productId={product.productId}
+                productName={product.productName}
+                productPrice={product.productPrice}
+                quantity={product.quantity}
+                productImage={product.productImage}
+              />
+            )
+        )}
+      </div>
+      <div className="flex w-1/4">
+        <BasketCheckoutSection
+          numInBasket={basket.length}
+          subTotal={basket.reduce((prev, current) => {
+            if (current) {
+              return prev + current.productPrice;
+            } else {
+              return prev;
+            }
+          }, 0)}
+        />
+      </div>
     </div>
   );
 };

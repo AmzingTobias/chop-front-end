@@ -3,7 +3,7 @@ import BasketContents from "./BaseketContents";
 
 export default function Page() {
   return (
-    <main className="flex flex-col w-full min-h-screen">
+    <main className="flex flex-col w-full min-h-screen space-y-4 mt-4">
       <SectionHeading text={"Shopping cart"} />
       <BasketContents />
     </main>
