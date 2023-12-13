@@ -18,32 +18,33 @@ const ProductCard: React.FC<IProductCardProps> = ({
   productPrice,
 }) => {
   return (
-    <div className="w-full bg-primary h-[250px] rounded-md flex flex-row space-x-6">
-      <Link href={productPageLink} className="min-w-fit">
-        <ProductImageWithHover
-          image={image}
-          className="rounded-tr-none rounded-l-md "
-        />
-      </Link>
-      <div className="w-full h-full flex flex-row py-2.5 pr-2.5">
-        <div className="flex flex-col w-full">
-          <Link href={productPageLink}>
-            <h2 className="text-2xl font-semibold hover:underline">
-              {productName}
-            </h2>
-          </Link>
+    <div className="w-full bg-primary h-fit rounded-md flex flex-col ">
+      <div className="flex flex-row">
+        <Link href={productPageLink} className="min-w-fit h-fit">
+          <ProductImageWithHover
+            image={image}
+            className="rounded-tr-none rounded-l-md "
+          />
+        </Link>
+        <div className="flex flex-col p-2 max-h-[250px]">
+          <div className="flex flex-row items-start">
+            <Link href={productPageLink}>
+              <h2 className="text-2xl font-semibold hover:underline">
+                {productName}
+              </h2>
+            </Link>
+            <div className="ml-auto">
+              <ProductFavouriteBtn />
+            </div>
+          </div>
           <Link className="hover:underline" href={`/brands/${brandId}`}>
             {brandName}
           </Link>
-          <p className="font-light italic overflow-hidden">
+          {/* TODO - Turn to elipises */}
+          <p className="hidden md:flex font-light italic overflow-hidden line-clamp-1">
             {productDescription}
           </p>
-        </div>
-        <div className="h-full flex flex-col w-fit justify-end">
-          <div className="flex w-fit self-end">
-            <ProductFavouriteBtn />
-          </div>
-          <div className="flex flex-col mt-auto w-[182px]">
+          <div className="flex flex-col mt-auto ml-auto items-end w-fit">
             <PriceLabel price={productPrice} />
             <AddToBasketBtn productId={productId} />
           </div>

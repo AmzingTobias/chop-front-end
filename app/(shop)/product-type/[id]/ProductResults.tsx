@@ -19,9 +19,9 @@ const ProductResults: React.FC<IProductResultsProps> = ({ products }) => {
   return (
     <div>
       <Searchbar variant="accent" />
-      <br className="my-4" />
-      <div className="flex flex-row space-x-8">
-        <div className="w-1/3 h-fit bg-accent rounded-md text-accent-foreground p-4">
+      <br className="md:my-4" />
+      <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8">
+        <div className="w-full md:w-1/3 h-fit bg-accent rounded-md text-accent-foreground p-4">
           <Sidebar
             minProductPrice={0}
             maxProductPrice={maxProductPrice}
@@ -29,7 +29,7 @@ const ProductResults: React.FC<IProductResultsProps> = ({ products }) => {
             setFilteredProductList={setfilteredProducts}
           />
         </div>
-        <div className="flex flex-col gap-8 w-2/3">
+        <div className="flex flex-col gap-8 w-full md:w-2/3">
           {filteredProducts.map((product) => (
             <div key={product.productId}>
               <ProductCard
