@@ -47,6 +47,9 @@ const BasketEntry: React.FC<IBasketEntryProps> = ({
             <RemoveFromBasketBtn productId={productId} />
           </div>
           <div className="flex flex-col mt-auto">
+            <div className="w-full text-end text-2xl font-medium">
+              £{productPrice.toFixed(2)}
+            </div>
             <BasketEntryQuantity productId={productId} quantity={quantity} />
           </div>
         </div>
