@@ -38,7 +38,7 @@ const ShoppingCartBtn = () => {
       {basketSize > 0 ? (
         <>
           <BsCartFill />
-          <span className="text-sm ml-0.5 mt-1.5 font-bold absolute select-none text-accent">
+          <span className="text-sm ml-0.5 mt-[0.1875rem] sm:mt-1.5 font-bold absolute select-none text-accent">
             {basketSize > 9 ? "9+" : basketSize}
           </span>
         </>
