@@ -37,7 +37,12 @@ const VerticalNavbar: React.FC<IVerticalNavbarProps> = ({
                 hover:cursor-pointer  hover:opacity-80 text-xl
                 active:opacity-100`}
                 >
-                  <Link href={item.path}>{item.displayName}</Link>
+                  <Link
+                    href={item.path}
+                    onClick={() => setMobileNavbarOpen(false)}
+                  >
+                    {item.displayName}
+                  </Link>
                 </li>
               );
             })}
