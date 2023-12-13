@@ -6,6 +6,7 @@ import Navigation from "../components/Navigation";
 import { getProductTypes } from "../data/navigationLinks";
 import { cookies } from "next/headers";
 import Footer from "../components/footer/Footer";
+import { StoreProvider } from "../redux/store.provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,19 +27,21 @@ export default async function RootLayout({
       <body
         className={`${inter.className} min-h-screen flex flex-col bg-accent`}
       >
-        <Navigation
-          minorNavbarBtns={await getProductTypes()}
-          accountLoggedIn={accountLoggedIn}
-        />
-        <div className="w-full bg-accent-foreground">
-          <div
-            id="container"
-            className="flex flex-grow w-full p-4 mx-auto max-w-screen-2xl md:w-11/12"
-          >
-            {children}
+        <StoreProvider>
+          <Navigation
+            minorNavbarBtns={await getProductTypes()}
+            accountLoggedIn={accountLoggedIn}
+          />
+          <div className="w-full bg-accent-foreground">
+            <div
+              id="container"
+              className="flex flex-grow w-full p-4 mx-auto max-w-screen-2xl md:w-11/12"
+            >
+              {children}
+            </div>
           </div>
-        </div>
-        <Footer />
+          <Footer />
+        </StoreProvider>
       </body>
     </html>
   );

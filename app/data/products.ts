@@ -24,6 +24,29 @@ export interface IProductEntryWithImages {
   image: TImageDetails;
 }
 
+export const getProductWithId = (
+  productId: number
+): Promise<IProductEntry | null> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/products/${productId}`,
+      { next: { revalidate: 600 } }
+    )
+      .then(async (response) => {
+        if (response.ok) {
+          const jsonData: IProductEntry[] = await response.json();
+          resolve(jsonData.length > 0 ? jsonData[0] : null);
+        } else {
+          reject();
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        reject(err);
+      });
+  });
+};
+
 /**
  * Get a selected number of random products
  * @param amount The number of products up to and including to get

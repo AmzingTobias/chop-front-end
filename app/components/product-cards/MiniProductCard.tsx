@@ -11,6 +11,7 @@ export interface IMiniProductCardProps extends IProductEntryWithImages {
 }
 
 const MiniProductCard: React.FC<IMiniProductCardProps> = ({
+  productId,
   productName,
   productPrice,
   discountPrice,
@@ -36,7 +37,7 @@ const MiniProductCard: React.FC<IMiniProductCardProps> = ({
         </div>
         <div className="mt-auto p-1">
           <PriceLabel price={productPrice} discountPrice={discountPrice} />
-          <AddToBasketBtn />
+          <AddToBasketBtn productId={productId} />
         </div>
       </Link>
     </div>

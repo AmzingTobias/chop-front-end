@@ -1,15 +1,14 @@
 import AddToBasketBtn from "@/app/components/product-cards/common/AddToBasketBtn";
 import PriceLabel from "@/app/components/product-cards/common/PriceLabel";
 import ProductFavouriteBtn from "@/app/components/product-cards/common/ProductFavouriteBtn";
-import ProductImageWithHover, {
-  TImageDetails,
-} from "@/app/components/product-cards/common/ProductImageWithHover";
+import ProductImageWithHover from "@/app/components/product-cards/common/ProductImageWithHover";
 import { IProductEntryWithImages } from "@/app/data/products";
 import Link from "next/link";
 
 interface IProductCardProps extends IProductEntryWithImages {}
 
 const ProductCard: React.FC<IProductCardProps> = ({
+  productId,
   productPageLink,
   productName,
   brandId,
@@ -46,7 +45,7 @@ const ProductCard: React.FC<IProductCardProps> = ({
           </div>
           <div className="flex flex-col mt-auto w-[182px]">
             <PriceLabel price={productPrice} />
-            <AddToBasketBtn />
+            <AddToBasketBtn productId={productId} />
           </div>
         </div>
       </div>
