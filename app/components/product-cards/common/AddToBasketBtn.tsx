@@ -1,29 +1,30 @@
 "use client";
 
-import { addProductToLocalBasket } from "@/app/data/basket";
+import { addToCart, hideLoading } from "@/app/redux/slices/basket.slice";
 import { Button } from "@/components/ui/button";
+import { useEffect } from "react";
 import { useCookies } from "react-cookie";
+import { useDispatch } from "react-redux";
 
 interface IAddToBasketBtnProps {
   productId: number;
 }
 
 const AddToBasketBtn: React.FC<IAddToBasketBtnProps> = ({ productId }) => {
-  const addProductToLocalStorage = () => {
-    addProductToLocalBasket(productId);
-  };
+  const dispatch = useDispatch();
+
   const addProductToServer = () => {};
 
   const [cookies] = useCookies(["auth"]);
 
   const addProductToBasket = () => {
     const accountLoggedIn = cookies.auth !== undefined;
-    addProductToLocalStorage();
-    if (accountLoggedIn) {
-      addProductToServer();
-    }
-    alert(accountLoggedIn);
+    dispatch(addToCart({ productId: productId }));
   };
+
+  useEffect(() => {
+    dispatch(hideLoading());
+  }, [dispatch]);
 
   return (
     <Button
