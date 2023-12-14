@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import noProductImage from "@/public/no-product.png";
 
 export type TImageDetails = {
   primaryLink: string;
@@ -24,6 +25,8 @@ const ProductImageWithHover: React.FC<IProductImageWithHoverProps> = ({
 
   return (
     <Image
+      blurDataURL={noProductImage.src}
+      placeholder={`blur`}
       className={`rounded-t-md ${className}`}
       onMouseOver={() =>
         image.hoverLink !== undefined ? setImageToShow(image.hoverLink) : <></>
