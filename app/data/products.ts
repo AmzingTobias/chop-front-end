@@ -2,7 +2,7 @@ import { TImageDetails } from "../components/product-cards/common/ProductImageWi
 import { getProductImages } from "./images";
 import noProductImage from "../../public/no-product.png";
 
-interface IProductEntry {
+export interface IProductEntry {
   id: number;
   name: string;
   description?: string;

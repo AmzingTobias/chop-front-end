@@ -24,7 +24,11 @@ const ProductResults: React.FC<IProductResultsProps> = ({
 
   return (
     <div className="w-full">
-      <Searchbar variant="accent" />
+      <Searchbar
+        variant="accent"
+        showResultsOnInputChange={true}
+        searchResultLimit={10}
+      />
       <br className="md:my-4" />
       <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8">
         <div className="w-full md:w-1/3 h-fit bg-accent rounded-md text-accent-foreground p-4">
