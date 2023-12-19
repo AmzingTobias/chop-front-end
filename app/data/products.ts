@@ -161,3 +161,28 @@ export const mapProductsToImages = async (
     })
   );
 };
+
+export const searchForProducts = (
+  query: string
+): Promise<IProductEntryWithImages[]> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/products/?search=${query}`
+    )
+      .then((response) => {
+        if (response.ok) {
+          response
+            .json()
+            .then((responseAsJson: IProductEntry[]) => {
+              mapProductsToImages(responseAsJson, 50, 66.4)
+                .then((productsWithImages) => {
+                  resolve(productsWithImages);
+                })
+                .catch((err) => reject(err));
+            })
+            .catch((err) => reject(err));
+        }
+      })
+      .catch((err) => reject(err));
+  });
+};

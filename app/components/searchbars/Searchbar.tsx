@@ -10,6 +10,7 @@ import {
   IProductEntry,
   IProductEntryWithImages,
   mapProductsToImages,
+  searchForProducts,
 } from "@/app/data/products";
 import Image from "next/image";
 import Link from "next/link";
@@ -32,20 +33,10 @@ export const Searchbar: React.FC<ISearchbarProps> = ({
   const router = useRouter();
   const [searchInFocus, setSearchInFocus] = useState(false);
 
-  const searchForProducts = (query: string) => {
+  const performSearch = (query: string) => {
     if (query.length >= 3) {
-      fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/products/?search=${query}`
-      ).then((response) => {
-        if (response.ok) {
-          response.json().then((responseAsJson: IProductEntry[]) => {
-            mapProductsToImages(responseAsJson, 50, 66.4).then(
-              (productsWithImages) => {
-                setSearchResults(productsWithImages);
-              }
-            );
-          });
-        }
+      searchForProducts(query).then((products) => {
+        setSearchResults(products);
       });
     } else {
       setSearchResults([]);
@@ -80,8 +71,7 @@ export const Searchbar: React.FC<ISearchbarProps> = ({
             onFocus={() => setSearchInFocus(true)}
             ref={inputRef}
             onChange={(event) => {
-              if (showResultsOnInputChange)
-                searchForProducts(event.target.value);
+              if (showResultsOnInputChange) performSearch(event.target.value);
             }}
             type="text"
             className={`bg-transparent ${
