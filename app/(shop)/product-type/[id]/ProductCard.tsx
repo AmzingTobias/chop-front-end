@@ -14,6 +14,8 @@ const ProductCard: React.FC<IProductCardProps> = ({
   brandId,
   brandName,
   image,
+  imageWidth,
+  imageHeight,
   productDescription,
   productPrice,
 }) => {
@@ -23,6 +25,8 @@ const ProductCard: React.FC<IProductCardProps> = ({
         <Link href={productPageLink} className="min-w-fit h-fit">
           <ProductImageWithHover
             image={image}
+            imageWidth={imageWidth}
+            imageHeight={imageHeight}
             className="rounded-tr-none rounded-l-md "
           />
         </Link>

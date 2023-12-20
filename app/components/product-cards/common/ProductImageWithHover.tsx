@@ -7,19 +7,21 @@ import noProductImage from "@/public/no-product.png";
 export type TImageDetails = {
   primaryLink: string;
   hoverLink?: string;
-  width: number;
-  height: number;
   altText: string;
 };
 
 interface IProductImageWithHoverProps {
   className?: string;
   image: TImageDetails;
+  imageWidth: number;
+  imageHeight: number;
 }
 
 const ProductImageWithHover: React.FC<IProductImageWithHoverProps> = ({
   className,
   image,
+  imageWidth,
+  imageHeight,
 }) => {
   const [imageToShow, setImageToShow] = useState(image.primaryLink);
 
@@ -34,8 +36,8 @@ const ProductImageWithHover: React.FC<IProductImageWithHoverProps> = ({
       onMouseOut={() => setImageToShow(image.primaryLink)}
       src={imageToShow}
       alt={image.altText}
-      width={image.width}
-      height={image.height}
+      width={imageWidth}
+      height={imageHeight}
     />
   );
 };

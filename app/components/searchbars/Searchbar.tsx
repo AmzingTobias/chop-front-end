@@ -49,6 +49,7 @@ export const Searchbar: React.FC<ISearchbarProps> = ({
 
   const redirectToSearchPage = () => {
     if (inputRef.current !== null && inputRef.current.value.length >= 3) {
+      setSearchInFocus(false);
       router.push(`/search?query=${inputRef.current.value}`);
     }
   };
@@ -120,8 +121,8 @@ export const Searchbar: React.FC<ISearchbarProps> = ({
                           placeholder={`blur`}
                           src={product.image.primaryLink}
                           alt={product.image.altText}
-                          width={product.image.width}
-                          height={product.image.height}
+                          width={50}
+                          height={66.4}
                         />
                         <div className="flex flex-col w-full">
                           <p className="overflow-ellipsis overflow-clip whitespace-nowrap  text-lg font-semibold">

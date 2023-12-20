@@ -5,8 +5,8 @@ import { IProductEntryWithImages } from "@/app/data/products";
 import { useEffect, useState } from "react";
 interface IProductResultsProps {
   products: IProductEntryWithImages[];
-  productImageWidth?: number;
-  productImageHeight?: number;
+  productImageWidth: number;
+  productImageHeight: number;
 }
 
 const ProductResults: React.FC<IProductResultsProps> = ({
@@ -42,12 +42,6 @@ const ProductResults: React.FC<IProductResultsProps> = ({
         </div>
         <div className="flex flex-col gap-8 w-full md:w-2/3">
           {filteredProducts.map((product) => {
-            if (productImageHeight !== undefined) {
-              product.image.height = productImageHeight;
-            }
-            if (productImageWidth !== undefined) {
-              product.image.width = productImageWidth;
-            }
             return (
               <div key={product.productId}>
                 <ProductCard
@@ -63,6 +57,8 @@ const ProductResults: React.FC<IProductResultsProps> = ({
                   }
                   productPrice={product.productPrice}
                   image={product.image}
+                  imageWidth={productImageWidth}
+                  imageHeight={productImageHeight}
                 />
               </div>
             );

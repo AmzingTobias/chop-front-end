@@ -37,7 +37,11 @@ export default async function Home() {
       <br className="my-4" />
       <SectionHeading text={"We know you'll love"} />
       <br className="my-2" />
-      <ProductCarousel products={productsToDisplay} />
+      <ProductCarousel
+        products={productsToDisplay}
+        imageWidth={640}
+        imageHeight={853}
+      />
     </main>
   );
 }

@@ -84,6 +84,8 @@ const BasketContents = () => {
                 productPrice={product.productPrice}
                 quantity={product.quantity}
                 productImage={product.productImage}
+                productImageWidth={150}
+                productImageHeight={255}
               />
             )
         )}

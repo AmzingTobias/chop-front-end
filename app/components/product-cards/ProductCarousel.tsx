@@ -6,9 +6,15 @@ import { Button } from "@/components/ui/button";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 interface IProductCarouselProps {
   products: IMiniProductCardProps[];
+  imageWidth: number;
+  imageHeight: number;
 }
 
-const ProductCarousel: React.FC<IProductCarouselProps> = ({ products }) => {
+const ProductCarousel: React.FC<IProductCarouselProps> = ({
+  products,
+  imageWidth,
+  imageHeight,
+}) => {
   const scrollBtnStyles =
     "absolute p-1 top-1/2 rounded-none opacity-80 hover:opacity-100 bg-secondary-foreground text-secondary hover:bg-secondary-foreground hover:text-secondary";
 
@@ -65,6 +71,8 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({ products }) => {
                 image={product.image}
                 productPageLink={product.productPageLink}
                 productPrice={product.productPrice}
+                imageWidth={imageWidth}
+                imageHeight={imageHeight}
               />
             </div>
           );

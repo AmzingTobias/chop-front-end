@@ -10,12 +10,16 @@ interface IBasketEntryProps {
   productImage: TImageDetails;
   productPrice: number;
   quantity: number;
+  productImageWidth: number;
+  productImageHeight: number;
 }
 
 const BasketEntry: React.FC<IBasketEntryProps> = ({
   productId,
   productName,
   productImage,
+  productImageWidth,
+  productImageHeight,
   productPrice,
   quantity,
 }) => {
@@ -30,8 +34,8 @@ const BasketEntry: React.FC<IBasketEntryProps> = ({
               className={`rounded-tl-md md:rounded-l-md`}
               src={productImage.primaryLink}
               alt={productImage.altText}
-              width={productImage.width}
-              height={productImage.height}
+              width={productImageWidth}
+              height={productImageHeight}
             />
           </Link>
         </div>

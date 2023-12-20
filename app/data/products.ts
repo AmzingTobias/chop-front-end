@@ -22,6 +22,8 @@ export interface IProductEntryWithImages {
   productPageLink: string;
   productDescription?: string;
   image: TImageDetails;
+  imageWidth: number;
+  imageHeight: number;
 }
 
 export const getProductWithId = (
@@ -153,10 +155,10 @@ export const mapProductsToImages = async (
             images.length > 1
               ? `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/images/products/${product.id}/${images[1].fileName}`
               : undefined,
-          width: imageWidth,
-          height: imageHeight,
           altText: "PRODUCT",
         },
+        imageWidth: imageWidth,
+        imageHeight: imageHeight,
       };
     })
   );

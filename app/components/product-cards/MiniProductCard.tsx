@@ -17,10 +17,12 @@ const MiniProductCard: React.FC<IMiniProductCardProps> = ({
   discountPrice,
   productPageLink,
   image,
+  imageWidth,
+  imageHeight,
 }) => {
   return (
     <div
-      style={{ maxWidth: image.width }}
+      style={{ maxWidth: imageHeight }}
       className="bg-primary rounded-md flex flex-col"
     >
       <Link href={productPageLink} className="flex flex-col w-full h-full">
@@ -29,7 +31,11 @@ const MiniProductCard: React.FC<IMiniProductCardProps> = ({
             {/* <div className="absolute top-0 right-0 m-2 text-3xl"> */}
             {/* <ProductFavouriteBtn /> */}
             {/* </div> */}
-            <ProductImageWithHover image={image} />
+            <ProductImageWithHover
+              image={image}
+              imageWidth={imageWidth}
+              imageHeight={imageHeight}
+            />
           </div>
           <div className="p-2 text-accent">
             <h2 className="text-lg font-semibold  inline">{productName}</h2>
