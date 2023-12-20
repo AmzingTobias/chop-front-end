@@ -18,11 +18,12 @@ const basketSlice = createSlice({
         (p) => p.productId === product.productId
       );
       if (productInBasket > -1) {
-        state.basketItems[productInBasket].quantity++;
+        state.basketItems[productInBasket].quantity =
+          state.basketItems[productInBasket].quantity + action.payload.quantity;
       } else {
         state.basketItems = [
           ...state.basketItems,
-          { productId: product.productId, quantity: 1 },
+          { productId: product.productId, quantity: action.payload.quantity },
         ];
       }
     },

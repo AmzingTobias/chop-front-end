@@ -34,8 +34,15 @@ const PurchaseSection: React.FC<IPurchaseSectionProps> = ({
           setQuantityToAddToBasket((prev) => (prev === 1 ? 1 : prev - 1))
         }
       />
-      <AddToBasketBtn productId={productId} />
-      <AddToBasketBtn productId={productId} />
+      <AddToBasketBtn
+        productId={productId}
+        quantityToAdd={quantityToAddToBasket}
+      />
+      {/* TODO - Make buy it now button */}
+      <AddToBasketBtn
+        productId={productId}
+        quantityToAdd={quantityToAddToBasket}
+      />
     </div>
   );
 };

@@ -23,7 +23,7 @@ const QuantityControlBtns: React.FC<IQuantityControlBtnsProps> = ({
         <IoRemove className={"text-xl"} />
       </Button>
       <div className="w-10 h-10 bg-secondary rounded-md text-secondary-foreground flex align-middle items-center">
-        <p className="w-full text-center">{quantityAmount}</p>
+        <p className="w-full text-center select-none">{quantityAmount}</p>
       </div>
       <Button
         variant={"secondary"}
