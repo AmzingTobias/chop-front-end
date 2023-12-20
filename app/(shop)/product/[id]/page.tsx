@@ -1,5 +1,9 @@
 import { getProductImages } from "@/app/data/images";
-import { getProductWithId } from "@/app/data/products";
+import {
+  getProductWithId,
+  getProductsOfSameStyle,
+  mapProductsToImages,
+} from "@/app/data/products";
 import ProductImageDisplay from "./ProductImageDisplay";
 import MainProductSection from "./MainProductSection";
 import PurchaseSection from "./PurchaseSection";
@@ -19,10 +23,15 @@ const ProductPage = async ({ params }: { params: { id: number } }) => {
   if (productDetails === null) {
     return null;
   }
-
   const productImages = (await getProductImages(params.id)).map((image) => {
     return `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/images/products/${params.id}/${image.fileName}`;
   });
+  const sameStyleProducts = await getProductsOfSameStyle(params.id);
+  const sameStyleProductsWithImages = await mapProductsToImages(
+    sameStyleProducts,
+    75,
+    100
+  );
   return (
     <main className="flex flex-row w-full overflow-x-clip p-1 space-x-6">
       <ProductImageDisplay images={productImages} />
@@ -44,10 +53,11 @@ const ProductPage = async ({ params }: { params: { id: number } }) => {
               }
         }
       />
-      <div className="min-w-[300px]">
+      <div className="min-w-[300px] max-w-[300px]">
         <PurchaseSection
           productId={productDetails.id}
           price={productDetails.price}
+          similarStyleProducts={sameStyleProductsWithImages}
         />
       </div>
     </main>

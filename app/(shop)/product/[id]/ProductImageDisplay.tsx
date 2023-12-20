@@ -1,5 +1,4 @@
 "use client";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import Image from "next/image";
 import { useState } from "react";
 import noProductImage from "@/public/no-product.png";
@@ -17,12 +16,12 @@ const ProductImageDisplay: React.FC<IProductImageDisplayProps> = ({
   if (images.length < 1) {
     return (
       <Image
-        className="flex rounded-md w-fit"
+        className="flex rounded-md w-fit max-h-[530px]"
         blurDataURL={noProductImage.src}
         placeholder={`blur`}
         alt="MAIN PRODUCT"
         width={400}
-        height={400}
+        height={530}
         src={noProductImage.src}
       />
     );
@@ -45,7 +44,7 @@ const ProductImageDisplay: React.FC<IProductImageDisplayProps> = ({
         loading="eager"
         alt="MAIN PRODUCT"
         width={400}
-        height={400}
+        height={530}
         src={images[activeImageIndex]}
       />
     </div>
