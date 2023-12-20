@@ -34,7 +34,7 @@ const SearchPage = () => {
     <main className="flex flex-col w-full overflow-x-clip p-1">
       <Searchbar
         variant="accent"
-        showResultsOnInputChange={true}
+        showResultsOnInputChange={false}
         searchResultLimit={10}
         defaultValue={searchQuery === null ? "" : searchQuery}
       />

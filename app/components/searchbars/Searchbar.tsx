@@ -69,7 +69,13 @@ export const Searchbar: React.FC<ISearchbarProps> = ({
       }}
       tabIndex={1}
     >
-      <div className="w-full flex flex-row space-x-2 items-center">
+      <form
+        className="w-full flex flex-row space-x-2 items-center"
+        onSubmit={(event) => {
+          event.preventDefault();
+          redirectToSearchPage();
+        }}
+      >
         <div className="flex flex-col w-full">
           <Input
             defaultValue={defaultValue}
@@ -136,7 +142,6 @@ export const Searchbar: React.FC<ISearchbarProps> = ({
           type="submit"
           className={`${variant === "accent" ? "bg-accent" : ""}`}
           variant={"secondary"}
-          onClick={() => redirectToSearchPage()}
         >
           <FaSearch
             className={`text-lg ${
@@ -144,7 +149,7 @@ export const Searchbar: React.FC<ISearchbarProps> = ({
             }`}
           />
         </Button>
-      </div>
+      </form>
     </div>
   );
 };
