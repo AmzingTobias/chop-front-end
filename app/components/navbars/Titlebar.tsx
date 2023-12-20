@@ -33,7 +33,7 @@ const Titlebar: React.FC<ITitlebarProps> = ({
         </div>
         <div className="items-baseline hidden w-full md:flex">
           <div className="w-full lg:w-1/2 text-background">
-            <Searchbar />
+            <Searchbar showResultsOnInputChange={true} searchResultLimit={3} />
           </div>
         </div>
         <div className="flex items-center justify-end visible w-full mr-2 sm:mx-2 lg:mx-4 xl:mx-6 md:w-fit">

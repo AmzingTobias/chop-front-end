@@ -43,7 +43,10 @@ const Sidebar: React.FC<ISidebarProps> = ({
   }, [priceFilterValue, originalProductList, setFilteredProductList]);
 
   useEffect(() => {
-    console.log(`Sorting by ${sortItem}`);
+    setPriceFilterValue(maxProductPrice);
+  }, [maxProductPrice]);
+
+  useEffect(() => {
     setFilteredProductList((filteredList) => {
       const sortedList = [...filteredList]; // Create a copy of the array before sorting
 
@@ -67,7 +70,6 @@ const Sidebar: React.FC<ISidebarProps> = ({
 
   return (
     <div>
-      <p>{sortItem}</p>
       <Select value={sortItem} onValueChange={setSortItem}>
         <SelectTrigger>
           <SelectValue placeholder="Sort by..." />
