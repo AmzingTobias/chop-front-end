@@ -2,7 +2,7 @@ import ProductFavouriteBtn from "@/app/components/product-cards/common/ProductFa
 import Link from "next/link";
 
 interface IMainProductSectionProps {
-  productId: number | string;
+  productId: number;
   productName: string;
   productBrand?: { id: number; name: string };
   productDescription: string;

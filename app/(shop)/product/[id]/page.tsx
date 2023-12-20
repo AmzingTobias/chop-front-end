@@ -26,7 +26,7 @@ const ProductPage = async ({ params }: { params: { id: number } }) => {
     <main className="flex flex-row w-full overflow-x-clip p-1 space-x-2">
       <ProductImageDisplay images={productImages} />
       <MainProductSection
-        productId={params.id}
+        productId={productDetails.id}
         productName={productDetails.name}
         productDescription={
           productDetails.description === undefined

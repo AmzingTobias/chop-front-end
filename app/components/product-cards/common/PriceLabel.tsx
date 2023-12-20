@@ -1,15 +1,24 @@
+import { cn } from "@/lib/utils";
+
 interface IPriceLabel {
+  className?: string;
   price: number;
   discountPrice?: number;
 }
 
-const PriceLabel: React.FC<IPriceLabel> = ({ price, discountPrice }) => {
+const PriceLabel: React.FC<IPriceLabel> = ({
+  price,
+  discountPrice,
+  className = "",
+}) => {
+  const priceLabelStyles = cn("text-lg font-medium", className);
+
   return (
     <div>
       {discountPrice === undefined ? (
-        <h4 className="text-lg font-medium ">£{price.toFixed(2)}</h4>
+        <h4 className={`${priceLabelStyles}`}>£{price.toFixed(2)}</h4>
       ) : (
-        <h4 className="text-lg font-medium">
+        <h4 className={`${priceLabelStyles}`}>
           <span className=" text-sm font-light line-through decoration-2">
             £{price.toFixed(2)}
           </span>{" "}
