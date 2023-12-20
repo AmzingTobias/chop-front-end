@@ -1,9 +1,8 @@
 "use client";
 import ProductCard from "./ProductCard";
-import Searchbar from "@/app/components/searchbars/Searchbar";
 import Sidebar from "./Sidebar";
 import { IProductEntryWithImages } from "@/app/data/products";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 interface IProductResultsProps {
   products: IProductEntryWithImages[];
   productImageWidth?: number;
@@ -15,21 +14,23 @@ const ProductResults: React.FC<IProductResultsProps> = ({
   productImageWidth,
   productImageHeight,
 }) => {
-  const maxProductPrice = products.reduce(
-    (prev, item) => (item.productPrice > prev.productPrice ? item : prev),
-    { productPrice: 0 }
-  ).productPrice;
-
+  const [maxProductPrice, setMaxProductPrice] = useState(0);
   const [filteredProducts, setfilteredProducts] = useState(products);
+
+  useEffect(() => {
+    const getMaxProductPrice = () => {
+      return products.reduce(
+        (prev, item) => (item.productPrice > prev.productPrice ? item : prev),
+        { productPrice: 0 }
+      ).productPrice;
+    };
+
+    setMaxProductPrice(getMaxProductPrice());
+    setfilteredProducts(products);
+  }, [products]);
 
   return (
     <div className="w-full">
-      <Searchbar
-        variant="accent"
-        showResultsOnInputChange={true}
-        searchResultLimit={10}
-      />
-      <br className="md:my-4" />
       <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8">
         <div className="w-full md:w-1/3 h-fit bg-accent rounded-md text-accent-foreground p-4">
           <Sidebar

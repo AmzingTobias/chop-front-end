@@ -19,12 +19,14 @@ interface ISearchbarProps {
   variant?: "secondary" | "accent";
   searchResultLimit?: number;
   showResultsOnInputChange?: boolean;
+  defaultValue?: string;
 }
 
 export const Searchbar: React.FC<ISearchbarProps> = ({
   variant = "secondary",
   searchResultLimit = 5,
   showResultsOnInputChange = false,
+  defaultValue = "",
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [searchResults, setSearchResults] = useState<IProductEntryWithImages[]>(
@@ -36,7 +38,9 @@ export const Searchbar: React.FC<ISearchbarProps> = ({
   const performSearch = (query: string) => {
     if (query.length >= 3) {
       searchForProducts(query).then((products) => {
-        setSearchResults(products);
+        mapProductsToImages(products, 50, 66.4).then((productsWithImages) => {
+          setSearchResults(productsWithImages);
+        });
       });
     } else {
       setSearchResults([]);
@@ -45,7 +49,7 @@ export const Searchbar: React.FC<ISearchbarProps> = ({
 
   const redirectToSearchPage = () => {
     if (inputRef.current !== null && inputRef.current.value.length >= 3) {
-      router.push(`/search?=${inputRef.current.value}`);
+      router.push(`/search?query=${inputRef.current.value}`);
     }
   };
 
@@ -68,6 +72,7 @@ export const Searchbar: React.FC<ISearchbarProps> = ({
       <div className="w-full flex flex-row space-x-2 items-center">
         <div className="flex flex-col w-full">
           <Input
+            defaultValue={defaultValue}
             onFocus={() => setSearchInFocus(true)}
             ref={inputRef}
             onChange={(event) => {

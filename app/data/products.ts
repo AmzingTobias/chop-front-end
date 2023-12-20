@@ -162,9 +162,7 @@ export const mapProductsToImages = async (
   );
 };
 
-export const searchForProducts = (
-  query: string
-): Promise<IProductEntryWithImages[]> => {
+export const searchForProducts = (query: string): Promise<IProductEntry[]> => {
   return new Promise((resolve, reject) => {
     fetch(
       `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/products/?search=${query}`
@@ -174,11 +172,7 @@ export const searchForProducts = (
           response
             .json()
             .then((responseAsJson: IProductEntry[]) => {
-              mapProductsToImages(responseAsJson, 50, 66.4)
-                .then((productsWithImages) => {
-                  resolve(productsWithImages);
-                })
-                .catch((err) => reject(err));
+              resolve(responseAsJson);
             })
             .catch((err) => reject(err));
         }

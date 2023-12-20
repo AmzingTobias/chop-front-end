@@ -4,6 +4,7 @@ import {
 } from "@/app/data/products";
 
 import ProductResults from "./ProductResults";
+import Searchbar from "@/app/components/searchbars/Searchbar";
 
 export async function generateStaticParams() {
   const productTypes = await fetch(
@@ -26,6 +27,12 @@ export default async function Page({ params }: { params: { id: number } }) {
 
   return (
     <main className="flex flex-col w-full overflow-x-clip p-1">
+      <Searchbar
+        variant="accent"
+        showResultsOnInputChange={true}
+        searchResultLimit={10}
+      />
+      <br className="my-2" />
       <div className="md:hidden w-full">
         <ProductResults
           products={productsToDisplay}
@@ -34,7 +41,11 @@ export default async function Page({ params }: { params: { id: number } }) {
         />
       </div>
       <div className="hidden md:flex w-full">
-        <ProductResults products={productsToDisplay} />
+        <ProductResults
+          products={productsToDisplay}
+          productImageHeight={250}
+          productImageWidth={188}
+        />
       </div>
     </main>
   );
