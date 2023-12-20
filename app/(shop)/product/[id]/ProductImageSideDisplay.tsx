@@ -59,7 +59,7 @@ const ProductImageSideDisplay: React.FC<IProductImageSideDisplayProps> = ({
   }, [scrollAreaRef]);
 
   return (
-    <ScrollArea ref={scrollAreaRef} className="flex text-accent">
+    <ScrollArea ref={scrollAreaRef} className="flex text-accent w-fit">
       <div className="flex flex-col space-y-2" ref={productImagesRef}>
         {images.map((image, index) => (
           <Image

@@ -17,7 +17,7 @@ const ProductImageDisplay: React.FC<IProductImageDisplayProps> = ({
   if (images.length < 1) {
     return (
       <Image
-        className="flex rounded-md"
+        className="flex rounded-md w-fit"
         blurDataURL={noProductImage.src}
         placeholder={`blur`}
         alt="MAIN PRODUCT"
@@ -29,7 +29,11 @@ const ProductImageDisplay: React.FC<IProductImageDisplayProps> = ({
   }
 
   return (
-    <div className="flex flex-row max-h-[530px] space-x-2">
+    <div
+      className={`flex flex-row max-h-[530px] ${
+        images.length > 1 ? "space-x-2" : ""
+      } min-w-fit`}
+    >
       <ProductImageSideDisplay
         images={images}
         setActiveImage={setActiveImageIndex}
