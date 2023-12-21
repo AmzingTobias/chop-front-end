@@ -45,7 +45,7 @@ const ProductPage = async ({ params }: { params: { id: number } }) => {
 
   return (
     <main className="flex flex-col w-full overflow-x-clip p-1 space-y-8">
-      <div className="flex flex-row w-full space-x-6">
+      <div className="flex flex-col md:flex-row w-full space-y-8 md:space-y-0 md:space-x-6 items-center md:items-start">
         <ProductImageDisplay images={productImages} />
         <MainProductSection
           productId={productDetails.id}
@@ -65,7 +65,7 @@ const ProductPage = async ({ params }: { params: { id: number } }) => {
                 }
           }
         />
-        <div className="min-w-[300px] max-w-[300px]">
+        <div className="min-w-full max-w-full md:min-w-[300px]  md:max-w-[300px]">
           <PurchaseSection
             productId={productDetails.id}
             price={productDetails.price}

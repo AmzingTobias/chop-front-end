@@ -16,9 +16,10 @@ const ProductImageDisplay: React.FC<IProductImageDisplayProps> = ({
   if (images.length < 1) {
     return (
       <Image
-        className="flex rounded-md w-fit max-h-[530px]"
+        className="flex rounded-md w-fit max-h-fit md:max-h-[530px]"
         blurDataURL={noProductImage.src}
         placeholder={`blur`}
+        loading="eager"
         alt="MAIN PRODUCT"
         width={400}
         height={530}
@@ -29,14 +30,26 @@ const ProductImageDisplay: React.FC<IProductImageDisplayProps> = ({
 
   return (
     <div
-      className={`flex flex-row max-h-[530px] ${
-        images.length > 1 ? "space-x-2" : ""
+      className={`flex flex-col-reverse md:flex-row max-h-fit md:max-h-[530px] ${
+        images.length > 1
+          ? "space-y-2 space-y-reverse md:space-y-0 md:space-x-2"
+          : ""
       } min-w-fit`}
     >
-      <ProductImageSideDisplay
-        images={images}
-        setActiveImage={setActiveImageIndex}
-      />
+      <div className="flex md:hidden">
+        <ProductImageSideDisplay
+          orientation="horizontal"
+          images={images}
+          setActiveImage={setActiveImageIndex}
+        />
+      </div>
+      <div className="hidden md:flex">
+        <ProductImageSideDisplay
+          orientation="vertical"
+          images={images}
+          setActiveImage={setActiveImageIndex}
+        />
+      </div>
       <Image
         className="flex rounded-md"
         blurDataURL={noProductImage.src}

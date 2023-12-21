@@ -16,7 +16,7 @@ const MainProductSection: React.FC<IMainProductSectionProps> = ({
 }) => {
   return (
     <div className="flex w-full flex-col">
-      <div className="flex flex-row items-center">
+      <div className="flex flex-row items-start">
         <h2 className="font-semibold text-3xl">{productName}</h2>
         <div className="ml-auto">
           <ProductFavouriteBtn />
