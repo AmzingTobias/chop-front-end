@@ -182,3 +182,24 @@ export const searchForProducts = (query: string): Promise<IProductEntry[]> => {
       .catch((err) => reject(err));
   });
 };
+
+export const getProductsOfSameStyle = (
+  productId: number | string
+): Promise<IProductEntry[]> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/products/styles/${productId}`
+    )
+      .then((response) => {
+        if (response.ok) {
+          response
+            .json()
+            .then((responseAsJson) => {
+              resolve(responseAsJson);
+            })
+            .catch((err) => reject(err));
+        }
+      })
+      .catch((err) => reject(err));
+  });
+};

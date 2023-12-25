@@ -9,9 +9,13 @@ import { IoCheckmark } from "react-icons/io5";
 
 interface IAddToBasketBtnProps {
   productId: number;
+  quantityToAdd?: number;
 }
 
-const AddToBasketBtn: React.FC<IAddToBasketBtnProps> = ({ productId }) => {
+const AddToBasketBtn: React.FC<IAddToBasketBtnProps> = ({
+  productId,
+  quantityToAdd = 1,
+}) => {
   const [addedToBasket, setAddedToBasket] = useState(false);
 
   const dispatch = useDispatch();
@@ -22,7 +26,7 @@ const AddToBasketBtn: React.FC<IAddToBasketBtnProps> = ({ productId }) => {
 
   const addProductToBasket = () => {
     const accountLoggedIn = cookies.auth !== undefined;
-    dispatch(addToCart({ productId: productId }));
+    dispatch(addToCart({ productId: productId, quantity: quantityToAdd }));
   };
 
   useEffect(() => {
