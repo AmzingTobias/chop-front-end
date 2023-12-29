@@ -51,7 +51,7 @@ const LoginForm = () => {
               setCookie("auth", jsonResponse["token"], {
                 secure: true,
                 expires: expireDate,
-                sameSite: "lax",
+                sameSite: "none",
               });
               router.push("/");
             })
