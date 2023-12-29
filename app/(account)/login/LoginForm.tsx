@@ -52,6 +52,8 @@ const LoginForm = () => {
                 secure: true,
                 expires: expireDate,
                 sameSite: "none",
+                httpOnly: true,
+                domain: process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS,
               });
               router.push("/");
             })
