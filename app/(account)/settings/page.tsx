@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import { ChangePasswordForm } from "./ChangePasswordForm";
 import { SettingOptions, TSettingOptions } from "./SettingOptions";
-import SettingsContent from "./SettingsContent";
+import AddressBook from "./AddressBook";
 const settings: TSettingOptions[] = [
   {
     optionDisplayName: "Account Security",
@@ -15,7 +15,11 @@ const settings: TSettingOptions[] = [
   {
     optionDisplayName: "Address Book",
     optionHeaderName: "Addresses",
-    optionContent: <SettingsContent />,
+    optionContent: (
+      <div className="lg:w-1/2">
+        <AddressBook />
+      </div>
+    ),
   },
 ];
 
