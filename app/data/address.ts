@@ -29,7 +29,6 @@ export const getCountriesAvailableForShipping = (): Promise<
       {
         headers: {
           "Content-type": "application/json",
-          mode: "same-origin",
         },
       }
     )
@@ -60,8 +59,8 @@ export const getCustomerAddresses = (): Promise<TCustomerAddress[]> => {
       {
         headers: {
           "Content-type": "application/json",
-          mode: "same-origin",
         },
+        mode: "cors",
         credentials: "include",
       }
     )
@@ -92,8 +91,8 @@ export const getDefaultAddress = (): Promise<number | null> => {
       {
         headers: {
           "Content-type": "application/json",
-          mode: "same-origin",
         },
+        mode: "cors",
         credentials: "include",
       }
     )
@@ -126,8 +125,8 @@ export const serverUpdateDefaultAddress = (
       {
         headers: {
           "Content-type": "application/json",
-          mode: "same-origin",
         },
+        mode: "cors",
         credentials: "include",
         method: "PUT",
         body: JSON.stringify({
@@ -154,8 +153,8 @@ export const serverSetDefaultAddress = (
       {
         headers: {
           "Content-type": "application/json",
-          mode: "same-origin",
         },
+        mode: "cors",
         credentials: "include",
         method: "POST",
         body: JSON.stringify({
@@ -180,8 +179,8 @@ export const serverDeleteAddress = (addressId: number): Promise<boolean> => {
       {
         headers: {
           "Content-type": "application/json",
-          mode: "same-origin",
         },
+        mode: "cors",
         credentials: "include",
         method: "DELETE",
         body: JSON.stringify({
@@ -208,8 +207,8 @@ export const createNewAddress = (
       {
         headers: {
           "Content-type": "application/json",
-          mode: "same-origin",
         },
+        mode: "cors",
         credentials: "include",
         method: "POST",
         body: JSON.stringify({
