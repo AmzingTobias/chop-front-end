@@ -46,16 +46,6 @@ const LoginForm = () => {
           response
             .json()
             .then((jsonResponse) => {
-              const expireDate = new Date(
-                new Date().setDate(new Date().getDate() + 7)
-              );
-              // setCookie("auth", jsonResponse["token"], {
-              //   secure: true,
-              //   expires: expireDate,
-              //   sameSite: "none",
-              //   httpOnly: true,
-              //   domain: process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS,
-              // });
               router.push("/");
             })
             .catch((err) => {
