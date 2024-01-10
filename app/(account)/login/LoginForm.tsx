@@ -28,10 +28,11 @@ const LoginForm = () => {
     fetch(
       `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/auth/customer/login`,
       {
-        headers: {
-          "Content-type": "application/json",
-        },
         method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({
           email: values.email,
           password: values.password,
@@ -48,13 +49,13 @@ const LoginForm = () => {
               const expireDate = new Date(
                 new Date().setDate(new Date().getDate() + 7)
               );
-              setCookie("auth", jsonResponse["token"], {
-                secure: true,
-                expires: expireDate,
-                sameSite: "none",
-                httpOnly: true,
-                domain: process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS,
-              });
+              // setCookie("auth", jsonResponse["token"], {
+              //   secure: true,
+              //   expires: expireDate,
+              //   sameSite: "none",
+              //   httpOnly: true,
+              //   domain: process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS,
+              // });
               router.push("/");
             })
             .catch((err) => {
