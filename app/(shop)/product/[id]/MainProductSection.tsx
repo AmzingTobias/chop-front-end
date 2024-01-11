@@ -23,6 +23,7 @@ const MainProductSection: React.FC<IMainProductSectionProps> = ({
         <h2 className="font-semibold text-3xl">{productName}</h2>
         <div className="ml-auto">
           <ProductFavouriteBtn
+            productId={productId}
             customerLoggedIn={accountTypeLoggedIn === EAccountTypes.customer}
           />
         </div>

@@ -43,6 +43,7 @@ const ProductCard: React.FC<IProductCardProps> = ({
             </Link>
             <div className="ml-auto">
               <ProductFavouriteBtn
+                productId={productId}
                 customerLoggedIn={
                   accountTypeLoggedIn === EAccountTypes.customer
                 }
