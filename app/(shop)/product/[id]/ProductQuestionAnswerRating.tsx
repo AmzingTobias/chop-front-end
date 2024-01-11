@@ -27,7 +27,6 @@ const ProductQuestionAnswerRating: React.FC<
       if (response.ok) {
         response.json().then((jsonData) => {
           setAnswerRating(jsonData.rating);
-          console.log(jsonData);
           if (typeof jsonData.userFoundReviewHelpful === "boolean") {
             setUserRating(jsonData.userFoundReviewHelpful);
           } else {
