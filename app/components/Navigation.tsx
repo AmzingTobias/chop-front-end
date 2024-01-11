@@ -6,15 +6,16 @@ import VerticalNavbar from "./navbars/VerticalNavbar";
 import { useState } from "react";
 import { TNavigationLinks } from "../data/navigationLinks";
 import MobileSearchBar from "./searchbars/MobileSearchBar";
+import { EAccountTypes } from "../data/auth";
 
 interface INavigationProps {
   minorNavbarBtns: TNavigationLinks[];
-  accountLoggedIn: boolean;
+  accountTypeLoggedIn: EAccountTypes | undefined;
 }
 
 const Navigation: React.FC<INavigationProps> = ({
   minorNavbarBtns,
-  accountLoggedIn,
+  accountTypeLoggedIn,
 }) => {
   const [mobileNavbarOpen, setMobileNavbarOpen] = useState(false);
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
@@ -23,7 +24,7 @@ const Navigation: React.FC<INavigationProps> = ({
     <>
       <Titlebar
         setMobileNavbarOpen={setMobileNavbarOpen}
-        accountLoggedIn={accountLoggedIn}
+        accountTypeLoggedIn={accountTypeLoggedIn}
         setMobileSearchOpen={setMobileSearchOpen}
         mobileSearchOpen={mobileSearchOpen}
       />

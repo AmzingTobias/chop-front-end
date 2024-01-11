@@ -4,12 +4,12 @@ import { IoIosThumbsUp, IoIosThumbsDown } from "react-icons/io";
 interface IProductQuestionAnswerRatingProps {
   answerId: number;
   overallRating: number;
-  userLoggedIn: boolean;
+  customerLoggedIn: boolean;
 }
 
 const ProductQuestionAnswerRating: React.FC<
   IProductQuestionAnswerRatingProps
-> = ({ answerId, overallRating, userLoggedIn }) => {
+> = ({ answerId, overallRating, customerLoggedIn }) => {
   const [answerRating, setAnswerRating] = useState(overallRating);
   const [userRating, setUserRating] = useState<boolean | undefined>(undefined);
   const [componentLoading, setComponentLoading] = useState(true);
@@ -86,7 +86,7 @@ const ProductQuestionAnswerRating: React.FC<
 
   return (
     <div className="flex space-x-2">
-      {userLoggedIn && (
+      {customerLoggedIn && (
         <button
           onClick={() => rateAnswer(true)}
           disabled={componentLoading}
@@ -100,7 +100,7 @@ const ProductQuestionAnswerRating: React.FC<
         </button>
       )}
       <p className="w-8 text-center font-semibold">{answerRating}</p>
-      {userLoggedIn && (
+      {customerLoggedIn && (
         <button
           onClick={() => rateAnswer(false)}
           disabled={componentLoading}

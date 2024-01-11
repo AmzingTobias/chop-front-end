@@ -2,12 +2,16 @@ import AddToBasketBtn from "@/app/components/product-cards/common/AddToBasketBtn
 import PriceLabel from "@/app/components/product-cards/common/PriceLabel";
 import ProductFavouriteBtn from "@/app/components/product-cards/common/ProductFavouriteBtn";
 import ProductImageWithHover from "@/app/components/product-cards/common/ProductImageWithHover";
+import { EAccountTypes } from "@/app/data/auth";
 import { IProductEntryWithImages } from "@/app/data/products";
 import Link from "next/link";
 
-interface IProductCardProps extends IProductEntryWithImages {}
+interface IProductCardProps extends IProductEntryWithImages {
+  accountTypeLoggedIn: EAccountTypes | undefined;
+}
 
 const ProductCard: React.FC<IProductCardProps> = ({
+  accountTypeLoggedIn,
   productId,
   productPageLink,
   productName,
@@ -38,7 +42,12 @@ const ProductCard: React.FC<IProductCardProps> = ({
               </h2>
             </Link>
             <div className="ml-auto">
-              <ProductFavouriteBtn />
+              <ProductFavouriteBtn
+                productId={productId}
+                customerLoggedIn={
+                  accountTypeLoggedIn === EAccountTypes.customer
+                }
+              />
             </div>
           </div>
           <Link className="hover:underline" href={`/brands/${brandId}`}>

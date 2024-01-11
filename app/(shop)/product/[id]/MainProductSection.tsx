@@ -1,4 +1,5 @@
 import ProductFavouriteBtn from "@/app/components/product-cards/common/ProductFavouriteBtn";
+import { EAccountTypes } from "@/app/data/auth";
 import Link from "next/link";
 
 interface IMainProductSectionProps {
@@ -6,6 +7,7 @@ interface IMainProductSectionProps {
   productName: string;
   productBrand?: { id: number; name: string };
   productDescription: string;
+  accountTypeLoggedIn: EAccountTypes | undefined;
 }
 
 const MainProductSection: React.FC<IMainProductSectionProps> = ({
@@ -13,13 +15,17 @@ const MainProductSection: React.FC<IMainProductSectionProps> = ({
   productName,
   productDescription,
   productBrand,
+  accountTypeLoggedIn,
 }) => {
   return (
     <div className="flex w-full flex-col">
       <div className="flex flex-row items-start">
         <h2 className="font-semibold text-3xl">{productName}</h2>
         <div className="ml-auto">
-          <ProductFavouriteBtn />
+          <ProductFavouriteBtn
+            productId={productId}
+            customerLoggedIn={accountTypeLoggedIn === EAccountTypes.customer}
+          />
         </div>
       </div>
       {productBrand && (

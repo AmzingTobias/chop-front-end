@@ -1,15 +1,18 @@
 "use client";
+import { EAccountTypes } from "@/app/data/auth";
 import ProductCard from "./ProductCard";
 import Sidebar from "./Sidebar";
 import { IProductEntryWithImages } from "@/app/data/products";
 import { useEffect, useState } from "react";
 interface IProductResultsProps {
+  accountTypeLoggedIn: EAccountTypes | undefined;
   products: IProductEntryWithImages[];
   productImageWidth: number;
   productImageHeight: number;
 }
 
 const ProductResults: React.FC<IProductResultsProps> = ({
+  accountTypeLoggedIn,
   products,
   productImageWidth,
   productImageHeight,
@@ -45,6 +48,7 @@ const ProductResults: React.FC<IProductResultsProps> = ({
             return (
               <div key={product.productId}>
                 <ProductCard
+                  accountTypeLoggedIn={accountTypeLoggedIn}
                   productId={product.productId}
                   productPageLink={product.productPageLink}
                   productName={product.productName}
