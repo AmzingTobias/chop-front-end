@@ -4,12 +4,14 @@ import Sidebar from "./Sidebar";
 import { IProductEntryWithImages } from "@/app/data/products";
 import { useEffect, useState } from "react";
 interface IProductResultsProps {
+  userLoggedIn: boolean;
   products: IProductEntryWithImages[];
   productImageWidth: number;
   productImageHeight: number;
 }
 
 const ProductResults: React.FC<IProductResultsProps> = ({
+  userLoggedIn,
   products,
   productImageWidth,
   productImageHeight,
@@ -45,6 +47,7 @@ const ProductResults: React.FC<IProductResultsProps> = ({
             return (
               <div key={product.productId}>
                 <ProductCard
+                  userLoggedIn={userLoggedIn}
                   productId={product.productId}
                   productPageLink={product.productPageLink}
                   productName={product.productName}

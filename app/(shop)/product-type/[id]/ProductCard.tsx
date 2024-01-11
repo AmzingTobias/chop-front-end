@@ -5,9 +5,12 @@ import ProductImageWithHover from "@/app/components/product-cards/common/Product
 import { IProductEntryWithImages } from "@/app/data/products";
 import Link from "next/link";
 
-interface IProductCardProps extends IProductEntryWithImages {}
+interface IProductCardProps extends IProductEntryWithImages {
+  userLoggedIn: boolean;
+}
 
 const ProductCard: React.FC<IProductCardProps> = ({
+  userLoggedIn,
   productId,
   productPageLink,
   productName,
@@ -38,7 +41,7 @@ const ProductCard: React.FC<IProductCardProps> = ({
               </h2>
             </Link>
             <div className="ml-auto">
-              <ProductFavouriteBtn />
+              <ProductFavouriteBtn customerLoggedIn={userLoggedIn} />
             </div>
           </div>
           <Link className="hover:underline" href={`/brands/${brandId}`}>

@@ -55,6 +55,7 @@ const ProductPage = async ({ params }: { params: { id: number } }) => {
       <div className="flex flex-col md:flex-row w-full space-y-8 md:space-y-0 md:space-x-6 items-center md:items-start">
         <ProductImageDisplay images={productImages} />
         <MainProductSection
+          userLoggedIn={accountLoggedIn}
           productId={productDetails.id}
           productName={productDetails.name}
           productDescription={

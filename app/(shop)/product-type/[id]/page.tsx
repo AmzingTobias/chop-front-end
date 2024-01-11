@@ -5,6 +5,7 @@ import {
 
 import ProductResults from "./ProductResults";
 import Searchbar from "@/app/components/searchbars/Searchbar";
+import { cookies } from "next/headers";
 
 export async function generateStaticParams() {
   const productTypes = await fetch(
@@ -25,6 +26,8 @@ export default async function Page({ params }: { params: { id: number } }) {
     250
   );
 
+  const accountLoggedIn = cookies().has("auth");
+
   return (
     <main className="flex flex-col w-full overflow-x-clip p-1">
       <Searchbar
@@ -35,6 +38,7 @@ export default async function Page({ params }: { params: { id: number } }) {
       <br className="my-2" />
       <div className="md:hidden w-full">
         <ProductResults
+          userLoggedIn={accountLoggedIn}
           products={productsToDisplay}
           productImageHeight={120}
           productImageWidth={120}
@@ -42,6 +46,7 @@ export default async function Page({ params }: { params: { id: number } }) {
       </div>
       <div className="hidden md:flex w-full">
         <ProductResults
+          userLoggedIn={accountLoggedIn}
           products={productsToDisplay}
           productImageHeight={250}
           productImageWidth={188}

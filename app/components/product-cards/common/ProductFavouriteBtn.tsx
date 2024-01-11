@@ -1,11 +1,25 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 
-const ProductFavouriteBtn = () => {
+interface IProductFavouriteBtnProps {
+  customerLoggedIn: boolean;
+}
+
+const ProductFavouriteBtn: React.FC<IProductFavouriteBtnProps> = ({
+  customerLoggedIn,
+}) => {
   //TODO Load from API
   const [isFavourite, setIsFavourite] = useState(false);
+
+  useEffect(() => {
+    // Fetch data
+  });
+
+  if (!customerLoggedIn) {
+    return <></>;
+  }
 
   return (
     <div

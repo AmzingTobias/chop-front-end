@@ -6,6 +6,7 @@ interface IMainProductSectionProps {
   productName: string;
   productBrand?: { id: number; name: string };
   productDescription: string;
+  userLoggedIn: boolean;
 }
 
 const MainProductSection: React.FC<IMainProductSectionProps> = ({
@@ -13,13 +14,14 @@ const MainProductSection: React.FC<IMainProductSectionProps> = ({
   productName,
   productDescription,
   productBrand,
+  userLoggedIn,
 }) => {
   return (
     <div className="flex w-full flex-col">
       <div className="flex flex-row items-start">
         <h2 className="font-semibold text-3xl">{productName}</h2>
         <div className="ml-auto">
-          <ProductFavouriteBtn />
+          <ProductFavouriteBtn customerLoggedIn={userLoggedIn} />
         </div>
       </div>
       {productBrand && (
