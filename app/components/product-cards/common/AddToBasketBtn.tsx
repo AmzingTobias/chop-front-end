@@ -3,7 +3,6 @@
 import { addToCart, hideLoading } from "@/app/redux/slices/basket.slice";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
-import { useCookies } from "react-cookie";
 import { useDispatch } from "react-redux";
 import { IoCheckmark } from "react-icons/io5";
 
@@ -22,10 +21,7 @@ const AddToBasketBtn: React.FC<IAddToBasketBtnProps> = ({
 
   const addProductToServer = () => {};
 
-  const [cookies] = useCookies(["auth"]);
-
   const addProductToBasket = () => {
-    const accountLoggedIn = cookies.auth !== undefined;
     dispatch(addToCart({ productId: productId, quantity: quantityToAdd }));
   };
 

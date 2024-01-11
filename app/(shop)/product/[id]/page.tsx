@@ -1,5 +1,6 @@
 import { getProductImages } from "@/app/data/images";
 import {
+  getProductQuestionsWithAnswers,
   getProductWithId,
   getProductsOfSameStyle,
   getRandomProducts,
@@ -10,6 +11,9 @@ import MainProductSection from "./MainProductSection";
 import PurchaseSection from "./PurchaseSection";
 import ProductCarousel from "@/app/components/product-cards/ProductCarousel";
 import SectionHeading from "@/app/components/SectionHeading";
+import ProductQuestions from "./ProductQuestions";
+import { cookies } from "next/headers";
+import AskAProductQuestionForm from "./AskAProductQuestionForm";
 
 export async function generateStaticParams() {
   const productIds = await fetch(
@@ -36,12 +40,15 @@ const ProductPage = async ({ params }: { params: { id: number } }) => {
     100
   );
 
+  const productQuestions = await getProductQuestionsWithAnswers(params.id);
   // TODO - Make tailored to what customers actually looked at, rather than random
   const customersAlsoLookedAt = await mapProductsToImages(
     await getRandomProducts(25),
     640,
     853
   );
+
+  const accountLoggedIn = cookies().has("auth");
 
   return (
     <main className="flex flex-col w-full overflow-x-clip p-1 space-y-8">
@@ -80,6 +87,18 @@ const ProductPage = async ({ params }: { params: { id: number } }) => {
           imageWidth={640}
           imageHeight={853}
         />
+      </div>
+      <div className="flex flex-col space-y-4">
+        <SectionHeading text="Questions asked by customers" />
+        <div className="flex flex-col space-y-6">
+          {productQuestions.length > 0 && (
+            <ProductQuestions
+              questions={productQuestions}
+              userLoggedIn={accountLoggedIn}
+            />
+          )}
+          <AskAProductQuestionForm productId={params.id} />
+        </div>
       </div>
     </main>
   );

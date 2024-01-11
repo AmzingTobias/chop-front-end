@@ -66,7 +66,6 @@ const AddressForm: React.FC<IAddressFormProps> = ({
     setIsMounted(true);
   }, []);
 
-  // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -77,7 +76,6 @@ const AddressForm: React.FC<IAddressFormProps> = ({
     },
   });
 
-  // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
     const newAddress: TCustomerAddress = {
       firstAddressLine: values.firstAddressLine,
