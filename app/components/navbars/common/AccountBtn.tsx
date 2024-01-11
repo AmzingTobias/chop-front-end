@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { BiUser, BiSolidUser, BiExit } from "react-icons/bi";
-import { BsBasket, BsGear } from "react-icons/bs";
+import { BsBasket, BsGear, BsHeartFill } from "react-icons/bs";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,14 +11,16 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useState } from "react";
 
 const AccountBtn: React.FC<{ loggedIn: boolean }> = ({ loggedIn }) => {
   const textStyles = "text-md";
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <div className="hover:cursor-pointer hover:opacity-80">
       {loggedIn ? (
-        <DropdownMenu>
+        <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen}>
           <DropdownMenuTrigger className="flex focus:outline-none">
             <BiSolidUser />
           </DropdownMenuTrigger>
@@ -29,6 +31,7 @@ const AccountBtn: React.FC<{ loggedIn: boolean }> = ({ loggedIn }) => {
             <DropdownMenuSeparator />
             <DropdownMenuItem className={textStyles}>
               <Link
+                onClick={() => setMenuOpen(false)}
                 href="/"
                 className="flex flex-row items-center gap-1.5 w-full"
               >
@@ -38,6 +41,17 @@ const AccountBtn: React.FC<{ loggedIn: boolean }> = ({ loggedIn }) => {
             </DropdownMenuItem>
             <DropdownMenuItem className={textStyles}>
               <Link
+                onClick={() => setMenuOpen(false)}
+                href="/favourites"
+                className="flex flex-row items-center gap-1.5 w-full"
+              >
+                <BsHeartFill />
+                Favourites
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem className={textStyles}>
+              <Link
+                onClick={() => setMenuOpen(false)}
                 href="/settings"
                 className="flex flex-row items-center gap-1.5 w-full"
               >
@@ -48,6 +62,7 @@ const AccountBtn: React.FC<{ loggedIn: boolean }> = ({ loggedIn }) => {
             <DropdownMenuSeparator />
             <DropdownMenuItem className={textStyles}>
               <Link
+                onClick={() => setMenuOpen(false)}
                 href={"/logout"}
                 className="flex flex-row items-center gap-1.5 w-full cursor-pointer"
               >

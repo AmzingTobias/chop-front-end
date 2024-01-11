@@ -1,5 +1,6 @@
 "use client";
 
+import { removeProductFromFavourite } from "@/app/data/products";
 import { useEffect, useState } from "react";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 
@@ -40,35 +41,6 @@ const ProductFavouriteBtn: React.FC<IProductFavouriteBtnProps> = ({
       .catch((err) => {
         console.error(err);
         setIsFavourite(false);
-        setButtonDisabled(true);
-      });
-  };
-
-  const removeProductFromFavoruite = () => {
-    fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/products/${productId}/favourite`,
-      {
-        headers: {
-          "Content-type": "application/json",
-        },
-        credentials: "include",
-        method: "DELETE",
-      }
-    )
-      .then((response) => {
-        if (response.ok) {
-          // Favourite removed
-          setIsFavourite(false);
-          setButtonDisabled(false);
-        } else {
-          // An error occured
-          setIsFavourite(true);
-          setButtonDisabled(true);
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-        setIsFavourite(true);
         setButtonDisabled(true);
       });
   };
@@ -122,13 +94,24 @@ const ProductFavouriteBtn: React.FC<IProductFavouriteBtnProps> = ({
         event.preventDefault();
         if (!buttonDisabled) {
           if (isFavourite) {
-            removeProductFromFavoruite();
+            removeProductFromFavourite(productId)
+              .then((removed) => {
+                setIsFavourite(!removed);
+                setButtonDisabled(!removed);
+              })
+              .catch((err) => {
+                console.error(err);
+                setIsFavourite(false);
+                setButtonDisabled(true);
+              });
           } else {
             setProductAsFavourite();
           }
         }
       }}
-      className="relative flex justify-center cursor-default bg-accent rounded-full p-1.5 text-secondary text-xl "
+      className={`relative flex justify-center cursor-default bg-accent rounded-full p-1.5 text-xl ${
+        !buttonDisabled ? "text-secondary" : "text-primary "
+      }`}
     >
       <AiFillHeart
         className={`absolute ${!buttonDisabled ? "hover:opacity-100" : ""} ${
