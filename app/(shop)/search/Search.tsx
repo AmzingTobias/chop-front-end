@@ -9,12 +9,13 @@ import {
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import ProductResults from "../product-type/[id]/ProductResults";
+import { EAccountTypes } from "@/app/data/auth";
 
 interface ISearchProps {
-  accountLoggedIn: boolean;
+  accountTypeLoggedIn: EAccountTypes | undefined;
 }
 
-const Search: React.FC<ISearchProps> = ({ accountLoggedIn }) => {
+const Search: React.FC<ISearchProps> = ({ accountTypeLoggedIn }) => {
   const queryParams = useSearchParams();
   const searchQuery = queryParams.get("query");
   const [searchLoaded, setSearchLoaded] = useState(false);
@@ -45,7 +46,7 @@ const Search: React.FC<ISearchProps> = ({ accountLoggedIn }) => {
       <br className="my-2" />
       <div className="hidden md:flex w-full">
         <ProductResults
-          userLoggedIn={accountLoggedIn}
+          accountTypeLoggedIn={accountTypeLoggedIn}
           products={searchResults}
           productImageHeight={250}
           productImageWidth={188}
@@ -53,7 +54,7 @@ const Search: React.FC<ISearchProps> = ({ accountLoggedIn }) => {
       </div>
       <div className="md:hidden w-full">
         <ProductResults
-          userLoggedIn={accountLoggedIn}
+          accountTypeLoggedIn={accountTypeLoggedIn}
           products={searchResults}
           productImageHeight={120}
           productImageWidth={120}

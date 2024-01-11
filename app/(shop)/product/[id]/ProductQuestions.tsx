@@ -2,15 +2,16 @@ import { IProductQuestion } from "@/app/data/products";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ProductQuestionAnswer from "./ProductQuestionAnswer";
 import ProductQuestionPostAnswer from "./ProductQuestionPostAnswer";
+import { EAccountTypes } from "@/app/data/auth";
 
 interface IProductQuestionsProps {
   questions: IProductQuestion[];
-  userLoggedIn: boolean;
+  accountTypeLoggedIn: EAccountTypes | undefined;
 }
 
 const ProductQuestions: React.FC<IProductQuestionsProps> = ({
   questions,
-  userLoggedIn,
+  accountTypeLoggedIn,
 }) => {
   return (
     <Tabs
@@ -55,12 +56,12 @@ const ProductQuestions: React.FC<IProductQuestionsProps> = ({
                       <ProductQuestionAnswer
                         key={answer.id}
                         answer={answer}
-                        userLoggedIn={userLoggedIn}
+                        accountTypeLoggedIn={accountTypeLoggedIn}
                       />
                     );
                   })}
               </div>
-              {userLoggedIn && (
+              {accountTypeLoggedIn !== undefined && (
                 <>
                   {question.answers !== undefined &&
                     question.answers.length > 0 && (

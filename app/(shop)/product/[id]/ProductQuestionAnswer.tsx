@@ -1,14 +1,15 @@
 import { IProductQuestionAnswer } from "@/app/data/products";
 import ProductQuestionAnswerRating from "./ProductQuestionAnswerRating";
+import { EAccountTypes } from "@/app/data/auth";
 
 interface IProductQuestionAnswerProps {
   answer: IProductQuestionAnswer;
-  userLoggedIn: boolean;
+  accountTypeLoggedIn: EAccountTypes | undefined;
 }
 
 const ProductQuestionAnswer: React.FC<IProductQuestionAnswerProps> = ({
   answer,
-  userLoggedIn,
+  accountTypeLoggedIn,
 }) => {
   return (
     <div className="flex flex-row gap-2 bg-accent w-full text-accent-foreground p-2 rounded-md ">
@@ -17,7 +18,7 @@ const ProductQuestionAnswer: React.FC<IProductQuestionAnswerProps> = ({
         <ProductQuestionAnswerRating
           overallRating={answer.overallRating}
           answerId={answer.id}
-          userLoggedIn={userLoggedIn}
+          customerLoggedIn={accountTypeLoggedIn === EAccountTypes.customer}
         />
       </div>
     </div>

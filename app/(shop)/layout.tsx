@@ -7,6 +7,7 @@ import { getProductTypes } from "../data/navigationLinks";
 import { cookies } from "next/headers";
 import Footer from "../components/footer/Footer";
 import { StoreProvider } from "../redux/store.provider";
+import { getAccountTypeFromCookie } from "../data/auth";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,7 +21,10 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const accountLoggedIn = cookies().has("auth");
+  const authCookie = cookies().get("auth");
+  const accountTypeLoggedIn = authCookie
+    ? getAccountTypeFromCookie(authCookie.value)
+    : undefined;
 
   return (
     <html lang="en">
@@ -30,7 +34,7 @@ export default async function RootLayout({
         <StoreProvider>
           <Navigation
             minorNavbarBtns={await getProductTypes()}
-            accountLoggedIn={accountLoggedIn}
+            accountTypeLoggedIn={accountTypeLoggedIn}
           />
           <div className="w-full bg-accent-foreground">
             <div

@@ -5,17 +5,18 @@ import ShoppingCartBtn from "./common/ShoppingCartBtn";
 import AccountBtn from "./common/AccountBtn";
 import MobileOpenSearchPage from "./common/MobileOpenSearchPage";
 import { Dispatch, SetStateAction } from "react";
+import { EAccountTypes } from "@/app/data/auth";
 
 interface ITitlebarProps {
   setMobileNavbarOpen: Dispatch<SetStateAction<boolean>>;
-  accountLoggedIn: boolean;
+  accountTypeLoggedIn: EAccountTypes | undefined;
   setMobileSearchOpen: Dispatch<SetStateAction<boolean>>;
   mobileSearchOpen: boolean;
 }
 
 const Titlebar: React.FC<ITitlebarProps> = ({
   setMobileNavbarOpen,
-  accountLoggedIn,
+  accountTypeLoggedIn,
   setMobileSearchOpen,
   mobileSearchOpen,
 }) => {
@@ -44,7 +45,7 @@ const Titlebar: React.FC<ITitlebarProps> = ({
             />
           </div>
           <div className="mr-6">
-            <AccountBtn loggedIn={accountLoggedIn} />
+            <AccountBtn loggedIn={accountTypeLoggedIn !== undefined} />
           </div>
           <ShoppingCartBtn />
         </div>

@@ -14,6 +14,7 @@ import SectionHeading from "@/app/components/SectionHeading";
 import ProductQuestions from "./ProductQuestions";
 import { cookies } from "next/headers";
 import AskAProductQuestionForm from "./AskAProductQuestionForm";
+import { getAccountTypeFromCookie } from "@/app/data/auth";
 
 export async function generateStaticParams() {
   const productIds = await fetch(
@@ -48,14 +49,17 @@ const ProductPage = async ({ params }: { params: { id: number } }) => {
     853
   );
 
-  const accountLoggedIn = cookies().has("auth");
+  const authCookie = cookies().get("auth");
+  const accountTypeLoggedIn = authCookie
+    ? getAccountTypeFromCookie(authCookie.value)
+    : undefined;
 
   return (
     <main className="flex flex-col w-full overflow-x-clip p-1 space-y-8">
       <div className="flex flex-col md:flex-row w-full space-y-8 md:space-y-0 md:space-x-6 items-center md:items-start">
         <ProductImageDisplay images={productImages} />
         <MainProductSection
-          userLoggedIn={accountLoggedIn}
+          accountTypeLoggedIn={accountTypeLoggedIn}
           productId={productDetails.id}
           productName={productDetails.name}
           productDescription={
@@ -95,7 +99,7 @@ const ProductPage = async ({ params }: { params: { id: number } }) => {
           {productQuestions.length > 0 && (
             <ProductQuestions
               questions={productQuestions}
-              userLoggedIn={accountLoggedIn}
+              accountTypeLoggedIn={accountTypeLoggedIn}
             />
           )}
           <AskAProductQuestionForm productId={params.id} />
