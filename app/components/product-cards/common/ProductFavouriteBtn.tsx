@@ -131,7 +131,7 @@ const ProductFavouriteBtn: React.FC<IProductFavouriteBtnProps> = ({
       className="relative flex justify-center cursor-default bg-accent rounded-full p-1.5 text-secondary text-xl "
     >
       <AiFillHeart
-        className={`absolute hover:opacity-100 ${
+        className={`absolute ${!buttonDisabled ? "hover:opacity-100" : ""} ${
           isFavourite ? "opacity-100" : "opacity-0"
         }`}
       />
