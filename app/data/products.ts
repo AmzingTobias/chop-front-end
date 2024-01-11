@@ -26,6 +26,28 @@ export interface IProductEntryWithImages {
   imageHeight: number;
 }
 
+export interface IProductQuestionAnswer {
+  // The id of the answer
+  id: number;
+  // The id of the user who answered the question
+  answeredBy: number;
+  // The answer provided by the user
+  answer: string;
+  // When the answer provided
+  answeredOn: Date;
+  // The overall rating of the answer
+  overallRating: number;
+}
+
+export interface IProductQuestion {
+  id: number;
+  question: string;
+  // The id of the user who asked the question
+  askedBy: number;
+  askedOn: Date;
+  answers?: IProductQuestionAnswer[];
+}
+
 export const getProductWithId = (
   productId: number
 ): Promise<IProductEntry | null> => {
@@ -167,7 +189,8 @@ export const mapProductsToImages = async (
 export const searchForProducts = (query: string): Promise<IProductEntry[]> => {
   return new Promise((resolve, reject) => {
     fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/products/?search=${query}`
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/products/?search=${query}`,
+      { next: { revalidate: 600 } }
     )
       .then((response) => {
         if (response.ok) {
@@ -196,6 +219,45 @@ export const getProductsOfSameStyle = (
             .json()
             .then((responseAsJson) => {
               resolve(responseAsJson);
+            })
+            .catch((err) => reject(err));
+        }
+      })
+      .catch((err) => reject(err));
+  });
+};
+
+export const getProductQuestionsWithAnswers = (
+  productId: number | string
+): Promise<IProductQuestion[]> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/products/questions/${productId}`
+    )
+      .then((response) => {
+        if (response.ok) {
+          response
+            .json()
+            .then(async (productQuestions: IProductQuestion[]) => {
+              const questionsWithAnswers: IProductQuestion[] =
+                await Promise.all(
+                  productQuestions.map(async (question) => {
+                    const res = await fetch(
+                      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/products/questions/answer/${question.id}`
+                    );
+                    if (res.ok) {
+                      const answersToQuestions = await res.json();
+                      const questionsWithAnswers: IProductQuestion = {
+                        ...question,
+                        answers: answersToQuestions,
+                      };
+                      return questionsWithAnswers;
+                    } else {
+                      return question;
+                    }
+                  })
+                );
+              resolve(questionsWithAnswers);
             })
             .catch((err) => reject(err));
         }

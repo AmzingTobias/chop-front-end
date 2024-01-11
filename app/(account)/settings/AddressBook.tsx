@@ -88,8 +88,7 @@ const AddressBook = () => {
           </div>
         );
       })}
-      <hr className="border-accent" />
-      <h2 className="text-3xl font-semibold underl">New address</h2>
+      <h2 className="text-3xl font-semibold underline">New address</h2>
       <AddressForm
         countriesAvailable={availableCountries}
         refreshAddressData={fetchData}

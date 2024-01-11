@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useCookies } from "react-cookie";
 import AccountForm, { formSchema } from "../AccountForm";
 import {
   AlertDialog,
@@ -21,7 +20,6 @@ const LoginForm = () => {
   const [internalError, setInternalError] = useState(false);
   const [emailErrorMsg, setEmailErrorMsg] = useState("");
   const [passwordErrorMsg, setPasswordErrorMsg] = useState("");
-  const [_, setCookie] = useCookies(["auth"]);
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     setLoginRequestPending(true);
