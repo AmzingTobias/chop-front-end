@@ -265,3 +265,121 @@ export const getProductQuestionsWithAnswers = (
       .catch((err) => reject(err));
   });
 };
+
+export const getProductIdsOfFavouriteProducts = (): Promise<number[]> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/products/favourite`,
+      {
+        headers: {
+          "Content-type": "application/json",
+        },
+        mode: "cors",
+        credentials: "include",
+      }
+    )
+      .then(async (response) => {
+        if (response.ok) {
+          response
+            .json()
+            .then((jsonData: { productId: number }[]) => {
+              resolve(jsonData.map((product) => product.productId));
+            })
+            .catch((err) => {
+              console.error(err);
+              reject(err);
+            });
+        } else {
+          reject(`Request failed ${await response.text()}`);
+        }
+      })
+      .catch((err) => {
+        console.error("FETCH FAILING HERE");
+        console.error(err);
+        reject(err);
+      });
+  });
+};
+
+export const getFavouriteProducts = (): Promise<IProductEntryWithImages[]> => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const productIds = await getProductIdsOfFavouriteProducts();
+
+      const products = await Promise.all(
+        productIds.map(async (id) => {
+          const product = await getProductWithId(id);
+
+          if (!product) {
+            console.error(`Product with id: ${id}, not found.`);
+            return null;
+          }
+
+          const productImages = await getProductImages(product.id);
+
+          const details: IProductEntryWithImages = {
+            productId: product.id,
+            productPrice: product.price,
+            productDescription: product.description,
+            brandId: product.brandId,
+            brandName: product.brandName,
+            productPageLink: `./products/${product.id}`,
+            productName: product.name,
+            imageWidth: 600,
+            imageHeight: 600,
+            image: {
+              primaryLink:
+                productImages.length > 0
+                  ? `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/images/products/${product.id}/${productImages[0].fileName}`
+                  : noProductImage.src,
+              hoverLink:
+                productImages.length > 1
+                  ? `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/images/products/${product.id}/${productImages[1].fileName}`
+                  : undefined,
+              altText: "PRODUCT",
+            },
+          };
+
+          return details;
+        })
+      );
+
+      const productsNoNull: IProductEntryWithImages[] = products.filter(
+        (product) => product !== null
+      ) as IProductEntryWithImages[];
+
+      resolve(productsNoNull);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+export const removeProductFromFavourite = (
+  productId: number
+): Promise<boolean> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/products/${productId}/favourite`,
+      {
+        headers: {
+          "Content-type": "application/json",
+        },
+        credentials: "include",
+        method: "DELETE",
+      }
+    )
+      .then((response) => {
+        if (response.ok) {
+          // Favourite removed
+          resolve(true);
+        } else {
+          // An error occured
+          resolve(false);
+        }
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
