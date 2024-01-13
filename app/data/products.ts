@@ -383,3 +383,187 @@ export const removeProductFromFavourite = (
       });
   });
 };
+
+export type TProductReview = {
+  id: number;
+  customerId: number;
+  createdOn: Date;
+  updatedOn: Date | null;
+  rating: number;
+  review: string;
+};
+
+export const getReviewsForProduct = (
+  productId: number
+): Promise<TProductReview[]> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/products/reviews?product=${productId}`,
+      {
+        method: "GET",
+      }
+    )
+      .then(async (response) => {
+        if (response.ok) {
+          response
+            .json()
+            .then((jsonData: TProductReview[]) => {
+              resolve(
+                jsonData.sort((a, b) => {
+                  const dateA = a.updatedOn || a.createdOn;
+                  const dateB = b.updatedOn || b.createdOn;
+
+                  if (dateA !== null && dateB !== null) {
+                    return (new Date(dateB) as any) - (new Date(dateA) as any);
+                  } else if (dateA !== null) {
+                    return (new Date(dateB) as any) - (new Date(dateA) as any);
+                  } else if (dateB !== null) {
+                    return (new Date(dateB) as any) - (new Date(dateA) as any);
+                  } else {
+                    return 0; // Dates are both null, consider them equal
+                  }
+                })
+              );
+            })
+            .catch((err) => {
+              reject(err);
+            });
+        } else {
+          reject(`Request failed ${await response.text()}`);
+        }
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
+
+export const getLastPurchaseDateForProduct = (
+  productId: number
+): Promise<Date | undefined> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/orders/last-purchase/${productId}`,
+      {
+        headers: {
+          "Content-type": "application/json",
+        },
+        credentials: "include",
+        method: "GET",
+      }
+    )
+      .then(async (response) => {
+        if (response.ok) {
+          response
+            .json()
+            .then((jsonData) => {
+              if (typeof jsonData.date === "string") {
+                resolve(new Date(jsonData.date as unknown as string));
+              } else {
+                resolve(undefined);
+              }
+            })
+            .catch((err) => {
+              reject(err);
+            });
+        } else {
+          reject(`Request failed ${await response.text()}`);
+        }
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
+
+export const updateProductReview = (
+  reviewId: number,
+  newReview: string,
+  newRating: number
+): Promise<boolean> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/products/reviews/${reviewId}`,
+      {
+        headers: {
+          "Content-type": "application/json",
+        },
+        credentials: "include",
+        method: "PUT",
+        body: JSON.stringify({
+          rating: newRating,
+          review: newReview,
+        }),
+      }
+    )
+      .then(async (response) => {
+        if (response.ok) {
+          resolve(true);
+        } else {
+          reject(`Request failed ${await response.text()}`);
+        }
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
+
+export const deleteProductReview = (reviewId: number): Promise<boolean> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/products/reviews/${reviewId}`,
+      {
+        headers: {
+          "Content-type": "application/json",
+        },
+        credentials: "include",
+        method: "DELETE",
+      }
+    )
+      .then(async (response) => {
+        if (response.ok) {
+          resolve(true);
+        } else {
+          reject(`Request failed ${await response.text()}`);
+        }
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
+
+export const postProductReview = (
+  productId: number,
+  rating: number,
+  review: string
+): Promise<boolean> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/products/reviews/`,
+      {
+        headers: {
+          "Content-type": "application/json",
+        },
+        credentials: "include",
+        method: "POST",
+        body: JSON.stringify({
+          productId: productId,
+          rating: rating,
+          review: review,
+        }),
+      }
+    )
+      .then(async (response) => {
+        if (response.ok) {
+          resolve(true);
+        } else {
+          reject(`Request failed ${await response.text()}`);
+        }
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};

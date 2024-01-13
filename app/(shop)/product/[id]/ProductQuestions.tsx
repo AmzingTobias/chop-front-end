@@ -23,7 +23,7 @@ const ProductQuestions: React.FC<IProductQuestionsProps> = ({
         <div className="flex flex-col w-full gap-2 p-2 rounded-sm shadow-md bg-accent">
           {questions.map((question) => (
             <TabsTrigger
-              className="text-lg"
+              className="text-lg flex whitespace-normal"
               value={`${question.id}`}
               key={question.id}
             >
@@ -40,7 +40,7 @@ const ProductQuestions: React.FC<IProductQuestionsProps> = ({
             className="mt-0"
           >
             <div className="w-full flex-col space-y-4 mt-0 p-6 bg-primary flex shadow-md rounded-sm">
-              <div className="flex flex-row">
+              <div className="flex flex-col md:flex-row">
                 <h3 className="text-3xl font-semibold">{question.question}</h3>
                 <p className="ml-auto italic">
                   Asked on{" "}

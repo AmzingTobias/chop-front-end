@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import AccountForm, { formSchema } from "../AccountForm";
+import AccountForm from "../AccountForm";
 import { z } from "zod";
 import {
   AlertDialog,
@@ -10,6 +10,7 @@ import {
   AlertDialogContent,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { authFormSchema } from "@/app/data/auth";
 
 const SignupForm = () => {
   const router = useRouter();
@@ -18,7 +19,7 @@ const SignupForm = () => {
   const [emailErrorMsg, setEmailErrorMsg] = useState("");
   const [internalError, setInternalError] = useState(false);
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  function onSubmit(values: z.infer<typeof authFormSchema>) {
     setSignupRequestPending(true);
     setEmailErrorMsg("");
     fetch(

@@ -29,7 +29,6 @@ const Search: React.FC<ISearchProps> = ({ accountTypeLoggedIn }) => {
         mapProductsToImages(products, 188, 250).then((productsWithImages) => {
           setSearchResults(productsWithImages);
           setSearchLoaded(true);
-          console.log(productsWithImages);
         });
       });
     }

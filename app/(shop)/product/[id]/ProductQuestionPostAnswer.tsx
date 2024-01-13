@@ -22,7 +22,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 
-export const formSchema = z
+const formSchema = z
   .object({
     answer: z.string().min(1, { message: "Must provide an answer" }).trim(),
   })
@@ -118,7 +118,7 @@ const ProductQuestionPostAnswer: React.FC<IProductQuestionPostAnswerProps> = ({
             <Button
               disabled={formSubmitted}
               type="submit"
-              className="text-base"
+              className="text-base w-full sm:w-fit"
               variant={"secondary"}
             >
               {formSubmitted ? (

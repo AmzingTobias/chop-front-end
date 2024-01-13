@@ -31,7 +31,6 @@ const ProductImageSideDisplay: React.FC<IProductImageSideDisplayProps> = ({
   const productImagesRef: React.Ref<HTMLDivElement> = useRef(null);
 
   const scrollAreaBy = (multiplier: number) => {
-    console.log();
     if (scrollAreaRef.current !== null) {
       if (
         productImagesRef.current !== null &&

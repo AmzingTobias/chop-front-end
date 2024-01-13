@@ -1,10 +1,13 @@
 import ProductFavouriteBtn from "@/app/components/product-cards/common/ProductFavouriteBtn";
 import { EAccountTypes } from "@/app/data/auth";
 import Link from "next/link";
+import ProductReviewRating from "./ProductReviewRating";
 
 interface IMainProductSectionProps {
   productId: number;
   productName: string;
+  reviewCount: number;
+  rating: number;
   productBrand?: { id: number; name: string };
   productDescription: string;
   accountTypeLoggedIn: EAccountTypes | undefined;
@@ -13,6 +16,8 @@ interface IMainProductSectionProps {
 const MainProductSection: React.FC<IMainProductSectionProps> = ({
   productId,
   productName,
+  reviewCount,
+  rating,
   productDescription,
   productBrand,
   accountTypeLoggedIn,
@@ -28,6 +33,16 @@ const MainProductSection: React.FC<IMainProductSectionProps> = ({
           />
         </div>
       </div>
+      {reviewCount > 0 ? (
+        <>
+          <ProductReviewRating numberOfStars={5} rating={rating / 2.0} />
+          <small className="italic">
+            {reviewCount} review{reviewCount > 1 ? "s" : ""}
+          </small>
+        </>
+      ) : (
+        <small className="italic">No reviews yet</small>
+      )}
       {productBrand && (
         <Link
           className="hover:underline font-medium"

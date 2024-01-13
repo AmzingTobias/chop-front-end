@@ -62,7 +62,6 @@ const ProductFavouriteBtn: React.FC<IProductFavouriteBtnProps> = ({
             response
               .json()
               .then((jsonData) => {
-                console.log(jsonData);
                 setIsFavourite(jsonData.favourited);
                 setButtonDisabled(false);
               })
