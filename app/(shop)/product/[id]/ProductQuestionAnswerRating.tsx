@@ -15,27 +15,29 @@ const ProductQuestionAnswerRating: React.FC<
   const [componentLoading, setComponentLoading] = useState(true);
 
   const fetchRating = useCallback(() => {
-    fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/products/questions/answer/rating/${answerId}`,
-      {
-        headers: {
-          "Content-type": "application/json",
-        },
-        credentials: "include",
-      }
-    ).then((response) => {
-      if (response.ok) {
-        response.json().then((jsonData) => {
-          setAnswerRating(jsonData.rating);
-          if (typeof jsonData.userFoundReviewHelpful === "boolean") {
-            setUserRating(jsonData.userFoundReviewHelpful);
-          } else {
-            setUserRating(undefined);
-          }
-        });
-      }
-    });
-  }, [answerId]);
+    if (customerLoggedIn) {
+      fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/products/questions/answer/rating/${answerId}`,
+        {
+          headers: {
+            "Content-type": "application/json",
+          },
+          credentials: "include",
+        }
+      ).then((response) => {
+        if (response.ok) {
+          response.json().then((jsonData) => {
+            setAnswerRating(jsonData.rating);
+            if (typeof jsonData.userFoundReviewHelpful === "boolean") {
+              setUserRating(jsonData.userFoundReviewHelpful);
+            } else {
+              setUserRating(undefined);
+            }
+          });
+        }
+      });
+    }
+  }, [answerId, customerLoggedIn]);
 
   useEffect(() => {
     setComponentLoading(false);

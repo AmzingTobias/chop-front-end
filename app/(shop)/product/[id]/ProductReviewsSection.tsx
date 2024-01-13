@@ -73,10 +73,15 @@ const ProductReviewsSection: React.FC<IProductReviewsSectionProps> = ({
       )}
 
       {!customerHasReviewed && loggedInCustomerId === undefined && (
-        <ProductReviewForm productId={productId} setReviews={setReviews} />
+        <ProductReviewForm
+          customerLoggedIn={loggedInCustomerId !== undefined}
+          productId={productId}
+          setReviews={setReviews}
+        />
       )}
       {!customerHasReviewed && loggedInCustomerId !== undefined && (
         <ProductReviewForm
+          customerLoggedIn={loggedInCustomerId !== undefined}
           setCustomerHasReviewed={setCustomerHasReviewed}
           productId={productId}
           setReviews={setReviews}
@@ -84,6 +89,7 @@ const ProductReviewsSection: React.FC<IProductReviewsSectionProps> = ({
       )}
       {customerEditingReview && (
         <ProductReviewForm
+          customerLoggedIn={loggedInCustomerId !== undefined}
           productId={productId}
           editReview={customersReview}
           setReviews={setReviews}

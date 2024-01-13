@@ -32,6 +32,7 @@ import {
 
 interface IProductReviewFormProps {
   productId: number;
+  customerLoggedIn: boolean;
   setReviews: React.Dispatch<React.SetStateAction<TProductReview[]>>;
   setCustomerHasReviewed?: React.Dispatch<React.SetStateAction<boolean>>;
   editReview?: TProductReview;
@@ -48,6 +49,7 @@ const formSchema = z
 
 const ProductReviewForm: React.FC<IProductReviewFormProps> = ({
   productId,
+  customerLoggedIn,
   setReviews,
   setCustomerHasReviewed,
   editReview,
@@ -64,10 +66,12 @@ const ProductReviewForm: React.FC<IProductReviewFormProps> = ({
   >(undefined);
 
   useEffect(() => {
-    getLastPurchaseDateForProduct(productId).then((date) => {
-      setLastPurchaseDateForProduct(date);
-    });
-  }, [productId]);
+    if (customerLoggedIn) {
+      getLastPurchaseDateForProduct(productId).then((date) => {
+        setLastPurchaseDateForProduct(date);
+      });
+    }
+  }, [productId, customerLoggedIn]);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
