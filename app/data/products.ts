@@ -146,6 +146,42 @@ export const getProductsByProductType = async (
 };
 
 /**
+ * Get a list of products based on a brand
+ * @param brandId The id of the brand to get the products for
+ * @returns A list of products for the brand.
+ * Rejects on error
+ */
+export const getProductsByBrand = async (
+  brandId: number | string
+): Promise<IProductEntry[]> => {
+  return new Promise((resolve, reject) => {
+    // TODO add tagging to enable revalidate when new products are added
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/brands/${brandId}/products`,
+      { next: { revalidate: 600 } }
+    )
+      .then(async (response) => {
+        if (!response.ok) {
+          console.error(`${response.status}: ${await response.text()}`);
+          resolve([]);
+        } else {
+          response
+            .json()
+            .then((jsonData) => {
+              resolve(jsonData);
+            })
+            .catch((err) => {
+              reject(err);
+            });
+        }
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
+
+/**
  * Take a list of products found and map them, plus their images into the data structure used
  * for mini product cards
  * @param productsFound The list of products to convert to the data structure IMiniProductCardProps

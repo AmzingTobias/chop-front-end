@@ -52,7 +52,7 @@ export default async function Home() {
       </div>
       {accountTypeLoggedIn === EAccountTypes.customer && (
         <div className="flex flex-col gap-2">
-          <SectionHeading text={"Your view history"} />
+          <SectionHeading text={"Recently viewed products"} />
           <ProductViewHistory imageWidth={224} imageHeight={300} />
         </div>
       )}
