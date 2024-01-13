@@ -3,6 +3,7 @@
 import {
   IProductEntryWithImages,
   getProductViewHistoryForCustomer,
+  removeProductFromViewHistory,
 } from "@/app/data/products";
 import { useEffect, useState } from "react";
 import ProductCarousel from "../product-cards/ProductCarousel";
@@ -29,6 +30,20 @@ const ProductViewHistory: React.FC<IProductViewHistoryProps> = ({
       });
   }, []);
 
+  const removeFromViewHistory = (productId: number) => {
+    removeProductFromViewHistory(productId)
+      .then((removed) => {
+        if (removed) {
+          setProducts((prevProducts) =>
+            prevProducts.filter((product) => product.productId !== productId)
+          );
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
   return (
     <div>
       {products.length > 0 ? (
@@ -36,6 +51,7 @@ const ProductViewHistory: React.FC<IProductViewHistoryProps> = ({
           products={products}
           imageWidth={imageWidth}
           imageHeight={imageHeight}
+          removeFromViewHistory={removeFromViewHistory}
         />
       ) : (
         <div className="w-full text-center text-2xl font-semibold bg-primary p-4 rounded-md shadow-md">

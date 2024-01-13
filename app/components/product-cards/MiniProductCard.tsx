@@ -1,13 +1,13 @@
 import Link from "next/link";
 import PriceLabel from "./common/PriceLabel";
-import ProductImageWithHover, {
-  TImageDetails,
-} from "./common/ProductImageWithHover";
+import ProductImageWithHover from "./common/ProductImageWithHover";
 import AddToBasketBtn from "./common/AddToBasketBtn";
 import { IProductEntryWithImages } from "@/app/data/products";
+import RemoveFromViewHistoryBtn from "../products/RemoveFromViewHistoryBtn";
 
 export interface IMiniProductCardProps extends IProductEntryWithImages {
   discountPrice?: number;
+  removeFromViewHistory?: (productId: number) => void;
 }
 
 const MiniProductCard: React.FC<IMiniProductCardProps> = ({
@@ -21,16 +21,14 @@ const MiniProductCard: React.FC<IMiniProductCardProps> = ({
   image,
   imageWidth,
   imageHeight,
+  removeFromViewHistory,
 }) => {
   return (
     <div
       style={{ maxWidth: imageHeight }}
-      className="bg-primary rounded-md flex flex-col w-fit"
+      className="bg-primary rounded-md relative flex flex-col w-fit"
     >
       <Link href={productPageLink} className="flex flex-col max-w-full h-full">
-        {/* <div className="absolute top-0 right-0 m-2 text-3xl"> */}
-        {/* <ProductFavouriteBtn /> */}
-        {/* </div> */}
         <ProductImageWithHover
           image={image}
           imageWidth={imageWidth}
@@ -48,6 +46,14 @@ const MiniProductCard: React.FC<IMiniProductCardProps> = ({
           />
         </div>
       </Link>
+      {removeFromViewHistory !== undefined && (
+        <div className="absolute top-0 right-0 m-2 text-3xl">
+          <RemoveFromViewHistoryBtn
+            productId={productId}
+            removeFromViewHistory={removeFromViewHistory}
+          />
+        </div>
+      )}
     </div>
   );
 };
