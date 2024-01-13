@@ -53,6 +53,8 @@ const ProductResults: React.FC<IProductResultsProps> = ({
                   productPageLink={product.productPageLink}
                   productName={product.productName}
                   brandName={product.brandName}
+                  productAvailable={product.productAvailable}
+                  productStockCount={product.productStockCount}
                   brandId={product.brandId}
                   productDescription={
                     typeof product.productDescription === "string"

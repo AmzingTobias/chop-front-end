@@ -29,6 +29,8 @@ const BasketContents = () => {
       productImage: TImageDetails;
       productPrice: number;
       quantity: number;
+      available: boolean;
+      productStockCount: number;
     } | null>
   >([]);
 
@@ -59,6 +61,8 @@ const BasketContents = () => {
             },
             productPrice: product.price,
             quantity: item.quantity,
+            available: product.available,
+            productStockCount: product.stock_count,
           };
         })
       );
@@ -84,6 +88,8 @@ const BasketContents = () => {
                 productPrice={product.productPrice}
                 quantity={product.quantity}
                 productImage={product.productImage}
+                productAvailable={product.available}
+                productStockCount={product.productStockCount}
                 productImageWidth={150}
                 productImageHeight={255}
               />

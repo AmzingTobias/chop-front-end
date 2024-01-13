@@ -3,19 +3,62 @@
 import { addToCart, hideLoading } from "@/app/redux/slices/basket.slice";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { IoCheckmark } from "react-icons/io5";
 
 interface IAddToBasketBtnProps {
   productId: number;
+  disabled?: boolean;
+  productStockCount: number;
+  productAvailable: boolean;
   quantityToAdd?: number;
 }
 
 const AddToBasketBtn: React.FC<IAddToBasketBtnProps> = ({
   productId,
+  disabled = false,
+  productStockCount,
+  productAvailable,
   quantityToAdd = 1,
 }) => {
   const [addedToBasket, setAddedToBasket] = useState(false);
+
+  const { loading, basketItems } = useSelector(
+    (state: {
+      basket: {
+        loading: boolean;
+        basketItems: {
+          productId: number;
+          quantity: number;
+        }[];
+      };
+    }) => state.basket
+  );
+
+  const [customerCanBuyProduct, setCustomerCanBuyProduct] = useState(false);
+  const [quantityInBasketAlready, setQuantityInBasketAlready] = useState(0);
+  useEffect(() => {
+    if (!loading) {
+      const productInBasketAlready = basketItems.find(
+        (item) => item.productId === productId
+      );
+      setQuantityInBasketAlready(
+        productInBasketAlready === undefined
+          ? 0
+          : productInBasketAlready.quantity
+      );
+    }
+  }, [loading, basketItems, productId]);
+
+  useEffect(() => {
+    if (!loading) {
+      setCustomerCanBuyProduct(
+        productStockCount > quantityInBasketAlready &&
+          productStockCount > 0 &&
+          productAvailable
+      );
+    }
+  }, [productStockCount, quantityInBasketAlready, productAvailable, loading]);
 
   const dispatch = useDispatch();
 
@@ -38,6 +81,7 @@ const AddToBasketBtn: React.FC<IAddToBasketBtnProps> = ({
   } else {
     return (
       <Button
+        disabled={disabled || !customerCanBuyProduct}
         variant={"secondary"}
         className="w-full"
         onClick={(event) => {

@@ -12,6 +12,8 @@ interface IBasketEntryProps {
   quantity: number;
   productImageWidth: number;
   productImageHeight: number;
+  productStockCount: number;
+  productAvailable: boolean;
 }
 
 const BasketEntry: React.FC<IBasketEntryProps> = ({
@@ -22,6 +24,8 @@ const BasketEntry: React.FC<IBasketEntryProps> = ({
   productImageHeight,
   productPrice,
   quantity,
+  productStockCount,
+  productAvailable,
 }) => {
   const productLink = `/product/${productId}`;
 
@@ -57,6 +61,8 @@ const BasketEntry: React.FC<IBasketEntryProps> = ({
               </div>
               <div className="hidden md:flex">
                 <BasketEntryQuantity
+                  productAvailable={productAvailable}
+                  productStockCount={productStockCount}
                   productId={productId}
                   quantity={quantity}
                 />
@@ -67,7 +73,12 @@ const BasketEntry: React.FC<IBasketEntryProps> = ({
       </div>
       <div className="flex flex-row w-full p-2 md:hidden">
         <div className="w-full">
-          <BasketEntryQuantity productId={productId} quantity={quantity} />
+          <BasketEntryQuantity
+            productAvailable={productAvailable}
+            productStockCount={productStockCount}
+            productId={productId}
+            quantity={quantity}
+          />
         </div>
         <div className="justify-end">
           <RemoveFromBasketBtn productId={productId} />

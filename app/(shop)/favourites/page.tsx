@@ -39,6 +39,8 @@ const FavouritesPage = () => {
                     productName={product.productName}
                     brandName={product.brandName}
                     brandId={product.brandId}
+                    productAvailable={product.productAvailable}
+                    productStockCount={product.productStockCount}
                     productDescription={
                       typeof product.productDescription === "string"
                         ? product.productDescription

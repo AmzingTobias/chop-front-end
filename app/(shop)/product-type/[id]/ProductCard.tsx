@@ -22,6 +22,8 @@ const ProductCard: React.FC<IProductCardProps> = ({
   imageHeight,
   productDescription,
   productPrice,
+  productStockCount,
+  productAvailable,
 }) => {
   return (
     <div className="w-full bg-primary h-fit rounded-md flex flex-col ">
@@ -59,7 +61,11 @@ const ProductCard: React.FC<IProductCardProps> = ({
           </p>
           <div className="flex flex-col mt-auto ml-auto items-end w-fit">
             <PriceLabel price={productPrice} />
-            <AddToBasketBtn productId={productId} />
+            <AddToBasketBtn
+              productStockCount={productStockCount}
+              productAvailable={productAvailable}
+              productId={productId}
+            />
           </div>
         </div>
       </div>

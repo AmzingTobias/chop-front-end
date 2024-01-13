@@ -68,6 +68,8 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
               <MiniProductCard
                 productId={product.productId}
                 productName={product.productName}
+                productAvailable={product.productAvailable}
+                productStockCount={product.productStockCount}
                 image={product.image}
                 productPageLink={product.productPageLink}
                 productPrice={product.productPrice}

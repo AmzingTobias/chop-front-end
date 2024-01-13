@@ -102,6 +102,8 @@ const ProductPage = async ({ params }: { params: { id: number } }) => {
             productId={productDetails.id}
             price={productDetails.price}
             similarStyleProducts={sameStyleProductsWithImages}
+            productAvailable={productDetails.available}
+            productStockCount={productDetails.stock_count}
           />
         </div>
       </div>
