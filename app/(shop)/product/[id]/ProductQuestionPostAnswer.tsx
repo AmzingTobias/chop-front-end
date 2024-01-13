@@ -118,7 +118,7 @@ const ProductQuestionPostAnswer: React.FC<IProductQuestionPostAnswerProps> = ({
             <Button
               disabled={formSubmitted}
               type="submit"
-              className="text-base"
+              className="text-base w-full sm:w-fit"
               variant={"secondary"}
             >
               {formSubmitted ? (

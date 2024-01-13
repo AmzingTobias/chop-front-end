@@ -117,7 +117,7 @@ const AskAProductQuestionForm: React.FC<IAskAProductQuestionFormProps> = ({
             <Button
               disabled={formSubmitted}
               type="submit"
-              className="text-base"
+              className="text-base w-full sm:w-fit"
               variant={"secondary"}
             >
               {formSubmitted ? (
@@ -125,7 +125,7 @@ const AskAProductQuestionForm: React.FC<IAskAProductQuestionFormProps> = ({
               ) : (
                 <></>
               )}
-              Ask
+              Ask question
             </Button>
           </form>
         </Form>

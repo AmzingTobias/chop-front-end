@@ -51,11 +51,11 @@ const ProductReviewsThread: React.FC<IProductReviewsThreadProps> = ({
           <h3>{review.review}</h3>
           {loggedInCustomerId === review.customerId &&
             setCustomerEditingReview !== undefined && (
-              <div className="flex flex-row gap-4">
+              <div className="flex flex-col sm:flex-row gap-4">
                 <Button
                   onClick={() => setCustomerEditingReview(true)}
                   variant={"secondary"}
-                  className="w-fit"
+                  className="w-full sm:w-fit"
                 >
                   Edit your review
                 </Button>
@@ -64,7 +64,7 @@ const ProductReviewsThread: React.FC<IProductReviewsThreadProps> = ({
                     setCustomerEditingReview(false), deleteReview(review.id);
                   }}
                   variant={"secondary"}
-                  className="w-fit"
+                  className="w-full sm:w-fit"
                 >
                   Delete your review
                 </Button>
