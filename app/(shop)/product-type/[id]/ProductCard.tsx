@@ -62,7 +62,8 @@ const ProductCard: React.FC<IProductCardProps> = ({
           <div className="flex flex-col mt-auto ml-auto items-end w-fit">
             <PriceLabel price={productPrice} />
             <AddToBasketBtn
-              disabled={!productAvailable || productStockCount <= 0}
+              productStockCount={productStockCount}
+              productAvailable={productAvailable}
               productId={productId}
             />
           </div>

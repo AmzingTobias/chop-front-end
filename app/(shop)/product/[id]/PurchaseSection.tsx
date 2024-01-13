@@ -2,10 +2,11 @@
 
 import AddToBasketBtn from "@/app/components/product-cards/common/AddToBasketBtn";
 import PriceLabel from "@/app/components/product-cards/common/PriceLabel";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import QuantityControlBtns from "@/app/components/products/QuantityControlBtns";
 import { IProductEntryWithImages } from "@/app/data/products";
 import SimilarStyleProductsList from "./SimilarStyleProductsList";
+import { useSelector } from "react-redux";
 
 interface IPurchaseSectionProps {
   productId: number;
@@ -23,6 +24,43 @@ const PurchaseSection: React.FC<IPurchaseSectionProps> = ({
   similarStyleProducts,
 }) => {
   const [quantityToAddToBasket, setQuantityToAddToBasket] = useState(1);
+
+  const { loading, basketItems } = useSelector(
+    (state: {
+      basket: {
+        loading: boolean;
+        basketItems: {
+          productId: number;
+          quantity: number;
+        }[];
+      };
+    }) => state.basket
+  );
+
+  const [customerCanBuyProduct, setCustomerCanBuyProduct] = useState(false);
+  const [quantityInBasketAlready, setQuantityInBasketAlready] = useState(0);
+  useEffect(() => {
+    if (!loading) {
+      const productInBasketAlready = basketItems.find(
+        (item) => item.productId === productId
+      );
+      setQuantityInBasketAlready(
+        productInBasketAlready === undefined
+          ? 0
+          : productInBasketAlready.quantity
+      );
+    }
+  }, [loading, basketItems, productId]);
+
+  useEffect(() => {
+    if (!loading) {
+      setCustomerCanBuyProduct(
+        productStockCount > quantityInBasketAlready &&
+          productStockCount > 0 &&
+          productAvailable
+      );
+    }
+  }, [productStockCount, quantityInBasketAlready, productAvailable, loading]);
 
   return (
     <div className="w-full flex flex-col gap-1 p-2 bg-primary text-accent rounded-md h-fit">
@@ -44,8 +82,8 @@ const PurchaseSection: React.FC<IPurchaseSectionProps> = ({
             <p className="font-bold">Only {productStockCount} remaining!</p>
           )}
           <QuantityControlBtns
-            disabled={!productAvailable || productStockCount <= 0}
-            maxQuantityAllowed={productStockCount}
+            disabled={!customerCanBuyProduct}
+            maxQuantityAllowed={productStockCount - quantityInBasketAlready}
             quantityAmount={quantityToAddToBasket}
             increaseQuantity={() =>
               setQuantityToAddToBasket((prev) => prev + 1)
@@ -55,7 +93,9 @@ const PurchaseSection: React.FC<IPurchaseSectionProps> = ({
             }
           />
           <AddToBasketBtn
-            disabled={!productAvailable || productStockCount <= 0}
+            productAvailable={productAvailable}
+            productStockCount={productStockCount}
+            disabled={!customerCanBuyProduct}
             productId={productId}
             quantityToAdd={quantityToAddToBasket}
           />

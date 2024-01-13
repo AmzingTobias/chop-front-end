@@ -17,7 +17,7 @@ const BasketEntryQuantity: React.FC<IBasketEntryQuantityProps> = ({
   const dispatch = useDispatch();
 
   const increaseQuantity = () => {
-    dispatch(addToCart({ productId: productId }));
+    dispatch(addToCart({ productId: productId, quantity: 1 }));
   };
 
   const decreaseQuantity = () => {
