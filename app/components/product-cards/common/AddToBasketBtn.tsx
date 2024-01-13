@@ -93,7 +93,11 @@ const AddToBasketBtn: React.FC<IAddToBasketBtnProps> = ({
           }, 1000);
         }}
       >
-        Add to basket
+        {!productAvailable
+          ? "Product unavailable"
+          : productStockCount <= 0
+          ? "Out of stock"
+          : "Add to basket"}
       </Button>
     );
   }
