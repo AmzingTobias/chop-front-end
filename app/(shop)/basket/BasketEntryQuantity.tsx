@@ -5,10 +5,14 @@ import { useDispatch } from "react-redux";
 interface IBasketEntryQuantityProps {
   productId: number;
   quantity: number;
+  productStockCount: number;
+  productAvailable: boolean;
 }
 const BasketEntryQuantity: React.FC<IBasketEntryQuantityProps> = ({
   productId,
   quantity,
+  productAvailable,
+  productStockCount,
 }) => {
   const dispatch = useDispatch();
 
@@ -22,6 +26,8 @@ const BasketEntryQuantity: React.FC<IBasketEntryQuantityProps> = ({
 
   return (
     <QuantityControlBtns
+      disabled={!productAvailable || productStockCount <= 0}
+      maxQuantityAllowed={productStockCount}
       quantityAmount={quantity}
       increaseQuantity={increaseQuantity}
       decreaseQuantity={decreaseQuantity}

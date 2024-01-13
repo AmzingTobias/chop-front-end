@@ -21,6 +21,8 @@ export interface IProductEntryWithImages {
   brandName?: string;
   productPageLink: string;
   productDescription?: string;
+  productAvailable: boolean;
+  productStockCount: number;
   image: TImageDetails;
   imageWidth: number;
   imageHeight: number;
@@ -164,6 +166,8 @@ export const mapProductsToImages = async (
         productName: product.name,
         productDescription: product.description,
         productPrice: product.price,
+        productStockCount: product.stock_count,
+        productAvailable: product.available,
         brandId: product.brandId,
         brandName: product.brandName,
         productPageLink: `/product/${product.id}`,
@@ -321,6 +325,8 @@ export const getFavouriteProducts = (): Promise<IProductEntryWithImages[]> => {
             productId: product.id,
             productPrice: product.price,
             productDescription: product.description,
+            productAvailable: product.available,
+            productStockCount: product.stock_count,
             brandId: product.brandId,
             brandName: product.brandName,
             productPageLink: `./product/${product.id}`,
