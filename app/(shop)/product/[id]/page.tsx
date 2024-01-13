@@ -20,6 +20,7 @@ import {
   getCustomerIdFromCookie,
 } from "@/app/data/auth";
 import ProductReviewsSection from "./ProductReviewsSection";
+import ProductViewHistory from "./ProductViewHistory";
 
 export async function generateStaticParams() {
   const productIds = await fetch(
@@ -74,6 +75,7 @@ const ProductPage = async ({ params }: { params: { id: number } }) => {
 
   return (
     <main className="flex flex-col w-full overflow-x-clip p-1 space-y-8">
+      {customerId !== undefined && <ProductViewHistory productId={params.id} />}
       <div className="flex flex-col md:flex-row w-full space-y-8 md:space-y-0 md:space-x-6 items-center md:items-start">
         <ProductImageDisplay images={productImages} />
         <MainProductSection
@@ -111,8 +113,8 @@ const ProductPage = async ({ params }: { params: { id: number } }) => {
         <SectionHeading text={"Customers also looked at"} />
         <ProductCarousel
           products={customersAlsoLookedAt}
-          imageWidth={640}
-          imageHeight={853}
+          imageWidth={224}
+          imageHeight={300}
         />
       </div>
       <div className="flex flex-col space-y-4">
