@@ -64,7 +64,14 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
       <div ref={productDivRef} className="flex space-x-8 ">
         {products.map((product) => {
           return (
-            <div key={product.productId} className="min-w-[200px] flex grow">
+            <div
+              key={product.productId}
+              className="flex grow"
+              style={{
+                minWidth: imageWidth,
+                maxWidth: imageWidth,
+              }}
+            >
               <MiniProductCard
                 productId={product.productId}
                 productName={product.productName}

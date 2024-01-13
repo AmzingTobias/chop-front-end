@@ -25,23 +25,19 @@ const MiniProductCard: React.FC<IMiniProductCardProps> = ({
   return (
     <div
       style={{ maxWidth: imageHeight }}
-      className="bg-primary rounded-md flex flex-col"
+      className="bg-primary rounded-md flex flex-col w-fit"
     >
-      <Link href={productPageLink} className="flex flex-col w-full h-full">
-        <div className="mb-2">
-          <div className="relative ">
-            {/* <div className="absolute top-0 right-0 m-2 text-3xl"> */}
-            {/* <ProductFavouriteBtn /> */}
-            {/* </div> */}
-            <ProductImageWithHover
-              image={image}
-              imageWidth={imageWidth}
-              imageHeight={imageHeight}
-            />
-          </div>
-          <div className="p-2 text-accent">
-            <h2 className="text-lg font-semibold  inline">{productName}</h2>
-          </div>
+      <Link href={productPageLink} className="flex flex-col max-w-full h-full">
+        {/* <div className="absolute top-0 right-0 m-2 text-3xl"> */}
+        {/* <ProductFavouriteBtn /> */}
+        {/* </div> */}
+        <ProductImageWithHover
+          image={image}
+          imageWidth={imageWidth}
+          imageHeight={imageHeight}
+        />
+        <div className="p-2 text-accent">
+          <h2 className="text-lg font-semibold  inline">{productName}</h2>
         </div>
         <div className="mt-auto p-2">
           <PriceLabel price={productPrice} discountPrice={discountPrice} />
