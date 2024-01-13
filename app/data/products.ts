@@ -573,3 +573,106 @@ export const postProductReview = (
       });
   });
 };
+
+type TCustomerViewHistory = {
+  productId: number;
+  date: Date;
+};
+
+export const getProductViewHistoryForCustomer = (): Promise<
+  IProductEntryWithImages[]
+> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/products/history/`,
+      {
+        credentials: "include",
+      }
+    )
+      .then((response) => {
+        if (response.ok) {
+          response.json().then(async (jsonData: TCustomerViewHistory[]) => {
+            const products = await Promise.all(
+              jsonData.map(async (productViewed) => {
+                const product = await getProductWithId(productViewed.productId);
+
+                if (!product) {
+                  console.error(
+                    `Product with id: ${productViewed.productId}, not found.`
+                  );
+                  return null;
+                }
+
+                const productImages = await getProductImages(product.id);
+
+                const details: IProductEntryWithImages = {
+                  productId: product.id,
+                  productPrice: product.price,
+                  productDescription: product.description,
+                  productAvailable: product.available,
+                  productStockCount: product.stock_count,
+                  brandId: product.brandId,
+                  brandName: product.brandName,
+                  productPageLink: `./product/${product.id}`,
+                  productName: product.name,
+                  imageWidth: 600,
+                  imageHeight: 600,
+                  image: {
+                    primaryLink:
+                      productImages.length > 0
+                        ? `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/images/products/${product.id}/${productImages[0].fileName}`
+                        : noProductImage.src,
+                    hoverLink:
+                      productImages.length > 1
+                        ? `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/images/products/${product.id}/${productImages[1].fileName}`
+                        : undefined,
+                    altText: "PRODUCT",
+                  },
+                };
+
+                return details;
+              })
+            );
+
+            const productsNoNull: IProductEntryWithImages[] = products.filter(
+              (product) => product !== null
+            ) as IProductEntryWithImages[];
+
+            resolve(productsNoNull);
+          });
+        } else {
+          reject(`Internal error: ${response.status}`);
+        }
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
+
+export const removeProductFromViewHistory = (
+  productId: number
+): Promise<boolean> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/products/history/${productId}`,
+      {
+        headers: {
+          "Content-type": "application/json",
+        },
+        credentials: "include",
+        method: "DELETE",
+      }
+    )
+      .then(async (response) => {
+        if (response.ok) {
+          resolve(true);
+        } else {
+          reject(`Request failed ${await response.text()}`);
+        }
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};

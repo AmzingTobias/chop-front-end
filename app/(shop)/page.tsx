@@ -4,6 +4,9 @@ import ProductCarousel from "../components/product-cards/ProductCarousel";
 import { getRandomProducts, mapProductsToImages } from "../data/products";
 import summerAdBanner from "@/public/Ads/Summer promotion/summer-long.png";
 import summerMobileAdBanner from "@/public/Ads/Summer promotion/summer-mobile.png";
+import { EAccountTypes, getAccountTypeFromCookie } from "../data/auth";
+import { cookies } from "next/headers";
+import ProductViewHistory from "../components/products/ProductViewHistory";
 
 export default async function Home() {
   const NUMBER_OF_PRODUCTS_FOR_HOME_PAGE = 25;
@@ -14,8 +17,13 @@ export default async function Home() {
   // Mapped to the structure that allows them to be displayed in a grid
   const productsToDisplay = await mapProductsToImages(randomProducts, 640, 853);
 
+  const authCookie = cookies().get("auth");
+  const accountTypeLoggedIn = authCookie
+    ? getAccountTypeFromCookie(authCookie.value)
+    : undefined;
+
   return (
-    <main className="flex flex-col w-full">
+    <main className="flex flex-col gap-8 w-full">
       <AdBanner
         className="hidden md:flex"
         image={{
@@ -34,14 +42,20 @@ export default async function Home() {
           altText: "Text",
         }}
       />
-      <br className="my-4" />
-      <SectionHeading text={"We know you'll love"} />
-      <br className="my-2" />
-      <ProductCarousel
-        products={productsToDisplay}
-        imageWidth={640}
-        imageHeight={853}
-      />
+      <div className="flex flex-col gap-2">
+        <SectionHeading text={"We know you'll love"} />
+        <ProductCarousel
+          products={productsToDisplay}
+          imageWidth={224}
+          imageHeight={300}
+        />
+      </div>
+      {accountTypeLoggedIn === EAccountTypes.customer && (
+        <div className="flex flex-col gap-2">
+          <SectionHeading text={"Your view history"} />
+          <ProductViewHistory imageWidth={224} imageHeight={300} />
+        </div>
+      )}
     </main>
   );
 }

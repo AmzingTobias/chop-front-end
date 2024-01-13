@@ -8,12 +8,14 @@ interface IProductCarouselProps {
   products: IMiniProductCardProps[];
   imageWidth: number;
   imageHeight: number;
+  removeFromViewHistory?: (productId: number) => void;
 }
 
 const ProductCarousel: React.FC<IProductCarouselProps> = ({
   products,
   imageWidth,
   imageHeight,
+  removeFromViewHistory,
 }) => {
   const scrollBtnStyles =
     "absolute p-1 top-1/2 rounded-none opacity-80 hover:opacity-100 bg-secondary-foreground text-secondary hover:bg-secondary-foreground hover:text-secondary";
@@ -64,7 +66,14 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
       <div ref={productDivRef} className="flex space-x-8 ">
         {products.map((product) => {
           return (
-            <div key={product.productId} className="min-w-[200px] flex grow">
+            <div
+              key={product.productId}
+              className="flex grow"
+              style={{
+                minWidth: imageWidth,
+                maxWidth: imageWidth,
+              }}
+            >
               <MiniProductCard
                 productId={product.productId}
                 productName={product.productName}
@@ -75,6 +84,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
                 productPrice={product.productPrice}
                 imageWidth={imageWidth}
                 imageHeight={imageHeight}
+                removeFromViewHistory={removeFromViewHistory}
               />
             </div>
           );
