@@ -26,7 +26,7 @@ interface IAskAProductQuestionFormProps {
   productId: number | string;
 }
 
-export const formSchema = z
+const formSchema = z
   .object({
     question: z
       .string()

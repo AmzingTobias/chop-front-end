@@ -22,7 +22,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 
-export const formSchema = z
+const formSchema = z
   .object({
     answer: z.string().min(1, { message: "Must provide an answer" }).trim(),
   })

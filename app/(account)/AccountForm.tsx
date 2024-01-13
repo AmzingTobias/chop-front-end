@@ -15,20 +15,10 @@ import { Loader2 } from "lucide-react";
 import { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
-
-export const formSchema = z
-  .object({
-    email: z.string().email(),
-    password: z
-      .string()
-      .min(5, "Password must have a minimum of 5 characters")
-      .max(25, "Password must not be longer than 25 characters")
-      .regex(/[0-9]/, { message: "Must contain a number" }),
-  })
-  .required();
+import { authFormSchema } from "@/app/data/auth";
 
 interface IAccountFormProps {
-  onSubmit: SubmitHandler<z.infer<typeof formSchema>>;
+  onSubmit: SubmitHandler<z.infer<typeof authFormSchema>>;
   formBtnText: string;
   formSubmitted?: boolean;
   emailErrorMsg?: string;
@@ -43,8 +33,8 @@ const AccountForm: React.FC<IAccountFormProps> = ({
   passwordErrorMsg = "",
 }) => {
   // 1. Define your form.
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof authFormSchema>>({
+    resolver: zodResolver(authFormSchema),
     defaultValues: {
       email: "",
       password: "",

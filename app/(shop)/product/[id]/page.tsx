@@ -4,6 +4,7 @@ import {
   getProductWithId,
   getProductsOfSameStyle,
   getRandomProducts,
+  getReviewsForProduct,
   mapProductsToImages,
 } from "@/app/data/products";
 import ProductImageDisplay from "./ProductImageDisplay";
@@ -14,7 +15,11 @@ import SectionHeading from "@/app/components/SectionHeading";
 import ProductQuestions from "./ProductQuestions";
 import { cookies } from "next/headers";
 import AskAProductQuestionForm from "./AskAProductQuestionForm";
-import { getAccountTypeFromCookie } from "@/app/data/auth";
+import {
+  getAccountTypeFromCookie,
+  getCustomerIdFromCookie,
+} from "@/app/data/auth";
+import ProductReviewsSection from "./ProductReviewsSection";
 
 export async function generateStaticParams() {
   const productIds = await fetch(
@@ -49,9 +54,14 @@ const ProductPage = async ({ params }: { params: { id: number } }) => {
     853
   );
 
+  const reviewsForProduct = await getReviewsForProduct(params.id);
+
   const authCookie = cookies().get("auth");
   const accountTypeLoggedIn = authCookie
     ? getAccountTypeFromCookie(authCookie.value)
+    : undefined;
+  const customerId = authCookie
+    ? getCustomerIdFromCookie(authCookie.value)
     : undefined;
 
   return (
@@ -104,6 +114,14 @@ const ProductPage = async ({ params }: { params: { id: number } }) => {
           )}
           <AskAProductQuestionForm productId={params.id} />
         </div>
+      </div>
+      <div className="flex flex-col space-y-4">
+        <SectionHeading text="Reviews" />
+        <ProductReviewsSection
+          loggedInCustomerId={customerId}
+          productId={params.id}
+          initialReviews={reviewsForProduct}
+        />
       </div>
     </main>
   );
