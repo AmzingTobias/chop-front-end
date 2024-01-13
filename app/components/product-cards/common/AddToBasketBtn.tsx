@@ -8,11 +8,13 @@ import { IoCheckmark } from "react-icons/io5";
 
 interface IAddToBasketBtnProps {
   productId: number;
+  disabled: boolean;
   quantityToAdd?: number;
 }
 
 const AddToBasketBtn: React.FC<IAddToBasketBtnProps> = ({
   productId,
+  disabled,
   quantityToAdd = 1,
 }) => {
   const [addedToBasket, setAddedToBasket] = useState(false);
@@ -38,6 +40,7 @@ const AddToBasketBtn: React.FC<IAddToBasketBtnProps> = ({
   } else {
     return (
       <Button
+        disabled={disabled}
         variant={"secondary"}
         className="w-full"
         onClick={(event) => {
