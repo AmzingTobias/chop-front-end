@@ -323,7 +323,7 @@ export const getFavouriteProducts = (): Promise<IProductEntryWithImages[]> => {
             productDescription: product.description,
             brandId: product.brandId,
             brandName: product.brandName,
-            productPageLink: `./products/${product.id}`,
+            productPageLink: `./product/${product.id}`,
             productName: product.name,
             imageWidth: 600,
             imageHeight: 600,
