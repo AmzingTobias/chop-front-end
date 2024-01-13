@@ -64,6 +64,14 @@ const ProductPage = async ({ params }: { params: { id: number } }) => {
     ? getCustomerIdFromCookie(authCookie.value)
     : undefined;
 
+  const averageReviews =
+    reviewsForProduct.length > 0
+      ? reviewsForProduct.reduce(
+          (current, review) => current + review.rating,
+          0
+        ) / reviewsForProduct.length
+      : 0;
+
   return (
     <main className="flex flex-col w-full overflow-x-clip p-1 space-y-8">
       <div className="flex flex-col md:flex-row w-full space-y-8 md:space-y-0 md:space-x-6 items-center md:items-start">
@@ -72,6 +80,8 @@ const ProductPage = async ({ params }: { params: { id: number } }) => {
           accountTypeLoggedIn={accountTypeLoggedIn}
           productId={productDetails.id}
           productName={productDetails.name}
+          reviewCount={reviewsForProduct.length}
+          rating={averageReviews}
           productDescription={
             productDetails.description === undefined
               ? ""

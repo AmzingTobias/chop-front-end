@@ -63,7 +63,15 @@ const ProductReviewsSection: React.FC<IProductReviewsSectionProps> = ({
           setCustomerEditingReview={setCustomerEditingReview}
         />
       )}
-      <hr className="border-accent" />
+      {reviews.length > 0 &&
+      (customerEditingReview ||
+        !customerHasReviewed ||
+        loggedInCustomerId === undefined) ? (
+        <hr className="border-accent" />
+      ) : (
+        <></>
+      )}
+
       {!customerHasReviewed && loggedInCustomerId === undefined && (
         <ProductReviewForm productId={productId} setReviews={setReviews} />
       )}
