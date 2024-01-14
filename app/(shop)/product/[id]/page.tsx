@@ -16,6 +16,7 @@ import ProductQuestions from "./ProductQuestions";
 import { cookies } from "next/headers";
 import AskAProductQuestionForm from "./AskAProductQuestionForm";
 import {
+  EAccountTypes,
   getAccountTypeFromCookie,
   getCustomerIdFromCookie,
 } from "@/app/data/auth";
@@ -101,6 +102,7 @@ const ProductPage = async ({ params }: { params: { id: number } }) => {
         />
         <div className="min-w-full max-w-full md:min-w-[300px]  md:max-w-[300px]">
           <PurchaseSection
+            customerLoggedIn={accountTypeLoggedIn === EAccountTypes.customer}
             productId={productDetails.id}
             price={productDetails.price}
             similarStyleProducts={sameStyleProductsWithImages}
@@ -112,6 +114,7 @@ const ProductPage = async ({ params }: { params: { id: number } }) => {
       <div className="flex flex-col space-y-4">
         <SectionHeading text={"Customers also looked at"} />
         <ProductCarousel
+          customerLoggedIn={customerId !== undefined}
           products={customersAlsoLookedAt}
           imageWidth={224}
           imageHeight={300}

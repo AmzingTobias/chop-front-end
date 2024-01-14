@@ -9,11 +9,13 @@ import { useEffect, useState } from "react";
 import ProductCarousel from "../product-cards/ProductCarousel";
 
 interface IProductViewHistoryProps {
+  customerLoggedIn: boolean;
   imageWidth: number;
   imageHeight: number;
 }
 
 const ProductViewHistory: React.FC<IProductViewHistoryProps> = ({
+  customerLoggedIn,
   imageWidth,
   imageHeight,
 }) => {
@@ -48,6 +50,7 @@ const ProductViewHistory: React.FC<IProductViewHistoryProps> = ({
     <div>
       {products.length > 0 ? (
         <ProductCarousel
+          customerLoggedIn={customerLoggedIn}
           products={products}
           imageWidth={imageWidth}
           imageHeight={imageHeight}

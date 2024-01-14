@@ -1,10 +1,14 @@
+"use client";
+
 import { TImageDetails } from "@/app/components/product-cards/common/ProductImageWithHover";
 import Link from "next/link";
 import RemoveFromBasketBtn from "./RemoveFromBasketBtn";
 import BasketEntryQuantity from "./BasketEntryQuantity";
 import Image from "next/image";
+import { useState } from "react";
 
 interface IBasketEntryProps {
+  customerLoggedIn: boolean;
   productId: number;
   productName: string;
   productImage: TImageDetails;
@@ -17,6 +21,7 @@ interface IBasketEntryProps {
 }
 
 const BasketEntry: React.FC<IBasketEntryProps> = ({
+  customerLoggedIn,
   productId,
   productName,
   productImage,
@@ -27,6 +32,8 @@ const BasketEntry: React.FC<IBasketEntryProps> = ({
   productStockCount,
   productAvailable,
 }) => {
+  const [disableProduct, setDisableProduct] = useState(false);
+
   const productLink = `/product/${productId}`;
 
   return (
@@ -53,7 +60,12 @@ const BasketEntry: React.FC<IBasketEntryProps> = ({
           </div>
           <div className="md:h-full flex flex-col w-fit justify-end">
             <div className="w-fit hidden md:flex self-end">
-              <RemoveFromBasketBtn productId={productId} />
+              <RemoveFromBasketBtn
+                disable={disableProduct}
+                setDisable={setDisableProduct}
+                productId={productId}
+                customerLoggedIn={customerLoggedIn}
+              />
             </div>
             <div className="flex flex-col mt-auto">
               <div className="w-full text-end text-lg md:text-2xl font-bold md:font-medium">
@@ -61,6 +73,8 @@ const BasketEntry: React.FC<IBasketEntryProps> = ({
               </div>
               <div className="hidden md:flex">
                 <BasketEntryQuantity
+                  disable={disableProduct}
+                  customerLoggedIn={customerLoggedIn}
                   productAvailable={productAvailable}
                   productStockCount={productStockCount}
                   productId={productId}
@@ -74,6 +88,8 @@ const BasketEntry: React.FC<IBasketEntryProps> = ({
       <div className="flex flex-row w-full p-2 md:hidden">
         <div className="w-full">
           <BasketEntryQuantity
+            disable={disableProduct}
+            customerLoggedIn={customerLoggedIn}
             productAvailable={productAvailable}
             productStockCount={productStockCount}
             productId={productId}
@@ -81,7 +97,12 @@ const BasketEntry: React.FC<IBasketEntryProps> = ({
           />
         </div>
         <div className="justify-end">
-          <RemoveFromBasketBtn productId={productId} />
+          <RemoveFromBasketBtn
+            disable={disableProduct}
+            setDisable={setDisableProduct}
+            customerLoggedIn={customerLoggedIn}
+            productId={productId}
+          />
         </div>
       </div>
     </div>

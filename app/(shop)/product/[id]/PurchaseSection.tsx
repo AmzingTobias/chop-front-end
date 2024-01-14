@@ -9,6 +9,7 @@ import SimilarStyleProductsList from "./SimilarStyleProductsList";
 import { useSelector } from "react-redux";
 
 interface IPurchaseSectionProps {
+  customerLoggedIn: boolean;
   productId: number;
   price: number;
   similarStyleProducts: IProductEntryWithImages[];
@@ -17,6 +18,7 @@ interface IPurchaseSectionProps {
 }
 
 const PurchaseSection: React.FC<IPurchaseSectionProps> = ({
+  customerLoggedIn,
   productId,
   productAvailable,
   productStockCount,
@@ -93,6 +95,7 @@ const PurchaseSection: React.FC<IPurchaseSectionProps> = ({
             }
           />
           <AddToBasketBtn
+            customerLoggedIn={customerLoggedIn}
             productAvailable={productAvailable}
             productStockCount={productStockCount}
             disabled={!customerCanBuyProduct}

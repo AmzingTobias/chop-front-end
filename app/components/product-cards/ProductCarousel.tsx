@@ -4,14 +4,17 @@ import MiniProductCard, { IMiniProductCardProps } from "./MiniProductCard";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
+import { IProductEntryWithImages } from "@/app/data/products";
 interface IProductCarouselProps {
-  products: IMiniProductCardProps[];
+  customerLoggedIn: boolean;
+  products: IProductEntryWithImages[];
   imageWidth: number;
   imageHeight: number;
   removeFromViewHistory?: (productId: number) => void;
 }
 
 const ProductCarousel: React.FC<IProductCarouselProps> = ({
+  customerLoggedIn,
   products,
   imageWidth,
   imageHeight,
@@ -75,6 +78,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
               }}
             >
               <MiniProductCard
+                customerLoggedIn={customerLoggedIn}
                 productId={product.productId}
                 productName={product.productName}
                 productAvailable={product.productAvailable}

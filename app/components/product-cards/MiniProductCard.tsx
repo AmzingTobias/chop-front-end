@@ -6,11 +6,13 @@ import { IProductEntryWithImages } from "@/app/data/products";
 import RemoveFromViewHistoryBtn from "../products/RemoveFromViewHistoryBtn";
 
 export interface IMiniProductCardProps extends IProductEntryWithImages {
+  customerLoggedIn: boolean;
   discountPrice?: number;
   removeFromViewHistory?: (productId: number) => void;
 }
 
 const MiniProductCard: React.FC<IMiniProductCardProps> = ({
+  customerLoggedIn,
   productId,
   productName,
   productPrice,
@@ -40,6 +42,7 @@ const MiniProductCard: React.FC<IMiniProductCardProps> = ({
         <div className="mt-auto p-2">
           <PriceLabel price={productPrice} discountPrice={discountPrice} />
           <AddToBasketBtn
+            customerLoggedIn={customerLoggedIn}
             productStockCount={productStockCount}
             productAvailable={productAvailable}
             productId={productId}
