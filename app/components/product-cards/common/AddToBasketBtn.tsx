@@ -5,9 +5,14 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { IoCheckmark } from "react-icons/io5";
+import {
+  addNewProductToBasket,
+  updateProductInBasket,
+} from "@/app/data/basket";
 
 interface IAddToBasketBtnProps {
   productId: number;
+  customerLoggedIn: boolean;
   disabled?: boolean;
   productStockCount: number;
   productAvailable: boolean;
@@ -16,6 +21,7 @@ interface IAddToBasketBtnProps {
 
 const AddToBasketBtn: React.FC<IAddToBasketBtnProps> = ({
   productId,
+  customerLoggedIn,
   disabled = false,
   productStockCount,
   productAvailable,
@@ -39,14 +45,16 @@ const AddToBasketBtn: React.FC<IAddToBasketBtnProps> = ({
   const [quantityInBasketAlready, setQuantityInBasketAlready] = useState(0);
   useEffect(() => {
     if (!loading) {
-      const productInBasketAlready = basketItems.find(
-        (item) => item.productId === productId
-      );
-      setQuantityInBasketAlready(
-        productInBasketAlready === undefined
-          ? 0
-          : productInBasketAlready.quantity
-      );
+      if (basketItems !== undefined) {
+        const productInBasketAlready = basketItems.find(
+          (item) => item.productId === productId
+        );
+        setQuantityInBasketAlready(
+          productInBasketAlready === undefined
+            ? 0
+            : productInBasketAlready.quantity
+        );
+      }
     }
   }, [loading, basketItems, productId]);
 
@@ -62,10 +70,21 @@ const AddToBasketBtn: React.FC<IAddToBasketBtnProps> = ({
 
   const dispatch = useDispatch();
 
-  const addProductToServer = () => {};
-
   const addProductToBasket = () => {
-    dispatch(addToCart({ productId: productId, quantity: quantityToAdd }));
+    if (!customerLoggedIn) {
+      dispatch(addToCart({ productId: productId, quantity: quantityToAdd }));
+    } else {
+      if (quantityInBasketAlready > 0) {
+        // Update server side basket
+        updateProductInBasket(
+          productId,
+          quantityToAdd + quantityInBasketAlready
+        );
+      } else {
+        // Add product to server side basket
+        addNewProductToBasket(productId, quantityToAdd);
+      }
+    }
   };
 
   useEffect(() => {

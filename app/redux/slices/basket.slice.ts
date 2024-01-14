@@ -44,12 +44,29 @@ const basketSlice = createSlice({
         (product) => product.productId !== action.payload.productId
       );
     },
+    applyBasketToCart: (state, action) => {
+      state.basketItems = action.payload.basket;
+      state.basketItems = action.payload.basket.map(
+        (item: { productId: number; quantity: number }) => {
+          return { productId: item.productId, quantity: item.quantity };
+        }
+      );
+    },
+    clearBasket: (state) => {
+      state.basketItems = [];
+    },
     hideLoading: (state) => {
       state.loading = false;
     },
   },
 });
 
-export const { addToCart, removeFromCart, removeOneFromCart, hideLoading } =
-  basketSlice.actions;
+export const {
+  addToCart,
+  removeFromCart,
+  clearBasket,
+  removeOneFromCart,
+  applyBasketToCart,
+  hideLoading,
+} = basketSlice.actions;
 export default basketSlice.reducer;

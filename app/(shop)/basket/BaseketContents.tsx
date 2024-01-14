@@ -9,7 +9,13 @@ import { TImageDetails } from "@/app/components/product-cards/common/ProductImag
 import { useSelector } from "react-redux";
 import BasketCheckoutSection from "./BasketCheckoutSection";
 
-const BasketContents = () => {
+interface IBasketContentsProps {
+  customerLoggedIn: boolean;
+}
+
+const BasketContents: React.FC<IBasketContentsProps> = ({
+  customerLoggedIn,
+}) => {
   const { loading, basketItems } = useSelector(
     (state: {
       basket: {
@@ -78,23 +84,26 @@ const BasketContents = () => {
   return (
     <div className="flex flex-col-reverse md:flex-row w-full space-y-4 space-y-reverse md:space-y-0 md:space-x-4 xl:space-x-12">
       <div className="flex flex-col space-y-4 md:space-y-8 w-full md:w-3/4">
-        {basket.map(
-          (product, index) =>
-            product && (
-              <BasketEntry
-                key={index}
-                productId={product.productId}
-                productName={product.productName}
-                productPrice={product.productPrice}
-                quantity={product.quantity}
-                productImage={product.productImage}
-                productAvailable={product.available}
-                productStockCount={product.productStockCount}
-                productImageWidth={150}
-                productImageHeight={255}
-              />
-            )
-        )}
+        {basket
+          .sort((a, b) => b!.quantity - a!.quantity)
+          .map(
+            (product) =>
+              product && (
+                <BasketEntry
+                  customerLoggedIn={customerLoggedIn}
+                  key={product.productId}
+                  productId={product.productId}
+                  productName={product.productName}
+                  productPrice={product.productPrice}
+                  quantity={product.quantity}
+                  productImage={product.productImage}
+                  productAvailable={product.available}
+                  productStockCount={product.productStockCount}
+                  productImageWidth={150}
+                  productImageHeight={255}
+                />
+              )
+          )}
       </div>
       <div className="flex w-full md:w-1/4">
         <BasketCheckoutSection

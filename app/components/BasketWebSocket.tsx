@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { applyBasketToCart } from "@/app/redux/slices/basket.slice";
 
 interface IBasketWebSocketProps {
   customerLoggedIn: boolean;
@@ -9,13 +11,26 @@ interface IBasketWebSocketProps {
 const BasketWebSocket: React.FC<IBasketWebSocketProps> = ({
   customerLoggedIn,
 }) => {
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    if (customerLoggedIn) {
-      const ws = new WebSocket(`ws://localhost:5001/v1/basket/updates`);
+    if (
+      customerLoggedIn &&
+      process.env.NEXT_PUBLIC_WEBSOCKET_SERVER_API_HOST_ADDRESS
+    ) {
+      const ws = new WebSocket(
+        `${process.env.NEXT_PUBLIC_WEBSOCKET_SERVER_API_HOST_ADDRESS}/v1/basket/updates`
+      );
 
       ws.onmessage = (event) => {
         const data = JSON.parse(event.data);
-        console.log(data);
+        if (data.type === "basketUpdate") {
+          const basketToApply: {
+            productId: number;
+            quantity: number;
+          }[] = data.basket;
+          dispatch(applyBasketToCart({ basket: basketToApply }));
+        }
       };
 
       return () => {
@@ -23,7 +38,7 @@ const BasketWebSocket: React.FC<IBasketWebSocketProps> = ({
         ws.close();
       };
     }
-  }, [customerLoggedIn]);
+  }, [customerLoggedIn, dispatch]);
 
   return null; // This component doesn't render anything
 };

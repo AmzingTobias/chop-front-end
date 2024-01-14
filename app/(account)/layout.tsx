@@ -10,22 +10,20 @@ export const metadata: Metadata = {
   description: "chop, an ecommerce solution",
 };
 
-export default async function RootLayout({
+export default async function AccountLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={`${inter.className} min-h-screen`}>
-        <MinimalTitlebar />
-        <div
-          id="container"
-          className="flex w-full max-w-screen-2xl md:w-11/12 mx-auto items-center justify-center"
-        >
-          {children}
-        </div>
-      </body>
-    </html>
+    <>
+      <MinimalTitlebar />
+      <div
+        id="container"
+        className="flex w-full max-w-screen-2xl md:w-11/12 mx-auto items-center justify-center"
+      >
+        {children}
+      </div>
+    </>
   );
 }

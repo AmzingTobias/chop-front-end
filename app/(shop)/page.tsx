@@ -45,6 +45,7 @@ export default async function Home() {
       <div className="flex flex-col gap-2">
         <SectionHeading text={"We know you'll love"} />
         <ProductCarousel
+          customerLoggedIn={accountTypeLoggedIn === EAccountTypes.customer}
           products={productsToDisplay}
           imageWidth={224}
           imageHeight={300}
@@ -53,7 +54,11 @@ export default async function Home() {
       {accountTypeLoggedIn === EAccountTypes.customer && (
         <div className="flex flex-col gap-2">
           <SectionHeading text={"Recently viewed products"} />
-          <ProductViewHistory imageWidth={224} imageHeight={300} />
+          <ProductViewHistory
+            customerLoggedIn={accountTypeLoggedIn === EAccountTypes.customer}
+            imageWidth={224}
+            imageHeight={300}
+          />
         </div>
       )}
     </main>

@@ -11,6 +11,9 @@ import {
 } from "@/components/ui/alert-dialog";
 import { z } from "zod";
 import { authFormSchema } from "@/app/data/auth";
+import { addNewProductToBasket, getBasketContents } from "@/app/data/basket";
+import { useDispatch, useSelector } from "react-redux";
+import { applyBasketToCart } from "@/app/redux/slices/basket.slice";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -21,6 +24,19 @@ const LoginForm = () => {
   const [internalError, setInternalError] = useState(false);
   const [emailErrorMsg, setEmailErrorMsg] = useState("");
   const [passwordErrorMsg, setPasswordErrorMsg] = useState("");
+
+  const { loading, basketItems } = useSelector(
+    (state: {
+      basket: {
+        loading: boolean;
+        basketItems: {
+          productId: number;
+          quantity: number;
+        }[];
+      };
+    }) => state.basket
+  );
+  const dispatch = useDispatch();
 
   function onSubmit(values: z.infer<typeof authFormSchema>) {
     setLoginRequestPending(true);
@@ -45,7 +61,22 @@ const LoginForm = () => {
           response
             .json()
             .then((jsonResponse) => {
-              router.push("/");
+              if (!loading) {
+                getBasketContents().then(async (basket) => {
+                  if (basket.length === 0) {
+                    await Promise.all(
+                      basketItems.map((item) => {
+                        addNewProductToBasket(item.productId, item.quantity);
+                      })
+                    );
+                  } else {
+                    getBasketContents().then((basketToApply) => {
+                      dispatch(applyBasketToCart({ basket: basketToApply }));
+                    });
+                  }
+                  router.refresh();
+                });
+              }
             })
             .catch((err) => {
               console.error(err);

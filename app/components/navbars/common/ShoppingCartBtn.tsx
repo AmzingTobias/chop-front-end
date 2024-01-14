@@ -21,11 +21,13 @@ const ShoppingCartBtn = () => {
 
   useEffect(() => {
     if (!loading) {
-      setBasketSize(() =>
-        basketItems.reduce(
-          (prev: number, current: any) => prev + current.quantity,
-          0
-        )
+      setBasketSize((prev) =>
+        basketItems !== undefined
+          ? basketItems.reduce(
+              (prev: number, current: any) => prev + current.quantity,
+              0
+            )
+          : prev
       );
     }
   }, [basketItems, loading]);

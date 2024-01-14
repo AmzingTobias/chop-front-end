@@ -6,9 +6,7 @@ import Navigation from "../components/Navigation";
 import { getProductTypes } from "../data/navigationLinks";
 import { cookies } from "next/headers";
 import Footer from "../components/footer/Footer";
-import { StoreProvider } from "../redux/store.provider";
-import { EAccountTypes, getAccountTypeFromCookie } from "../data/auth";
-import BasketWebSocket from "../components/BasketWebSocket";
+import { getAccountTypeFromCookie } from "../data/auth";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,7 +15,7 @@ export const metadata: Metadata = {
   description: "chop, an ecommerce solution",
 };
 
-export default async function RootLayout({
+export default async function ShopLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -28,29 +26,20 @@ export default async function RootLayout({
     : undefined;
 
   return (
-    <html lang="en">
-      <body
-        className={`${inter.className} min-h-screen flex flex-col bg-accent`}
-      >
-        <BasketWebSocket
-          customerLoggedIn={accountTypeLoggedIn === EAccountTypes.customer}
-        />
-        <StoreProvider>
-          <Navigation
-            minorNavbarBtns={await getProductTypes()}
-            accountTypeLoggedIn={accountTypeLoggedIn}
-          />
-          <div className="w-full bg-accent-foreground">
-            <div
-              id="container"
-              className="flex flex-grow w-full p-4 mx-auto max-w-screen-2xl md:w-11/12 min-h-screen"
-            >
-              {children}
-            </div>
-          </div>
-          <Footer />
-        </StoreProvider>
-      </body>
-    </html>
+    <>
+      <Navigation
+        minorNavbarBtns={await getProductTypes()}
+        accountTypeLoggedIn={accountTypeLoggedIn}
+      />
+      <div className="w-full bg-accent-foreground">
+        <div
+          id="container"
+          className="flex flex-grow w-full p-4 mx-auto max-w-screen-2xl md:w-11/12 min-h-screen"
+        >
+          {children}
+        </div>
+      </div>
+      <Footer />
+    </>
   );
 }
