@@ -7,7 +7,8 @@ import { getProductTypes } from "../data/navigationLinks";
 import { cookies } from "next/headers";
 import Footer from "../components/footer/Footer";
 import { StoreProvider } from "../redux/store.provider";
-import { getAccountTypeFromCookie } from "../data/auth";
+import { EAccountTypes, getAccountTypeFromCookie } from "../data/auth";
+import BasketWebSocket from "../components/BasketWebSocket";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -31,6 +32,9 @@ export default async function RootLayout({
       <body
         className={`${inter.className} min-h-screen flex flex-col bg-accent`}
       >
+        <BasketWebSocket
+          customerLoggedIn={accountTypeLoggedIn === EAccountTypes.customer}
+        />
         <StoreProvider>
           <Navigation
             minorNavbarBtns={await getProductTypes()}
