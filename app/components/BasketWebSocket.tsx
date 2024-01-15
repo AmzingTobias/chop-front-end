@@ -2,7 +2,12 @@
 
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { applyBasketToCart } from "@/app/redux/slices/basket.slice";
+import {
+  applyBasketToCart,
+  initialServerSideFetch,
+} from "@/app/redux/slices/basket.slice";
+import { getBasketContents } from "../data/basket";
+import BasketContents from "../(shop)/basket/BaseketContents";
 
 interface IBasketWebSocketProps {
   customerLoggedIn: boolean;
@@ -21,7 +26,11 @@ const BasketWebSocket: React.FC<IBasketWebSocketProps> = ({
       const ws = new WebSocket(
         `${process.env.NEXT_PUBLIC_WEBSOCKET_SERVER_API_HOST_ADDRESS}/v1/basket/updates`
       );
-
+      ws.onopen = (_) => {
+        getBasketContents().then((basketContents) => {
+          dispatch(initialServerSideFetch({ basket: basketContents }));
+        });
+      };
       ws.onmessage = (event) => {
         const data = JSON.parse(event.data);
         if (data.type === "basketUpdate") {

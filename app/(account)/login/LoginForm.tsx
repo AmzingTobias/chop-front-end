@@ -57,31 +57,7 @@ const LoginForm = () => {
       .then((response) => {
         setLoginRequestPending(false);
         if (response.ok) {
-          // User has logged in succesfully
-          response
-            .json()
-            .then((jsonResponse) => {
-              if (!loading) {
-                getBasketContents().then(async (basket) => {
-                  if (basket.length === 0) {
-                    await Promise.all(
-                      basketItems.map((item) => {
-                        addNewProductToBasket(item.productId, item.quantity);
-                      })
-                    );
-                  } else {
-                    getBasketContents().then((basketToApply) => {
-                      dispatch(applyBasketToCart({ basket: basketToApply }));
-                    });
-                  }
-                  router.refresh();
-                });
-              }
-            })
-            .catch((err) => {
-              console.error(err);
-              setInternalError(true);
-            });
+          router.refresh();
         } else if (response.status === 401) {
           // Credentials invalid
           setEmailErrorMsg("Email or password invalid");
