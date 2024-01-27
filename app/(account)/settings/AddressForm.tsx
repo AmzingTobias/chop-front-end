@@ -118,6 +118,7 @@ const AddressForm: React.FC<IAddressFormProps> = ({
                 </FormLabel>
                 <FormControl>
                   <Input
+                    className="text-accent"
                     type="text"
                     placeholder="First line of address"
                     {...field}
@@ -137,6 +138,7 @@ const AddressForm: React.FC<IAddressFormProps> = ({
                 </FormLabel>
                 <FormControl>
                   <Input
+                    className="text-accent"
                     type="text"
                     placeholder="Second line of address"
                     {...field}
@@ -153,7 +155,12 @@ const AddressForm: React.FC<IAddressFormProps> = ({
               <FormItem>
                 <FormLabel className="text-lg">Area code*</FormLabel>
                 <FormControl>
-                  <Input type="text" placeholder="Area code" {...field} />
+                  <Input
+                    type="text"
+                    placeholder="Area code"
+                    className="text-accent"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -166,7 +173,12 @@ const AddressForm: React.FC<IAddressFormProps> = ({
               <FormItem>
                 <FormLabel className="text-lg">State*</FormLabel>
                 <FormControl>
-                  <Input type="text" placeholder="State" {...field} />
+                  <Input
+                    type="text"
+                    placeholder="State"
+                    className="text-accent"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
