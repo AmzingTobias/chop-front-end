@@ -44,7 +44,7 @@ const DeliveryAddressSelection: React.FC<IDeliveryAddressSelection> = ({
             <DeliveryAddress address={address} />
             <div className="flex flex-col ml-auto justify-end">
               <h3
-                className="text-secondary font-semibold underline cursor-pointer"
+                className="text-secondary font-semibold underline cursor-pointer select-none"
                 onClick={() => setSelectedAddress(address)}
               >
                 Select
