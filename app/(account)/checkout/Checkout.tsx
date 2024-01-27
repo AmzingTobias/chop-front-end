@@ -8,6 +8,7 @@ import {
 import { useEffect, useState } from "react";
 import DeliveryAddressSelection from "./DeliveryAddressSelection";
 import DeliveryAddress from "./DeliveryAddress";
+import ChangeSection from "./ChangeSection";
 
 const Checkout = () => {
   const useDeliveryAddress = () => {
@@ -64,21 +65,13 @@ const Checkout = () => {
             setSelectedAddress={setSelectedAddress}
           />
         ) : (
-          <div className="flex flex-row">
-            <div className="text-bold justify-start font-bold">
-              Delivery address
-            </div>
-            <div className="ml-auto mr-auto justify-center">
-              {selectedAddress && <DeliveryAddress address={selectedAddress} />}
-            </div>
-
-            <div
-              className="ml-auto justify-end font-semibold text-secondary"
-              onClick={() => setSelectedAddress(undefined)}
-            >
-              <p className="cursor-pointer hover:underline">Change</p>
-            </div>
-          </div>
+          <ChangeSection
+            title="Delivery address"
+            onChangeClick={() => setSelectedAddress(undefined)}
+            centerContent={
+              selectedAddress && <DeliveryAddress address={selectedAddress} />
+            }
+          />
         )}
       </div>
     </div>
