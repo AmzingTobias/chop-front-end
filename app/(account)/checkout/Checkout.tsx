@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import DeliveryAddressSelection from "./DeliveryAddressSelection";
 import DeliveryAddress from "./DeliveryAddress";
 import ChangeSection from "./ChangeSection";
+import PaymentInfo from "./PaymentInfo";
 
 const Checkout = () => {
   const useDeliveryAddress = () => {
@@ -65,7 +66,7 @@ const Checkout = () => {
 
   return (
     <div className="flex flex-col">
-      <div className="w-2/3">
+      <div className="w-2/3 flex flex-col gap-3">
         {selectedAddress === undefined ? (
           <DeliveryAddressSelection
             addresses={deliveryAddresses}
@@ -81,6 +82,13 @@ const Checkout = () => {
             }
           />
         )}
+        <hr className="border-[1px] border-accent" />
+        <ChangeSection
+          title="Payment method"
+          centerContent={<PaymentInfo />}
+          onChangeClick={() => {}}
+        />
+        <hr className="border-[1px] border-accent" />
       </div>
     </div>
   );
