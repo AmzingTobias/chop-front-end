@@ -12,6 +12,7 @@ import ChangeSection from "./ChangeSection";
 
 const Checkout = () => {
   const useDeliveryAddress = () => {
+    const [dataReceived, setDataReceived] = useState(false);
     const [deliveryAddresses, setDeliveryAddresses] = useState<
       TCustomerAddress[]
     >([]);
@@ -35,6 +36,7 @@ const Checkout = () => {
               if (defaultAddress !== undefined) {
                 setSelectedAddress(defaultAddress);
               }
+              setDataReceived(true);
             })
             .catch((_) => setSelectedAddress(undefined));
         })
@@ -45,6 +47,7 @@ const Checkout = () => {
       refreshCustomerAddresses,
       selectedAddress,
       setSelectedAddress,
+      deliveryAddressDataReceived: dataReceived,
     };
   };
 
@@ -53,7 +56,12 @@ const Checkout = () => {
     refreshCustomerAddresses,
     selectedAddress,
     setSelectedAddress,
+    deliveryAddressDataReceived,
   } = useDeliveryAddress();
+
+  if (!deliveryAddressDataReceived) {
+    return null;
+  }
 
   return (
     <div className="flex flex-col">
