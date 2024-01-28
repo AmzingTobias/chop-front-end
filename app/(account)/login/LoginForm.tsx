@@ -11,9 +11,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { z } from "zod";
 import { authFormSchema } from "@/app/data/auth";
-import { addNewProductToBasket, getBasketContents } from "@/app/data/basket";
 import { useDispatch, useSelector } from "react-redux";
-import { applyBasketToCart } from "@/app/redux/slices/basket.slice";
 
 const LoginForm = () => {
   const router = useRouter();

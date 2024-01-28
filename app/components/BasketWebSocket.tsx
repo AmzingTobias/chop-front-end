@@ -7,7 +7,6 @@ import {
   initialServerSideFetch,
 } from "@/app/redux/slices/basket.slice";
 import { getBasketContents } from "../data/basket";
-import BasketContents from "../(shop)/basket/BaseketContents";
 
 interface IBasketWebSocketProps {
   customerLoggedIn: boolean;

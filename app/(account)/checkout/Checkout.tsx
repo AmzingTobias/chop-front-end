@@ -10,6 +10,8 @@ import DeliveryAddressSelection from "./DeliveryAddressSelection";
 import DeliveryAddress from "./DeliveryAddress";
 import ChangeSection from "./ChangeSection";
 import PaymentInfo from "./PaymentInfo";
+import Basket from "./Basket";
+import { TBasketEntry, getBasketContents } from "@/app/data/basket";
 
 const Checkout = () => {
   const useDeliveryAddress = () => {
@@ -52,6 +54,23 @@ const Checkout = () => {
     };
   };
 
+  const useBasket = () => {
+    const [basketContents, setBasketContents] = useState<TBasketEntry[]>([]);
+    useEffect(() => {
+      getBasketContents()
+        .then((contents) => {
+          setBasketContents(contents);
+        })
+        .catch((err) => {
+          console.error(err);
+          setBasketContents([]);
+        });
+    }, []);
+    return basketContents;
+  };
+
+  const basketContents = useBasket();
+
   const {
     deliveryAddresses,
     refreshCustomerAddresses,
@@ -89,6 +108,7 @@ const Checkout = () => {
           onChangeClick={() => {}}
         />
         <hr className="border-[1px] border-accent" />
+        <Basket contents={basketContents} />
       </div>
     </div>
   );
