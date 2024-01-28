@@ -1,4 +1,3 @@
-import BasketEntryQuantity from "@/app/(shop)/basket/BasketEntryQuantity";
 import ProductImageWithHover from "@/app/components/product-cards/common/ProductImageWithHover";
 import { TBasketEntry } from "@/app/data/basket";
 
