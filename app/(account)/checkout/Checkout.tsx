@@ -108,6 +108,7 @@ const Checkout = () => {
           onChangeClick={() => {}}
         />
         <hr className="border-[1px] border-accent" />
+        <h3 className="font-bold">Review Items</h3>
         <Basket contents={basketContents} />
       </div>
     </div>
