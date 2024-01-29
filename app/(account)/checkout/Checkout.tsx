@@ -124,7 +124,7 @@ const Checkout = () => {
       <div className="flex w-1/4">
         <ReviewOrder
           totalPrice={basketContents.reduce(
-            (prev, current) => prev + current.price,
+            (prev, current) => prev + current.price * current.quantity,
             0
           )}
           discountCodesBeingUsed={discountCodesBeingUsed}
