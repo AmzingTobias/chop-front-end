@@ -116,7 +116,6 @@ const Checkout = () => {
               setCodesInUse={setDiscountCodesBeingUsed}
             />
           }
-          onChangeClick={() => {}}
         />
         <hr className="border-[1px] border-accent" />
         <h3 className="font-bold">Review Items</h3>
