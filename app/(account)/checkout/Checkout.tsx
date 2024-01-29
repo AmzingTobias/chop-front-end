@@ -128,7 +128,7 @@ const Checkout = () => {
             (prev, current) => prev + current.price,
             0
           )}
-          discountCodesBeingUsed={[]}
+          discountCodesBeingUsed={discountCodesBeingUsed}
         />
       </div>
     </div>

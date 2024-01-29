@@ -1,15 +1,19 @@
+import { TDiscountCodeValidation } from "@/app/data/discounts";
 import { Button } from "@/components/ui/button";
 
 interface IReviewOrderProps {
   totalPrice: number;
-  discountCodesBeingUsed: string[];
+  discountCodesBeingUsed: TDiscountCodeValidation[];
 }
 
 const ReviewOrder: React.FC<IReviewOrderProps> = ({
   totalPrice,
   discountCodesBeingUsed,
 }) => {
-  const discountedTotal = totalPrice;
+  const discountedTotal = discountCodesBeingUsed.reduce(
+    (prev, current) => prev - (current.percent / 100) * totalPrice,
+    totalPrice
+  );
 
   return (
     <div className="bg-accent text-accent-foreground w-full p-2 rounded-md shadow-md h-fit flex flex-col gap-2">
@@ -27,7 +31,11 @@ const ReviewOrder: React.FC<IReviewOrderProps> = ({
             <h4 className="text-2xl font-bold">Promotions</h4>
             {discountCodesBeingUsed.map((code, index) => (
               <p key={index}>
-                Offer <span className="font-semibold">({code})</span>
+                Offer{" "}
+                <span className="font-semibold">
+                  ({code.code}): -£
+                  {((code.percent / 100) * totalPrice).toFixed(2)}
+                </span>
               </p>
             ))}
           </div>
