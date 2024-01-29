@@ -36,11 +36,16 @@ const PaymentInfo: React.FC<IPaymentInfoProps> = ({
           validateDiscountCode(codeEntered)
             .then((validation) => {
               setServerRequestInProgress(false);
-              if (codesInUse.length === 0 || validation.stackable) {
+              if (
+                (codesInUse.length === 0 || validation.stackable) &&
+                validation.valid
+              ) {
                 setCodesInUse((current) => [...current, validation]);
                 if (inputRef.current) {
                   inputRef.current.value = "";
                 }
+              } else if (!validation.valid) {
+                setDiscountCodeError("Code not usable");
               } else {
                 setDiscountCodeError(
                   "Code cannot be used with other discounts"
