@@ -4,6 +4,7 @@ import {
   getProductsDetailsInOrder,
 } from "@/app/data/orders";
 import { useEffect, useState } from "react";
+import { Progress } from "@/components/ui/progress";
 
 interface IOrderDetailsProps {
   order: TOrderEntry;
@@ -29,7 +30,7 @@ const OrderDetails: React.FC<IOrderDetailsProps> = ({ order }) => {
   }
 
   return (
-    <div>
+    <div className="flex flex-col">
       {orderDetails.map((product) => (
         <div key={product.productId}>{product.productName}</div>
       ))}
