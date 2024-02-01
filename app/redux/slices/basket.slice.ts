@@ -1,4 +1,4 @@
-import { addNewProductToBasket } from "@/app/data/basket";
+import { TBasketEntry, addNewProductToBasket } from "@/app/data/basket";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
@@ -61,11 +61,9 @@ const basketSlice = createSlice({
      */
     initialServerSideFetch: (state, action) => {
       if (state.basketItems.length === 0 || action.payload.basket.length > 0) {
-        state.basketItems = action.payload.basket.map(
-          (item: { productId: number; quantity: number }) => {
-            return { productId: item.productId, quantity: item.quantity };
-          }
-        );
+        state.basketItems = action.payload.basket.map((item: TBasketEntry) => {
+          return { productId: item.productId, quantity: item.quantity };
+        });
       } else {
         state.basketItems.map((basketItem) => {
           addNewProductToBasket(basketItem.productId, basketItem.quantity);

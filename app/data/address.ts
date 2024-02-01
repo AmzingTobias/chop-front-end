@@ -1,6 +1,6 @@
 export type TCustomerAddress = {
   // The id of the addres
-  id?: number;
+  id: number;
   // The area code for the address
   areaCode: string;
   // The first line of the address
