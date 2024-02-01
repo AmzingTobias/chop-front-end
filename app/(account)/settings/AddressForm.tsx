@@ -78,6 +78,8 @@ const AddressForm: React.FC<IAddressFormProps> = ({
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     const newAddress: TCustomerAddress = {
+      // ID is not needed in the context of this request
+      id: NaN,
       firstAddressLine: values.firstAddressLine,
       secondAddressLine:
         values.secondAddressLine === "" ? undefined : values.secondAddressLine,

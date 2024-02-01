@@ -2,6 +2,8 @@
  * Type used when validating a discount code
  */
 export type TDiscountCodeValidation = {
+  // The id of the discount code
+  id: number;
   // The code that was validated
   code: string;
   // If the discount code is currently valid

@@ -128,6 +128,7 @@ const Checkout = () => {
             0
           )}
           discountCodesBeingUsed={discountCodesBeingUsed}
+          shippingAddress={selectedAddress}
         />
       </div>
     </div>

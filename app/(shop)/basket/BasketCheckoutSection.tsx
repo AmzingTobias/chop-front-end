@@ -20,13 +20,15 @@ const BasketCheckoutSection: React.FC<IBasketCheckoutSectionProps> = ({
         {`Subtotal (${numInBasket} items) `}
         <span className="font-normal">{`£${subTotal.toFixed(2)}`}</span>
       </h3>
-      <Button
-        variant={"secondary"}
-        className="w-full font-medium text-base"
-        onClick={() => router.push("/checkout")}
-      >
-        Checkout
-      </Button>
+      {numInBasket > 0 && (
+        <Button
+          variant={"secondary"}
+          className="w-full font-medium text-base"
+          onClick={() => router.push("/checkout")}
+        >
+          Checkout
+        </Button>
+      )}
     </div>
   );
 };
