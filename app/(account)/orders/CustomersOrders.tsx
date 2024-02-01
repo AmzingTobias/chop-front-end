@@ -35,11 +35,18 @@ const CustomersOrders = () => {
         <div className="flex flex-col w-full gap-2 p-2 rounded-sm shadow-md bg-accent">
           {orders.map((order) => (
             <TabsTrigger
-              className="text-lg flex whitespace-normal"
+              className="text-lg flex flex-col whitespace-normal"
               value={`${order.id}`}
               key={order.id}
             >
-              £{order.total.toFixed(2)}
+              <p>
+                {new Date(order.placed_on).toLocaleDateString()} -{" "}
+                {order.status}
+              </p>
+              <p>
+                {order.product_count} product
+                {order.product_count > 1 ? "s" : ""}
+              </p>
             </TabsTrigger>
           ))}
         </div>
