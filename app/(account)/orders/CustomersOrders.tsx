@@ -81,6 +81,7 @@ const CustomersOrders = () => {
                   {order.status}
                 </h3>
               </div>
+              <hr className="border-accent border-[1px]" />
               <div className="flex-col space-y-1">
                 <OrderDetails order={order} />
               </div>
