@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import OrderDetails from "./OrderDetails";
 import { Progress } from "@/components/ui/progress";
 import { Raleway } from "next/font/google";
+import { TCustomerAddress, getCustomerAddresses } from "@/app/data/address";
 const raleway = Raleway({ subsets: ["latin"] });
 
 const CustomersOrders = () => {
@@ -19,6 +20,18 @@ const CustomersOrders = () => {
     }, []);
 
     return orders;
+  };
+
+  const useAddresses = () => {
+    const [addresses, setAddresses] = useState<TCustomerAddress[]>([]);
+
+    useEffect(() => {
+      getCustomerAddresses()
+        .then((addresses) => setAddresses(addresses))
+        .catch((err) => console.error(err));
+    }, []);
+
+    return addresses;
   };
 
   const convertStatusToValue = (status: string) => {
@@ -37,6 +50,7 @@ const CustomersOrders = () => {
   };
 
   const orders = useOrders();
+  const customerAddresses = useAddresses();
 
   if (orders.length === 0) {
     // Temporary return for when a customer has no orders
@@ -83,7 +97,10 @@ const CustomersOrders = () => {
               </div>
               <hr className="border-accent border-[1px]" />
               <div className="flex-col space-y-1">
-                <OrderDetails order={order} />
+                <OrderDetails
+                  customerAddresses={customerAddresses}
+                  order={order}
+                />
               </div>
             </div>
           </TabsContent>

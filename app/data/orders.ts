@@ -15,6 +15,8 @@ export type TOrderEntry = {
   pricePaid: number;
   // The date the order was placed
   placed_on: Date;
+  // The id of the address this order was sent to
+  shippingAddressId: number;
 };
 
 export const getCustomersOrders = (): Promise<TOrderEntry[]> => {
@@ -23,6 +25,34 @@ export const getCustomersOrders = (): Promise<TOrderEntry[]> => {
       mode: "cors",
       credentials: "include",
     })
+      .then((response) => {
+        if (response.ok)
+          response
+            .json()
+            .then((json) => resolve(json))
+            .catch((err) => reject(err));
+        else {
+          response
+            .text()
+            .then((responseText) => reject(responseText))
+            .catch((err) => reject(err));
+        }
+      })
+      .catch((err) => reject(err));
+  });
+};
+
+export const getDiscountsUsedForOrder = (
+  orderId: number
+): Promise<{ code: string }[]> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/orders/${orderId}/discounts`,
+      {
+        mode: "cors",
+        credentials: "include",
+      }
+    )
       .then((response) => {
         if (response.ok)
           response

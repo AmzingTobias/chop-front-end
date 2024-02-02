@@ -1,22 +1,43 @@
 import {
   IDetailedProductInOrder,
   TOrderEntry,
+  getDiscountsUsedForOrder,
   getProductsDetailsInOrder,
 } from "@/app/data/orders";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import noProductImage from "@/public/no-product.png";
 import { Raleway } from "next/font/google";
+import { TCustomerAddress } from "@/app/data/address";
 const raleway = Raleway({ subsets: ["latin"] });
 
 interface IOrderDetailsProps {
   order: TOrderEntry;
+  customerAddresses: TCustomerAddress[];
 }
 
-const OrderDetails: React.FC<IOrderDetailsProps> = ({ order }) => {
+const OrderDetails: React.FC<IOrderDetailsProps> = ({
+  customerAddresses,
+  order,
+}) => {
+  const addressUsedForOrder = customerAddresses.find(
+    (addr) => addr.id === order.shippingAddressId
+  );
+
+  const useDiscounts = () => {
+    const [discountsUsed, setDiscountsUsed] = useState<{ code: string }[]>([]);
+    useEffect(() => {
+      getDiscountsUsedForOrder(order.id)
+        .then((codes) => setDiscountsUsed(codes))
+        .catch((err) => console.error(err));
+    }, []);
+    return discountsUsed;
+  };
+
   const useOrderDetails = () => {
     const [orderDetails, setOrderDetails] =
       useState<IDetailedProductInOrder[]>();
+
     useEffect(() => {
       getProductsDetailsInOrder(order.id)
         .then((orderDetails) => setOrderDetails(orderDetails))
@@ -26,6 +47,7 @@ const OrderDetails: React.FC<IOrderDetailsProps> = ({ order }) => {
   };
 
   const orderDetails = useOrderDetails();
+  const discountsUsed = useDiscounts();
 
   if (orderDetails === undefined) {
     // Temporary return, will show a loading page instead
@@ -38,44 +60,65 @@ const OrderDetails: React.FC<IOrderDetailsProps> = ({ order }) => {
         <h2 className={`text-2xl w-full text-center ${raleway.className}`}>
           Order summary
         </h2>
+        <div className="flex flex-row w-full">
+          {addressUsedForOrder !== undefined && (
+            <div className="flex flex-col w-1/2">
+              <p>{addressUsedForOrder.firstAddressLine}</p>
+              <p>{addressUsedForOrder.secondAddressLine}</p>
+              <p>{addressUsedForOrder.countryState}</p>
+              <p>{addressUsedForOrder.areaCode}</p>
+              <p>{addressUsedForOrder.countryName}</p>
+            </div>
+          )}
+          <div className="flex flex-col items-end w-1/2 text-lg font-semibold">
+            <p>Items: £{order.total.toFixed(2)}</p>
+            {discountsUsed.map((code) => (
+              <p className="font-light text-sm italic">Code: {code.code}</p>
+            ))}
+            <p>Delivery: £0.00</p>
+            <p>Total paid: £{order.pricePaid.toFixed(2)}</p>
+          </div>
+        </div>
       </div>
       <div className="flex flex-col gap-2">
         <h2 className={`text-2xl w-full text-center ${raleway.className}`}>
           Items in order
         </h2>
-        {orderDetails.map((product) => (
-          <div
-            className="flex flex-row bg-accent w-full rounded-md h-fit"
-            key={product.productId}
-          >
-            {product.imageDetails === undefined ? (
-              <Image
-                className="rounded-l-md"
-                alt={"Preview"}
-                src={noProductImage.src}
-                width={100}
-                height={100}
-              />
-            ) : (
-              <Image
-                className="rounded-l-md"
-                alt={product.imageDetails.altText}
-                src={product.imageDetails.primaryLink}
-                width={100}
-                height={100}
-              />
-            )}
-            <div className="flex flex-col text-accent-foreground p-4 w-full flex-grow">
-              <h3 className="text-lg font-semibold">{product.productName}</h3>
-              <div className="flex flex-col justify-end items-end flex-grow">
-                <p className="text-xl font-semibold">
-                  <small className="font-medium">{product.quantity} x </small>£
-                  {product.price.toFixed(2)}
-                </p>
+        <div className="flex flex-col gap-4">
+          {orderDetails.map((product) => (
+            <div
+              className="flex flex-row bg-accent w-full rounded-md h-fit"
+              key={product.productId}
+            >
+              {product.imageDetails === undefined ? (
+                <Image
+                  className="rounded-l-md"
+                  alt={"Preview"}
+                  src={noProductImage.src}
+                  width={100}
+                  height={100}
+                />
+              ) : (
+                <Image
+                  className="rounded-l-md"
+                  alt={product.imageDetails.altText}
+                  src={product.imageDetails.primaryLink}
+                  width={100}
+                  height={100}
+                />
+              )}
+              <div className="flex flex-col text-accent-foreground p-4 w-full flex-grow">
+                <h3 className="text-lg font-semibold">{product.productName}</h3>
+                <div className="flex flex-col justify-end items-end flex-grow">
+                  <p className="text-xl font-semibold">
+                    <small className="font-medium">{product.quantity} x </small>
+                    £{product.price.toFixed(2)}
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );
