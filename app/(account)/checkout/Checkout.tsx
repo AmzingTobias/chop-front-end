@@ -7,13 +7,13 @@ import {
 } from "@/app/data/address";
 import { useEffect, useState } from "react";
 import DeliveryAddressSelection from "./DeliveryAddressSelection";
-import DeliveryAddress from "./DeliveryAddress";
 import ChangeSection from "./ChangeSection";
 import PaymentInfo from "./PaymentInfo";
 import Basket from "./Basket";
 import { TBasketEntry, getBasketContents } from "@/app/data/basket";
 import ReviewOrder from "./ReviewOrder";
 import { TDiscountCodeValidation } from "@/app/data/discounts";
+import CustomerAddress from "@/app/components/CustomerAddress";
 
 const Checkout = () => {
   const useDeliveryAddress = () => {
@@ -103,7 +103,7 @@ const Checkout = () => {
             title="Delivery address"
             onChangeClick={() => setSelectedAddress(undefined)}
             centerContent={
-              selectedAddress && <DeliveryAddress address={selectedAddress} />
+              selectedAddress && <CustomerAddress address={selectedAddress} />
             }
           />
         )}

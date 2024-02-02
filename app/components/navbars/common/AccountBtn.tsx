@@ -32,7 +32,7 @@ const AccountBtn: React.FC<{ loggedIn: boolean }> = ({ loggedIn }) => {
             <DropdownMenuItem className={textStyles}>
               <Link
                 onClick={() => setMenuOpen(false)}
-                href="/"
+                href="/orders"
                 className="flex flex-row items-center gap-1.5 w-full"
               >
                 <BsBasket />
