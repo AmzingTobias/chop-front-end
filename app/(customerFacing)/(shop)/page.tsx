@@ -1,12 +1,12 @@
-import SectionHeading from "../components/SectionHeading";
-import AdBanner from "../components/advertisement-banners/AdBanner";
-import ProductCarousel from "../components/product-cards/ProductCarousel";
-import { getRandomProducts, mapProductsToImages } from "../data/products";
+import SectionHeading from "@/app/components/SectionHeading";
+import AdBanner from "@/app/components/advertisement-banners/AdBanner";
+import ProductCarousel from "@/app/components/product-cards/ProductCarousel";
+import { getRandomProducts, mapProductsToImages } from "@/app/data/products";
 import summerAdBanner from "@/public/Ads/Summer promotion/summer-long.png";
 import summerMobileAdBanner from "@/public/Ads/Summer promotion/summer-mobile.png";
-import { EAccountTypes, getAccountTypeFromCookie } from "../data/auth";
+import { EAccountTypes, getAccountTypeFromCookie } from "@/app/data/auth";
 import { cookies } from "next/headers";
-import ProductViewHistory from "../components/products/ProductViewHistory";
+import ProductViewHistory from "@/app/components/products/ProductViewHistory";
 
 export default async function Home() {
   const NUMBER_OF_PRODUCTS_FOR_HOME_PAGE = 25;

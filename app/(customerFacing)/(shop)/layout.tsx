@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "../globals.css";
+import "@/app/globals.css";
 
-import Navigation from "../components/Navigation";
-import { getProductTypes } from "../data/navigationLinks";
+import Navigation from "@/app/components/Navigation";
+import { getProductTypes } from "@/app/data/navigationLinks";
 import { cookies } from "next/headers";
-import Footer from "../components/footer/Footer";
-import { getAccountTypeFromCookie } from "../data/auth";
+import Footer from "@/app/components/footer/Footer";
+import { getAccountTypeFromCookie } from "@/app/data/auth";
 
 const inter = Inter({ subsets: ["latin"] });
 

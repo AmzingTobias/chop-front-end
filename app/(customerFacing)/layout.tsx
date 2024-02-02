@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
-
+import "@/app/globals.css";
 import { cookies } from "next/headers";
 import { StoreProvider } from "@/app/redux/store.provider";
-import { EAccountTypes, getAccountTypeFromCookie } from "./data/auth";
-import BasketWebSocket from "./components/BasketWebSocket";
+import { EAccountTypes, getAccountTypeFromCookie } from "@/app/data/auth";
+import BasketWebSocket from "@/app/components/BasketWebSocket";
 
 const inter = Inter({ subsets: ["latin"] });
 
