@@ -4,11 +4,10 @@ import {
   TCustomerAddress,
   TShippingCountries,
   getCountriesAvailableForShipping,
-  getCustomerAddresses,
 } from "@/app/data/address";
 import { SetStateAction, useEffect, useState } from "react";
 import AddressForm from "../settings/AddressForm";
-import DeliveryAddress from "./DeliveryAddress";
+import CustomerAddress from "@/app/components/CustomerAddress";
 
 interface IDeliveryAddressSelection {
   addresses: TCustomerAddress[];
@@ -41,7 +40,7 @@ const DeliveryAddressSelection: React.FC<IDeliveryAddressSelection> = ({
           className="bg-accent text-accent-foreground rounded-md p-2"
         >
           <div className="flex flex-row">
-            <DeliveryAddress address={address} />
+            <CustomerAddress address={address} />
             <div className="flex flex-col ml-auto justify-end">
               <h3
                 className="text-secondary font-semibold underline cursor-pointer select-none"

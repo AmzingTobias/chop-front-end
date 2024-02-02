@@ -1,3 +1,4 @@
+import CustomerAddress from "@/app/components/CustomerAddress";
 import { TCustomerAddress } from "@/app/data/address";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -32,13 +33,7 @@ const AddressBox: React.FC<IAddressBoxProps> = ({
       }`}
     >
       <div className="flex flex-col">
-        <div className="flex flex-col space-y-0.5">
-          <p>{address.firstAddressLine}</p>
-          <p>{address.secondAddressLine}</p>
-          <p>{address.areaCode}</p>
-          <p>{address.countryState}</p>
-          <p>{address.countryName}</p>
-        </div>
+        <CustomerAddress address={address} className="space-y-0.5" />
         {isDefault ? (
           <h4 className="italic font-light my-4">
             This is your default address

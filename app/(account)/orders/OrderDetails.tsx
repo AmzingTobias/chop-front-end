@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import noProductImage from "@/public/no-product.png";
 import { Raleway } from "next/font/google";
 import { TCustomerAddress } from "@/app/data/address";
+import CustomerAddress from "@/app/components/CustomerAddress";
 const raleway = Raleway({ subsets: ["latin"] });
 
 interface IOrderDetailsProps {
@@ -62,18 +63,14 @@ const OrderDetails: React.FC<IOrderDetailsProps> = ({
         </h2>
         <div className="flex flex-row w-full">
           {addressUsedForOrder !== undefined && (
-            <div className="flex flex-col w-1/2">
-              <p>{addressUsedForOrder.firstAddressLine}</p>
-              <p>{addressUsedForOrder.secondAddressLine}</p>
-              <p>{addressUsedForOrder.countryState}</p>
-              <p>{addressUsedForOrder.areaCode}</p>
-              <p>{addressUsedForOrder.countryName}</p>
-            </div>
+            <CustomerAddress address={addressUsedForOrder} className="w-full" />
           )}
           <div className="flex flex-col items-end w-1/2 text-lg font-semibold">
             <p>Items: £{order.total.toFixed(2)}</p>
-            {discountsUsed.map((code) => (
-              <p className="font-light text-sm italic">Code: {code.code}</p>
+            {discountsUsed.map((code, index) => (
+              <p key={index} className="font-light text-sm italic">
+                Code: {code.code}
+              </p>
             ))}
             <p>Delivery: £0.00</p>
             <p>Total paid: £{order.pricePaid.toFixed(2)}</p>
