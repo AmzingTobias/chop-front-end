@@ -60,7 +60,7 @@ const CustomersOrders = () => {
   return (
     <Tabs
       defaultValue={orders.length > 0 ? orders[0].id.toString() : "0"}
-      className="flex flex-col sm:flex-row"
+      className="flex flex-col-reverse sm:flex-row gap-8 sm:gap-0"
       orientation="vertical"
     >
       <TabsList className="sm:basis-1/4 p-0 w-[200px] bg-transparent justify-normal">
@@ -95,7 +95,7 @@ const CustomersOrders = () => {
                   {order.status}
                 </h3>
               </div>
-              <hr className="border-accent border-[1px]" />
+              <hr className="border-accent bg-accent border-[1px]" />
               <div className="flex-col space-y-1">
                 <OrderDetails
                   customerAddresses={customerAddresses}

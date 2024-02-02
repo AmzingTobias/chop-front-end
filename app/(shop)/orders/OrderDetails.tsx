@@ -61,11 +61,11 @@ const OrderDetails: React.FC<IOrderDetailsProps> = ({
         <h2 className={`text-2xl w-full text-center ${raleway.className}`}>
           Order summary
         </h2>
-        <div className="flex flex-row w-full">
+        <div className="flex flex-col items-end sm:items-baseline sm:flex-row w-full">
           {addressUsedForOrder !== undefined && (
             <CustomerAddress address={addressUsedForOrder} className="w-full" />
           )}
-          <div className="flex flex-col items-end w-1/2 text-lg font-semibold">
+          <div className="flex flex-col text-end sm:text-start items-end w-full sm:w-1/2 text-lg font-semibold">
             <p>Items: £{order.total.toFixed(2)}</p>
             {discountsUsed.map((code, index) => (
               <p key={index} className="font-light text-sm italic">
@@ -89,7 +89,7 @@ const OrderDetails: React.FC<IOrderDetailsProps> = ({
             >
               {product.imageDetails === undefined ? (
                 <Image
-                  className="rounded-l-md"
+                  className="rounded-l-md w-fit"
                   alt={"Preview"}
                   src={noProductImage.src}
                   width={100}
@@ -97,7 +97,7 @@ const OrderDetails: React.FC<IOrderDetailsProps> = ({
                 />
               ) : (
                 <Image
-                  className="rounded-l-md"
+                  className="rounded-l-md w-fit"
                   alt={product.imageDetails.altText}
                   src={product.imageDetails.primaryLink}
                   width={100}
@@ -105,9 +105,11 @@ const OrderDetails: React.FC<IOrderDetailsProps> = ({
                 />
               )}
               <div className="flex flex-col text-accent-foreground p-4 w-full flex-grow">
-                <h3 className="text-lg font-semibold">{product.productName}</h3>
+                <h3 className="text-base md:text-lg font-semibold">
+                  {product.productName}
+                </h3>
                 <div className="flex flex-col justify-end items-end flex-grow">
-                  <p className="text-xl font-semibold">
+                  <p className="text-base md:text-xl font-semibold">
                     <small className="font-medium">{product.quantity} x </small>
                     £{product.price.toFixed(2)}
                   </p>
