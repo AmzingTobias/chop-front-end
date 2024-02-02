@@ -90,8 +90,8 @@ const Checkout = () => {
   }
 
   return (
-    <div className="flex flex-row w-full gap-8">
-      <div className="w-3/4 flex flex-col gap-3">
+    <div className="flex flex-col md:flex-row w-full gap-8 p-2 md:p-0">
+      <div className="w-full md:w-3/4 flex flex-col gap-3">
         {selectedAddress === undefined ? (
           <DeliveryAddressSelection
             addresses={deliveryAddresses}
@@ -107,7 +107,7 @@ const Checkout = () => {
             }
           />
         )}
-        <hr className="border-[1px] border-accent" />
+        <hr className="bg-accent border-[1px] border-accent" />
         <ChangeSection
           title="Payment method"
           centerContent={
@@ -117,11 +117,11 @@ const Checkout = () => {
             />
           }
         />
-        <hr className="border-[1px] border-accent" />
+        <hr className="bg-accent border-[1px] border-accent" />
         <h3 className="font-bold">Review Items</h3>
         <Basket contents={basketContents} />
       </div>
-      <div className="flex w-1/4">
+      <div className="flex w-full md:w-1/4">
         <ReviewOrder
           totalPrice={basketContents.reduce(
             (prev, current) => prev + current.price * current.quantity,

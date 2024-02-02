@@ -21,11 +21,11 @@ const Basket: React.FC<IBasketProps> = ({ contents }) => {
               imageHeight={400}
             />
             <div className="flex flex-col p-2 w-full flex-grow">
-              <h3 className="text-2xl">{item.productName}</h3>
+              <h3 className="text-medium md:text-xl">{item.productName}</h3>
               <div className="flex flex-row w-full justify-end items-end flex-grow">
                 <div className="flex flex-row gap-2 items-center">
                   <small className="font-medium">{item.quantity} x </small>
-                  <p className="text-xl font-semibold">
+                  <p className="text-medium md:text-xl font-semibold">
                     £{item.price.toFixed(2)}
                   </p>
                 </div>

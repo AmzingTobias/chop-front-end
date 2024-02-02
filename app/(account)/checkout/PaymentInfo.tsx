@@ -69,12 +69,12 @@ const PaymentInfo: React.FC<IPaymentInfoProps> = ({
       {moreCodesAllowed && (
         <div className="flex flex-col">
           <form
-            className="flex flex-row gap-2"
+            className="flex flex-col md:flex-row gap-2"
             onSubmit={(event) => event.preventDefault()}
           >
             <Input
               ref={inputRef}
-              className="h-8"
+              className="h-8 min-w-[120px] md:min-w-0"
               type="text"
               placeholder="Offer code"
               name="code"

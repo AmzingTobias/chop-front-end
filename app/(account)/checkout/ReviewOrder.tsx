@@ -89,7 +89,7 @@ const ReviewOrder: React.FC<IReviewOrderProps> = ({
       >
         Buy now
       </Button>
-      <hr className="border-accent-foreground border-[1px]" />
+      <hr className="border-accent-foreground border-[1px] bg-accent-foreground" />
       <div>
         <h4 className="text-2xl font-bold">Order summary</h4>
         <p>Items: £{totalPrice.toFixed(2)}</p>
@@ -97,7 +97,7 @@ const ReviewOrder: React.FC<IReviewOrderProps> = ({
       </div>
       {discountCodesBeingUsed.length > 0 && (
         <>
-          <hr className="border-accent-foreground border-[1px]" />
+          <hr className="border-accent-foreground border-[1px] bg-accent-foreground" />
           <div>
             <h4 className="text-2xl font-bold">Promotions</h4>
             {discountCodesBeingUsed.map((code, index) => (
@@ -112,7 +112,7 @@ const ReviewOrder: React.FC<IReviewOrderProps> = ({
           </div>
         </>
       )}
-      <hr className="border-accent-foreground border-[1px]" />
+      <hr className="border-accent-foreground border-[1px] bg-accent-foreground" />
       <div>
         <h4 className="text-2xl font-bold text-primary">
           Order Total:{" "}
