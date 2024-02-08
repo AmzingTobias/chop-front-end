@@ -1,29 +1,20 @@
 "use client";
 
+import { TBaseProduct, getAllBaseProducts } from "@/app/data/products";
 import StaffTable, { TTableRow } from "@/components/StaffTable";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const BaseProductsTable = () => {
   const useBaseProducts = () => {
-    const [baseProducts, setBaseProducts] = useState<
-      { id: number; brandName: string; description: string }[]
-    >([]);
+    const [baseProducts, setBaseProducts] = useState<TBaseProduct[]>([]);
     useEffect(() => {
-      fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/products/base`,
-        {
-          headers: {
-            "Content-type": "application/json",
-          },
-          mode: "cors",
-          credentials: "include",
-        }
-      ).then((response) => {
-        if (response.ok) {
-          response.json().then((data) => setBaseProducts(data));
-        }
-      });
+      getAllBaseProducts()
+        .then((products) => setBaseProducts(products))
+        .catch((err) => {
+          console.error(err);
+          setBaseProducts([]);
+        });
     }, []);
     return baseProducts;
   };
