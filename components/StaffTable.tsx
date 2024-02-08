@@ -19,7 +19,7 @@ type TTableEntry = {
   className?: string;
   display: string | number | ReactNode;
 };
-type TTableRow = {
+export type TTableRow = {
   id: number;
   cells: TTableEntry[];
 };
@@ -41,13 +41,16 @@ const StaffTable: React.FC<ITableProps> = ({ headings, rows, caption }) => {
               <TableHead
                 key={index}
                 onClick={heading.handleOnClick}
-                className={`${
+                className={`
+                font-semibold
+                ${
                   heading.className === undefined ? "" : heading.className
                 } text-accent bg-primary text-xl
+                ${index === 0 ? "rounded-tl-md" : ""}
                 ${
                   index === headings.length - 1
                     ? "rounded-tr-md"
-                    : "border-r-2 border-accent rounded-tl-md"
+                    : "border-r-2 border-accent "
                 }
                 `}
               >
@@ -67,6 +70,7 @@ const StaffTable: React.FC<ITableProps> = ({ headings, rows, caption }) => {
                 <TableCell
                   key={index}
                   className={`
+                  font-medium
                   ${rowIndex % 2 === 0 ? "bg-accent" : "bg-accent/80"}
                   ${
                     rowIndex === rows.length - 1

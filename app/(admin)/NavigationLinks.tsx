@@ -23,18 +23,22 @@ const NavigationLinks: React.FC<INavigationLinksProps> = ({ navLinks }) => {
   }
 
   return (
-    <ScrollArea className="text-center w-full font-semibold text-lg flex flex-grow">
-      {navLinks.map((link, index) => (
-        <Link
-          className={`${
-            pathname === link.path ? "text-secondary font-bold" : "text-primary"
-          }`}
-          key={index}
-          href={link.path}
-        >
-          {link.displayName}
-        </Link>
-      ))}
+    <ScrollArea className="text-center w-full font-semibold text-lg flex flex-col flex-grow">
+      <div className="flex flex-col">
+        {navLinks.map((link, index) => (
+          <Link
+            className={`${
+              pathname === link.path
+                ? "text-secondary font-bold"
+                : "text-primary"
+            }`}
+            key={index}
+            href={link.path}
+          >
+            {link.displayName}
+          </Link>
+        ))}
+      </div>
     </ScrollArea>
   );
 };

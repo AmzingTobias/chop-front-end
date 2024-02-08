@@ -15,6 +15,7 @@ export const metadata: Metadata = {
 
 const adminNavLinks: TNavigationLinks[] = [
   { path: "/admin", displayName: "Overview" },
+  { path: "/admin/base-products", displayName: "Products" },
 ];
 
 export default async function RootLayout({
