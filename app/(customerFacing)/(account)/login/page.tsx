@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import AccountFormSwitch from "../AccountSwitch";
-import LoginForm from "./LoginForm";
+import CustomerLoginForm from "./CustomerLoginForm";
 import Login from "./Login";
 import { getAccountTypeFromCookie } from "@/app/data/auth";
 import { cookies } from "next/headers";
@@ -26,7 +26,7 @@ const LoginPage = () => {
           />
           <br className="my-1.5" />
           <Suspense>
-            <LoginForm />
+            <CustomerLoginForm />
           </Suspense>
         </div>
       </div>

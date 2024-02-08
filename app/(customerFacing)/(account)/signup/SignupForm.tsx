@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import AccountForm from "../AccountForm";
+import AccountForm from "../../../../components/forms/AccountForm";
 import { z } from "zod";
 import {
   AlertDialog,

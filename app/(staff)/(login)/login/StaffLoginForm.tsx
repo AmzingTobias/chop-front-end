@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import AccountForm from "../AccountForm";
+import AccountForm from "@/components/forms/AccountForm";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -11,35 +11,22 @@ import {
 } from "@/components/ui/alert-dialog";
 import { z } from "zod";
 import { authFormSchema } from "@/app/data/auth";
-import { useDispatch, useSelector } from "react-redux";
 
-const LoginForm = () => {
+interface IStaffLoginFormProps {
+  type: "sales" | "admin" | "support" | "warehouse";
+}
+
+const StaffLoginForm: React.FC<IStaffLoginFormProps> = ({ type }) => {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const [redirectFromAccountCreated, setRedirectedFromAccountCreated] =
-    useState(searchParams.get("account-created") === "true");
   const [loginRequestPending, setLoginRequestPending] = useState(false);
   const [internalError, setInternalError] = useState(false);
   const [emailErrorMsg, setEmailErrorMsg] = useState("");
   const [passwordErrorMsg, setPasswordErrorMsg] = useState("");
 
-  const { loading, basketItems } = useSelector(
-    (state: {
-      basket: {
-        loading: boolean;
-        basketItems: {
-          productId: number;
-          quantity: number;
-        }[];
-      };
-    }) => state.basket
-  );
-  const dispatch = useDispatch();
-
   function onSubmit(values: z.infer<typeof authFormSchema>) {
     setLoginRequestPending(true);
     fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/auth/customer/login`,
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/auth/${type}/login`,
       {
         method: "POST",
         credentials: "include",
@@ -82,15 +69,6 @@ const LoginForm = () => {
         emailErrorMsg={emailErrorMsg}
         passwordErrorMsg={passwordErrorMsg}
       />
-      <AlertDialog
-        open={redirectFromAccountCreated}
-        onOpenChange={setRedirectedFromAccountCreated}
-      >
-        <AlertDialogContent>
-          <AlertDialogTitle>Account created.</AlertDialogTitle>
-          <AlertDialogAction className="bg-secondary">Ok</AlertDialogAction>
-        </AlertDialogContent>
-      </AlertDialog>
       <AlertDialog open={internalError} onOpenChange={setInternalError}>
         <AlertDialogContent>
           <AlertDialogTitle>Internal error occured.</AlertDialogTitle>
@@ -101,4 +79,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default StaffLoginForm;

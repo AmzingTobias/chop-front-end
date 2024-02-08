@@ -45,7 +45,9 @@ const Titlebar: React.FC<ITitlebarProps> = ({
             />
           </div>
           <div className="mr-6">
-            <AccountBtn loggedIn={accountTypeLoggedIn !== undefined} />
+            <AccountBtn
+              customerLoggedIn={accountTypeLoggedIn === EAccountTypes.customer}
+            />
           </div>
           <ShoppingCartBtn />
         </div>
