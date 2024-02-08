@@ -65,7 +65,10 @@ const FOOTER_CONTENTS: IFooterColumnContentsProps[] = [
   },
   {
     colName: "About chop",
-    navLinks: [{ display: "About us", link: "/" }],
+    navLinks: [
+      { display: "About us", link: "/" },
+      { display: "Staff login", link: "/login/admin" },
+    ],
   },
   {
     colName: "More from chop",
