@@ -745,3 +745,31 @@ export const getAllBaseProducts = (): Promise<TBaseProduct[]> => {
       .catch((err) => reject(err));
   });
 };
+
+export const getProductIdsWithBaseId = (
+  baseProductId: number
+): Promise<{ id: number }[]> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/products/base/${baseProductId}`,
+      {
+        headers: {
+          "Content-type": "application/json",
+        },
+        mode: "cors",
+        credentials: "include",
+      }
+    )
+      .then((response) => {
+        if (response.ok) {
+          response
+            .json()
+            .then((data) => resolve(data))
+            .catch((err) => reject(err));
+        } else {
+          reject("Server error");
+        }
+      })
+      .catch((err) => reject(err));
+  });
+};
