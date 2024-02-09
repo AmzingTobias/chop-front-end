@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "@/app/globals.css";
 
 import Navigation from "@/app/components/Navigation";
-import { getProductTypes } from "@/app/data/navigationLinks";
+import { getProductTypesNavLinks } from "@/app/data/navigationLinks";
 import { cookies } from "next/headers";
 import Footer from "@/app/components/footer/Footer";
 import { getAccountTypeFromCookie } from "@/app/data/auth";
@@ -28,7 +28,7 @@ export default async function ShopLayout({
   return (
     <>
       <Navigation
-        minorNavbarBtns={await getProductTypes()}
+        minorNavbarBtns={await getProductTypesNavLinks()}
         accountTypeLoggedIn={accountTypeLoggedIn}
       />
       <div className="w-full bg-accent-foreground">

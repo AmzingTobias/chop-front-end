@@ -59,7 +59,7 @@ const ProductGrid: React.FC<IProductGridProps> = ({ baseProductId }) => {
   const products = useProducts();
 
   return (
-    <ScrollArea className="h-screen p-6 w-full">
+    <ScrollArea className="h-screen w-full">
       <div className="flex flex-row flex-wrap items-start gap-6 w-full ">
         {products.map((product) => (
           <ProductCard key={product.productId} {...product} />

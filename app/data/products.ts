@@ -773,3 +773,51 @@ export const getProductIdsWithBaseId = (
       .catch((err) => reject(err));
   });
 };
+
+export type TProductType = {
+  id: number;
+  type: string;
+};
+
+export const getProductTypes = (): Promise<TProductType[]> => {
+  return new Promise((resolve, reject) => {
+    fetch(`${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/product-types`)
+      .then((response) => {
+        if (response.ok) {
+          response
+            .json()
+            .then((data) => resolve(data))
+            .catch((err) => reject(err));
+        } else {
+          reject("Response failed");
+        }
+      })
+      .catch((err) => reject(err));
+  });
+};
+
+export const updateBaseProduct = (
+  baseProductId: number,
+  description: string
+): Promise<boolean> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/products/base/${baseProductId}`,
+      {
+        headers: {
+          "Content-type": "application/json",
+        },
+        mode: "cors",
+        credentials: "include",
+        method: "put",
+        body: JSON.stringify({
+          description,
+        }),
+      }
+    )
+      .then((response) => {
+        resolve(response.ok);
+      })
+      .catch((err) => reject(err));
+  });
+};
