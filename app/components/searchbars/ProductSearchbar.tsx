@@ -7,7 +7,6 @@ import { Input } from "@/components/ui/input";
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
-  IProductEntry,
   IProductEntryWithImages,
   mapProductsToImages,
   searchForProducts,
@@ -15,14 +14,14 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 
-interface ISearchbarProps {
+interface IProductSearchbarProps {
   variant?: "secondary" | "accent";
   searchResultLimit?: number;
   showResultsOnInputChange?: boolean;
   defaultValue?: string;
 }
 
-export const Searchbar: React.FC<ISearchbarProps> = ({
+export const ProductSearchbar: React.FC<IProductSearchbarProps> = ({
   variant = "secondary",
   searchResultLimit = 5,
   showResultsOnInputChange = false,
@@ -155,4 +154,4 @@ export const Searchbar: React.FC<ISearchbarProps> = ({
   );
 };
 
-export default Searchbar;
+export default ProductSearchbar;

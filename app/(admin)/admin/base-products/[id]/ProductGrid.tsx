@@ -10,6 +10,7 @@ import {
 import { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import SearchBar from "@/components/SearchBar";
 
 interface IProductGridProps {
   baseProductId: number;
@@ -58,14 +59,36 @@ const ProductGrid: React.FC<IProductGridProps> = ({ baseProductId }) => {
 
   const products = useProducts();
 
+  const [filteredProducts, setFilteredProducts] = useState(products);
+
+  useEffect(() => {
+    setFilteredProducts(products);
+  }, [products]);
+
   return (
-    <ScrollArea className="h-screen w-full">
-      <div className="flex flex-row flex-wrap items-start gap-6 w-full ">
-        {products.map((product) => (
-          <ProductCard key={product.productId} {...product} />
-        ))}
-      </div>
-    </ScrollArea>
+    <div className="h-screen w-full flex flex-col gap-4">
+      <SearchBar
+        variant="accent"
+        onSearchChange={(query) => {
+          if (query === "") {
+            setFilteredProducts(products);
+          } else {
+            setFilteredProducts(
+              products.filter((product) =>
+                product.productName.toLowerCase().includes(query.toLowerCase())
+              )
+            );
+          }
+        }}
+      />
+      <ScrollArea>
+        <div className="flex flex-row flex-wrap items-start gap-6 w-full ">
+          {filteredProducts.map((product) => (
+            <ProductCard key={product.productId} {...product} />
+          ))}
+        </div>
+      </ScrollArea>
+    </div>
   );
 };
 
