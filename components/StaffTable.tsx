@@ -1,4 +1,6 @@
-import { ReactNode } from "react";
+"use client";
+
+import { ReactNode, useEffect, useState } from "react";
 import { ScrollArea } from "./ui/scroll-area";
 import {
   Table,
@@ -9,9 +11,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import { cn } from "@/lib/utils";
 
 type TTableHeading = {
-  handleOnClick?: () => void;
+  sortable: boolean;
   className?: String;
   display: String;
 };
@@ -31,6 +35,31 @@ interface ITableProps {
 }
 
 const StaffTable: React.FC<ITableProps> = ({ headings, rows, caption }) => {
+  const [filteredRows, setFilteredRows] = useState<TTableRow[]>([...rows]);
+  const [sortedBy, setSortedBy] = useState<{
+    headingIndex: number;
+    desc: boolean;
+  }>({ headingIndex: 0, desc: true });
+
+  useEffect(() => {
+    const sortedRows = [...rows].sort((a, b) => {
+      const aElement = a.cells[sortedBy.headingIndex].display;
+      const bElement = b.cells[sortedBy.headingIndex].display;
+
+      if (typeof aElement === "number" && typeof bElement === "number") {
+        return sortedBy.desc ? aElement - bElement : bElement - aElement;
+      } else if (typeof aElement === "string" && typeof bElement === "string") {
+        return sortedBy.desc
+          ? aElement.localeCompare(bElement)
+          : bElement.localeCompare(aElement);
+      } else {
+        // Decide how to handle other data types or return 0 if no sorting is needed.
+        return 0;
+      }
+    });
+    setFilteredRows(sortedRows);
+  }, [sortedBy, rows]);
+
   return (
     <ScrollArea className="w-full">
       <Table>
@@ -40,27 +69,40 @@ const StaffTable: React.FC<ITableProps> = ({ headings, rows, caption }) => {
             {headings.map((heading, index) => (
               <TableHead
                 key={index}
-                onClick={heading.handleOnClick}
+                onClick={() => {
+                  if (heading.sortable) {
+                    setSortedBy((prev) => ({
+                      desc: sortedBy.headingIndex === index ? !prev.desc : true,
+                      headingIndex: index,
+                    }));
+                  }
+                }}
                 className={`
                 font-semibold
-                ${
-                  heading.className === undefined ? "" : heading.className
-                } text-accent bg-primary text-xl
+                cursor-default
+                select-none
+                ${heading.sortable ? "hover:opacity-80" : ""}
+                text-accent bg-primary text-xl
                 ${index === 0 ? "rounded-tl-md" : ""}
                 ${index === headings.length - 1 ? "rounded-tr-md" : ""}
                 `}
               >
-                {heading.display}
+                <div
+                  className={cn(
+                    "flex flex-row items-center w-full",
+                    heading.className
+                  )}
+                >
+                  {heading.display}
+                  {sortedBy.headingIndex === index &&
+                    (sortedBy.desc ? <IoIosArrowUp /> : <IoIosArrowDown />)}
+                </div>
               </TableHead>
             ))}
-            {/* <TableHead className="w-[100px]">Invoice</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead>Method</TableHead>
-            <TableHead className="text-right">Amount</TableHead> */}
           </TableRow>
         </TableHeader>
         <TableBody>
-          {rows.map((row, rowIndex) => (
+          {filteredRows.map((row, rowIndex) => (
             <TableRow key={row.id} className="text-accent-foreground">
               {row.cells.map((cell, index) => (
                 <TableCell

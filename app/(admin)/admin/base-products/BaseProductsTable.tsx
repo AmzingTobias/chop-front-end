@@ -76,11 +76,11 @@ const BaseProductsTable = () => {
       />
       <StaffTable
         headings={[
-          { display: "ID", className: "w-min-content" },
-          { display: "Description" },
-          { display: "Brand" },
-          { display: "Number of products", className: "w-2/12" },
-          { display: "View", className: "w-2/12 text-right" },
+          { display: "ID", sortable: true },
+          { display: "Description", sortable: true },
+          { display: "Brand", sortable: true },
+          { display: "Number of products", sortable: true },
+          { display: "View", className: " justify-end", sortable: false },
         ]}
         rows={dataForTable}
       />
