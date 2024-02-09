@@ -7,6 +7,7 @@ import {
 } from "@/app/data/products";
 import { useEffect, useState } from "react";
 import UpdateBaseProductDescription from "./UpdateBaseProductDescription";
+import Link from "next/link";
 
 interface IBaseProductBar {
   baseProductId: number;
@@ -41,7 +42,13 @@ const BaseProductSideBar: React.FC<IBaseProductBar> = ({
   }
 
   return (
-    <div className="w-full">
+    <div className="flex flex-col gap-4 w-full">
+      <Link
+        className="w-full bg-accent hover:opacity-80 text-accent-foreground rounded-md p-2"
+        href={"/admin/base-products"}
+      >
+        Back
+      </Link>
       <UpdateBaseProductDescription baseProduct={baseProduct} />
     </div>
   );
