@@ -27,6 +27,7 @@ const BaseProductsTable = () => {
       { display: product.id },
       { display: product.description },
       { display: product.brandName },
+      { display: product.productCount },
       {
         className: "last:text-right",
         display: (
@@ -44,10 +45,11 @@ const BaseProductsTable = () => {
   return (
     <StaffTable
       headings={[
-        { display: "ID" },
+        { display: "ID", className: "w-min-content" },
         { display: "Description" },
         { display: "Brand" },
-        { display: "View", className: "text-right" },
+        { display: "Number of products", className: "w-2/12" },
+        { display: "View", className: "w-2/12 text-right" },
       ]}
       rows={dataForTable}
     />

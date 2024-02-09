@@ -717,6 +717,7 @@ export type TBaseProduct = {
   id: number;
   brandName: string;
   description: string;
+  productCount: number;
 };
 
 export const getAllBaseProducts = (): Promise<TBaseProduct[]> => {

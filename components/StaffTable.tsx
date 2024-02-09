@@ -47,11 +47,7 @@ const StaffTable: React.FC<ITableProps> = ({ headings, rows, caption }) => {
                   heading.className === undefined ? "" : heading.className
                 } text-accent bg-primary text-xl
                 ${index === 0 ? "rounded-tl-md" : ""}
-                ${
-                  index === headings.length - 1
-                    ? "rounded-tr-md"
-                    : "border-r-2 border-accent "
-                }
+                ${index === headings.length - 1 ? "rounded-tr-md" : ""}
                 `}
               >
                 {heading.display}
@@ -76,11 +72,6 @@ const StaffTable: React.FC<ITableProps> = ({ headings, rows, caption }) => {
                     rowIndex === rows.length - 1
                       ? "first-of-type:rounded-bl-md last-of-type:rounded-br-md"
                       : ""
-                  }
-                  ${
-                    index === row.cells.length - 1
-                      ? ""
-                      : "border-r-accent-foreground border-r-[1px]"
                   }
                   ${cell.className === undefined ? "" : cell.className}
                   `}
