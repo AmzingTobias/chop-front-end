@@ -81,13 +81,19 @@ const ProductGrid: React.FC<IProductGridProps> = ({ baseProductId }) => {
           }
         }}
       />
-      <ScrollArea>
-        <div className="max-h-full flex flex-row flex-wrap items-start gap-6 w-full ">
-          {filteredProducts.map((product) => (
-            <ProductCard key={product.productId} {...product} />
-          ))}
+      {filteredProducts.length === 0 ? (
+        <div className="w-full h-screen flex items-center justify-center">
+          <h2 className="text-4xl italic">No products</h2>
         </div>
-      </ScrollArea>
+      ) : (
+        <ScrollArea>
+          <div className="max-h-full flex flex-row flex-wrap items-start gap-6 w-full ">
+            {filteredProducts.map((product) => (
+              <ProductCard key={product.productId} {...product} />
+            ))}
+          </div>
+        </ScrollArea>
+      )}
     </div>
   );
 };
