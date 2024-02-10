@@ -11,6 +11,7 @@ import Link from "next/link";
 import UpdateBaseProductBrand from "./UpdateBaseProductBrand";
 import UpdateBaseProductProductType from "./UpdateBaseProductProductType";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Button } from "@/components/ui/button";
 
 interface IBaseProductBar {
   baseProductId: number;
@@ -46,12 +47,20 @@ const BaseProductSideBar: React.FC<IBaseProductBar> = ({
 
   return (
     <div className="h-full flex flex-col gap-4 w-full">
-      <Link
-        className="w-full bg-accent hover:opacity-80 text-accent-foreground rounded-md p-2"
-        href={"/admin/base-products"}
-      >
-        Back
-      </Link>
+      <div className="flex flex-col gap-2">
+        <Link
+          className="w-full bg-accent hover:opacity-80 text-accent-foreground rounded-md p-2"
+          href={"/admin/base-products"}
+        >
+          Back
+        </Link>
+        <Button
+          variant={"secondary"}
+          className="items-start justify-normal p-2"
+        >
+          Add new product
+        </Button>
+      </div>
       <hr className="border-[1px] border-accent bg-accent" />
       <ScrollArea className="pr-4">
         <div className="flex flex-col gap-4">
