@@ -8,6 +8,7 @@ import {
 import { useEffect, useState } from "react";
 import UpdateBaseProductDescription from "./UpdateBaseProductDescription";
 import Link from "next/link";
+import UpdateBaseProductBrand from "./UpdateBaseProductBrand";
 
 interface IBaseProductBar {
   baseProductId: number;
@@ -49,7 +50,13 @@ const BaseProductSideBar: React.FC<IBaseProductBar> = ({
       >
         Back
       </Link>
+      <hr className="border-[1px] border-accent bg-accent" />
       <UpdateBaseProductDescription baseProduct={baseProduct} />
+      <hr className="border-[1px] border-accent bg-accent" />
+      <UpdateBaseProductBrand
+        baseProductId={baseProduct.id}
+        fetchedBrandName={baseProduct.brandName}
+      />
     </div>
   );
 };
