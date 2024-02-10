@@ -1,6 +1,6 @@
 "use client";
 
-import Searchbar from "@/app/components/searchbars/Searchbar";
+import ProductSearchbar from "@/app/components/searchbars/ProductSearchbar";
 import {
   IProductEntryWithImages,
   mapProductsToImages,
@@ -36,7 +36,7 @@ const Search: React.FC<ISearchProps> = ({ accountTypeLoggedIn }) => {
 
   return (
     <div className="flex flex-col ">
-      <Searchbar
+      <ProductSearchbar
         variant="accent"
         showResultsOnInputChange={false}
         searchResultLimit={10}

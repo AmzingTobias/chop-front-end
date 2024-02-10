@@ -1,9 +1,4 @@
-import {
-  getProductsByBrand,
-  getProductsByProductType,
-  mapProductsToImages,
-} from "@/app/data/products";
-import Searchbar from "@/app/components/searchbars/Searchbar";
+import { getProductsByBrand, mapProductsToImages } from "@/app/data/products";
 import { cookies } from "next/headers";
 import { getAccountTypeFromCookie } from "@/app/data/auth";
 import ProductResults from "../../product-type/[id]/ProductResults";

@@ -4,7 +4,6 @@ import {
 } from "@/app/data/products";
 
 import ProductResults from "./ProductResults";
-import Searchbar from "@/app/components/searchbars/Searchbar";
 import { cookies } from "next/headers";
 import { getAccountTypeFromCookie } from "@/app/data/auth";
 import SectionHeading from "@/app/components/SectionHeading";
