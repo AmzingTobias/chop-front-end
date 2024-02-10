@@ -76,6 +76,7 @@ const UpdateBaseProductBrand: React.FC<IUpdateBaseProductBrandProps> = ({
 
   return (
     <div className="flex flex-col gap-2">
+      <h2 className="underline font-semibold text-lg">Brand</h2>
       <Select
         value={selectedBrandName}
         defaultValue={selectedBrandName}

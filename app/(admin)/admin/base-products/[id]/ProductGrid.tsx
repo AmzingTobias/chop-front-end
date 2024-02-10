@@ -66,7 +66,7 @@ const ProductGrid: React.FC<IProductGridProps> = ({ baseProductId }) => {
   }, [products]);
 
   return (
-    <div className="h-screen w-full flex flex-col gap-4">
+    <div className="h-full w-full flex flex-col gap-4">
       <SearchBar
         variant="accent"
         onSearchChange={(query) => {
@@ -82,7 +82,7 @@ const ProductGrid: React.FC<IProductGridProps> = ({ baseProductId }) => {
         }}
       />
       <ScrollArea>
-        <div className="flex flex-row flex-wrap items-start gap-6 w-full ">
+        <div className="max-h-full flex flex-row flex-wrap items-start gap-6 w-full ">
           {filteredProducts.map((product) => (
             <ProductCard key={product.productId} {...product} />
           ))}

@@ -9,6 +9,8 @@ import { useEffect, useState } from "react";
 import UpdateBaseProductDescription from "./UpdateBaseProductDescription";
 import Link from "next/link";
 import UpdateBaseProductBrand from "./UpdateBaseProductBrand";
+import UpdateBaseProductProductType from "./UpdateBaseProductProductType";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface IBaseProductBar {
   baseProductId: number;
@@ -43,7 +45,7 @@ const BaseProductSideBar: React.FC<IBaseProductBar> = ({
   }
 
   return (
-    <div className="flex flex-col gap-4 w-full">
+    <div className="h-full flex flex-col gap-4 w-full">
       <Link
         className="w-full bg-accent hover:opacity-80 text-accent-foreground rounded-md p-2"
         href={"/admin/base-products"}
@@ -51,12 +53,18 @@ const BaseProductSideBar: React.FC<IBaseProductBar> = ({
         Back
       </Link>
       <hr className="border-[1px] border-accent bg-accent" />
-      <UpdateBaseProductDescription baseProduct={baseProduct} />
-      <hr className="border-[1px] border-accent bg-accent" />
-      <UpdateBaseProductBrand
-        baseProductId={baseProduct.id}
-        fetchedBrandName={baseProduct.brandName}
-      />
+      <ScrollArea className="pr-4">
+        <div className="flex flex-col gap-4">
+          <UpdateBaseProductDescription baseProduct={baseProduct} />
+          <hr className="border-[1px] border-accent bg-accent" />
+          <UpdateBaseProductBrand
+            baseProductId={baseProduct.id}
+            fetchedBrandName={baseProduct.brandName}
+          />
+          <hr className="border-[1px] border-accent bg-accent" />
+          <UpdateBaseProductProductType baseProductId={baseProduct.id} />
+        </div>
+      </ScrollArea>
     </div>
   );
 };

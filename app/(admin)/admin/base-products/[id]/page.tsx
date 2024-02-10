@@ -5,7 +5,7 @@ import ProductGrid from "./ProductGrid";
 const Page = async ({ params }: { params: { id: number } }) => {
   const productTypesAvailable = await getProductTypes();
   return (
-    <main className="w-full max-h-full overflow-hidden flex flex-row p-6">
+    <main className="w-full h-screen max-h-screen overflow-clip flex flex-row p-6">
       <div className="pr-6 w-full">
         <ProductGrid baseProductId={params.id} />
       </div>

@@ -31,7 +31,9 @@ const NavigationLinks: React.FC<INavigationLinksProps> = ({ navLinks }) => {
               pathname === link.path
                 ? "text-secondary font-bold"
                 : "text-primary"
-            }`}
+            }
+            hover:opacity-80
+            `}
             key={index}
             href={link.path}
           >

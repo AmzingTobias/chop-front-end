@@ -821,3 +821,83 @@ export const updateBaseProduct = (
       .catch((err) => reject(err));
   });
 };
+
+export const getAssignedProductTypes = (
+  baseProductId: number
+): Promise<TProductType[]> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/products/base/${baseProductId}/product-types`,
+      {
+        headers: {
+          "Content-type": "application/json",
+        },
+        mode: "cors",
+        credentials: "include",
+      }
+    )
+      .then((response) => {
+        if (response.ok) {
+          response
+            .json()
+            .then((data) => resolve(data))
+            .catch((err) => reject(err));
+        } else {
+          reject("Response failed");
+        }
+      })
+      .catch((err) => reject(err));
+  });
+};
+
+export const addProductTypeToBaseProduct = (
+  baseProductId: number,
+  productTypeId: number
+): Promise<boolean> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/products/base/${baseProductId}/product-types`,
+      {
+        headers: {
+          "Content-type": "application/json",
+        },
+        mode: "cors",
+        credentials: "include",
+        method: "post",
+        body: JSON.stringify({
+          "product-type-ids": [productTypeId],
+        }),
+      }
+    )
+      .then((response) => {
+        resolve(response.ok);
+      })
+      .catch((err) => reject(err));
+  });
+};
+
+export const removeProductTypeFromBaseProduct = (
+  baseProductId: number,
+  productTypeId: number
+): Promise<boolean> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/products/base/${baseProductId}/product-types`,
+      {
+        headers: {
+          "Content-type": "application/json",
+        },
+        mode: "cors",
+        credentials: "include",
+        method: "delete",
+        body: JSON.stringify({
+          "product-type-ids": [productTypeId],
+        }),
+      }
+    )
+      .then((response) => {
+        resolve(response.ok);
+      })
+      .catch((err) => reject(err));
+  });
+};
