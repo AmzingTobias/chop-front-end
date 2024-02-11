@@ -26,18 +26,30 @@ export const createProductSchema = z
 
 interface IFormDetailsProps {
   handleOnSubmit: SubmitHandler<z.infer<typeof createProductSchema>>;
+  submitFormText: string;
+  defaultValues?: {
+    name: string;
+    description: string;
+    price: number;
+    stockCount: number;
+    available: boolean;
+  };
 }
 
-const FormDetails: React.FC<IFormDetailsProps> = ({ handleOnSubmit }) => {
+const FormDetails: React.FC<IFormDetailsProps> = ({
+  handleOnSubmit,
+  submitFormText,
+  defaultValues = {
+    name: "",
+    description: "",
+    price: 0.0,
+    stockCount: 0,
+    available: false,
+  },
+}) => {
   const createProductForm = useForm<z.infer<typeof createProductSchema>>({
     resolver: zodResolver(createProductSchema),
-    defaultValues: {
-      name: "",
-      description: "",
-      price: 0,
-      stockCount: 0,
-      available: false,
-    },
+    defaultValues: defaultValues,
   });
 
   return (
@@ -140,7 +152,7 @@ const FormDetails: React.FC<IFormDetailsProps> = ({ handleOnSubmit }) => {
           )}
         />
         <Button type="submit" className="text-base" variant={"secondary"}>
-          Create product
+          {submitFormText}
         </Button>
       </form>
     </Form>

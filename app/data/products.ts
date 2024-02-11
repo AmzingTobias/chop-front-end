@@ -967,3 +967,171 @@ export const addImageToProduct = (
       .catch((err) => reject(err));
   });
 };
+
+export const deleteProduct = (): Promise<true> => {
+  return new Promise((resolve, reject) => {
+    fetch(`${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/products`, {
+      mode: "cors",
+      credentials: "include",
+      method: "DELETE",
+    })
+      .then((response) => {
+        if (response.ok) {
+          resolve(true);
+        } else {
+          reject("Failed to delete product");
+        }
+      })
+      .catch((err) => reject(err));
+  });
+};
+
+export const updateProductName = (
+  productId: number,
+  name: string
+): Promise<true> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/products/${productId}/name`,
+      {
+        headers: {
+          "Content-type": "application/json",
+        },
+        mode: "cors",
+        credentials: "include",
+        method: "put",
+        body: JSON.stringify({
+          name: name,
+        }),
+      }
+    )
+      .then((response) => {
+        if (response.ok) {
+          resolve(true);
+        } else {
+          reject("Failed to update product's name");
+        }
+      })
+      .catch((err) => reject(err));
+  });
+};
+
+export const updateProductDescription = (
+  productId: number,
+  description: string
+): Promise<true> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/products/${productId}/description`,
+      {
+        headers: {
+          "Content-type": "application/json",
+        },
+        mode: "cors",
+        credentials: "include",
+        method: "put",
+        body: JSON.stringify({
+          description: description,
+        }),
+      }
+    )
+      .then((response) => {
+        if (response.ok) {
+          resolve(true);
+        } else {
+          reject("Failed to update product's description");
+        }
+      })
+      .catch((err) => reject(err));
+  });
+};
+
+export const updateProductPrice = (
+  productId: number,
+  price: number
+): Promise<true> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/products/${productId}/price`,
+      {
+        headers: {
+          "Content-type": "application/json",
+        },
+        mode: "cors",
+        credentials: "include",
+        method: "put",
+        body: JSON.stringify({
+          price: price,
+        }),
+      }
+    )
+      .then((response) => {
+        if (response.ok) {
+          resolve(true);
+        } else {
+          reject("Failed to update product's price");
+        }
+      })
+      .catch((err) => reject(err));
+  });
+};
+
+export const updateProductStock = (
+  productId: number,
+  stockCount: number
+): Promise<true> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/products/${productId}/stock`,
+      {
+        headers: {
+          "Content-type": "application/json",
+        },
+        mode: "cors",
+        credentials: "include",
+        method: "put",
+        body: JSON.stringify({
+          stock: stockCount,
+        }),
+      }
+    )
+      .then((response) => {
+        if (response.ok) {
+          resolve(true);
+        } else {
+          reject("Failed to update product's stock");
+        }
+      })
+      .catch((err) => reject(err));
+  });
+};
+
+export const updateProductAvailability = (
+  productId: number,
+  available: boolean
+): Promise<true> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/products/${productId}/available`,
+      {
+        headers: {
+          "Content-type": "application/json",
+        },
+        mode: "cors",
+        credentials: "include",
+        method: "put",
+        body: JSON.stringify({
+          available: available,
+        }),
+      }
+    )
+      .then((response) => {
+        if (response.ok) {
+          resolve(true);
+        } else {
+          reject("Failed to update product's availability");
+        }
+      })
+      .catch((err) => reject(err));
+  });
+};

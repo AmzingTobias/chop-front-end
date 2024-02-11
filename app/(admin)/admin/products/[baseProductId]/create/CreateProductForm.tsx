@@ -100,9 +100,9 @@ const CreateProductForm: React.FC<ICreateProductFormProps> = ({
   }, []);
 
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex flex-col w-full gap-2">
       <Button
-        className="bg-accent hover:bg-opacity-80"
+        className="bg-accent hover:bg-opacity-80 mx-2"
         onClick={() => router.push(`/admin/products/${baseProductId}`)}
       >
         Return
@@ -114,8 +114,12 @@ const CreateProductForm: React.FC<ICreateProductFormProps> = ({
           swapImage={swapImageFiles}
         />
       </div>
+      <hr className="border-accent border-[1px] bg-accent" />
       <div className="w-full h-screen">
-        <FormDetails handleOnSubmit={onCreateProductFormSubmit} />
+        <FormDetails
+          handleOnSubmit={onCreateProductFormSubmit}
+          submitFormText="Create product"
+        />
       </div>
       {mounted && (
         <AlertDialog
