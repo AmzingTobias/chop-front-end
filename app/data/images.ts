@@ -1,4 +1,4 @@
-interface IImageEntry {
+export interface IImageEntry {
   id: number;
   fileName: string;
 }
@@ -32,5 +32,62 @@ export const getProductImages = (productId: number): Promise<IImageEntry[]> => {
       .catch((err) => {
         reject(err);
       });
+  });
+};
+
+export const removeImageFromProduct = (imageId: number): Promise<boolean> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/images/product/`,
+      {
+        headers: {
+          "Content-type": "application/json",
+        },
+        mode: "cors",
+        credentials: "include",
+        method: "DELETE",
+        body: JSON.stringify({
+          "image-id": imageId,
+        }),
+      }
+    )
+      .then((response) => {
+        if (response.ok) {
+          resolve(true);
+        } else {
+          reject("Couldn't delete image");
+        }
+      })
+      .catch((err) => reject(err));
+  });
+};
+
+export const setImageSortOrderForProduct = (
+  productId: number,
+  imageIds: number[]
+): Promise<true> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/images/product/${productId}`,
+      {
+        headers: {
+          "Content-type": "application/json",
+        },
+        mode: "cors",
+        credentials: "include",
+        method: "PUT",
+        body: JSON.stringify({
+          "image-ids": imageIds,
+        }),
+      }
+    )
+      .then((response) => {
+        if (response.ok) {
+          resolve(true);
+        } else {
+          reject("Couldn't sort images");
+        }
+      })
+      .catch((err) => reject(err));
   });
 };
