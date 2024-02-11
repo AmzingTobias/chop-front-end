@@ -1,6 +1,7 @@
 import { TImageDetails } from "../components/product-cards/common/ProductImageWithHover";
 import { getProductImages } from "./images";
 import noProductImage from "../../public/no-product.png";
+import { Description } from "@radix-ui/react-alert-dialog";
 
 export interface IProductEntry {
   id: number;
@@ -897,6 +898,71 @@ export const removeProductTypeFromBaseProduct = (
     )
       .then((response) => {
         resolve(response.ok);
+      })
+      .catch((err) => reject(err));
+  });
+};
+
+export const createProductRequest = (
+  baseProductId: number,
+  productName: string,
+  productDescription: string,
+  price: number,
+  stockCount: number,
+  available: boolean
+): Promise<{ created: boolean; productId?: number }> => {
+  return new Promise((resolve, reject) => {
+    fetch(`${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/products`, {
+      headers: {
+        "Content-type": "application/json",
+      },
+      mode: "cors",
+      credentials: "include",
+      method: "post",
+      body: JSON.stringify({
+        name: productName,
+        price: price,
+        "base-id": baseProductId,
+        description: productDescription,
+        available: available,
+        stockCount: stockCount,
+      }),
+    })
+      .then((response) => {
+        if (response.ok) {
+          response.json().then((data) => {
+            resolve({ created: true, productId: data.productId });
+          });
+        } else {
+          reject("Failed to create product");
+        }
+      })
+      .catch((err) => reject(err));
+  });
+};
+
+export const addImageToProduct = (
+  productId: number,
+  imageFile: File
+): Promise<boolean> => {
+  return new Promise((resolve, reject) => {
+    const formData = new FormData();
+    formData.append("image", imageFile);
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/images/product/${productId}`,
+      {
+        mode: "cors",
+        credentials: "include",
+        body: formData,
+        method: "POST",
+      }
+    )
+      .then((response) => {
+        if (response.ok) {
+          resolve(true);
+        } else {
+          reject("Couldn't add image to product");
+        }
       })
       .catch((err) => reject(err));
   });

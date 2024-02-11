@@ -9,9 +9,15 @@ import ImageToUploadList from "./ImageToUploadList";
 
 interface IImageAdderProps {
   addImageToUpload: (imageToAdd: File) => void;
+  swapImage: (indexOne: number, indexTwo: number) => void;
+  removeImage: (index: number) => void;
 }
 
-const ImageAdder: React.FC<IImageAdderProps> = ({ addImageToUpload }) => {
+const ImageAdder: React.FC<IImageAdderProps> = ({
+  addImageToUpload,
+  swapImage,
+  removeImage,
+}) => {
   const [previewImageFile, setPreviewImageFile] = useState<File>();
   const [previewImageUrl, setPreviewImageUrl] = useState<string>();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -91,15 +97,17 @@ const ImageAdder: React.FC<IImageAdderProps> = ({ addImageToUpload }) => {
               ...imagesToUploadUrls.slice(0, indexToRemove),
               ...imagesToUploadUrls.slice(indexToRemove + 1),
             ]);
+            removeImage(indexToRemove);
           }}
           swapImage={(indexOne, indexTwo) => {
-            const newImagesToUploadUrls = [...imagesToUploadUrls]; // Create a shallow copy of the array
+            const newImagesToUploadUrls = [...imagesToUploadUrls];
             [newImagesToUploadUrls[indexOne], newImagesToUploadUrls[indexTwo]] =
               [
                 newImagesToUploadUrls[indexTwo],
                 newImagesToUploadUrls[indexOne],
               ]; // Swap elements
-            setImagesToUploadUrls(newImagesToUploadUrls); // Update the state with the new array
+            setImagesToUploadUrls(newImagesToUploadUrls);
+            swapImage(indexOne, indexTwo);
           }}
         />
       </div>
