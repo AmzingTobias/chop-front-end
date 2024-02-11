@@ -84,14 +84,7 @@ const BaseProductsTable = () => {
             { display: "Number of products", sortable: true },
             { display: "View", className: " justify-end", sortable: false },
           ]}
-          rows={[
-            dataForTable,
-            dataForTable,
-            dataForTable,
-            dataForTable,
-            dataForTable,
-            dataForTable,
-          ].flat()}
+          rows={dataForTable}
         />
       </ScrollArea>
     </div>
