@@ -3,6 +3,7 @@
 import { TBaseProduct, getAllBaseProducts } from "@/app/data/products";
 import SearchBar from "@/components/SearchBar";
 import StaffTable, { TTableRow } from "@/components/StaffTable";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -57,7 +58,7 @@ const BaseProductsTable = () => {
   }, [filteredBaseProducts]);
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 p-2 overflow-y-scroll">
       <SearchBar
         variant="accent"
         onSearchChange={(query) => {
@@ -74,16 +75,25 @@ const BaseProductsTable = () => {
           }
         }}
       />
-      <StaffTable
-        headings={[
-          { display: "ID", sortable: true },
-          { display: "Description", sortable: true },
-          { display: "Brand", sortable: true },
-          { display: "Number of products", sortable: true },
-          { display: "View", className: " justify-end", sortable: false },
-        ]}
-        rows={dataForTable}
-      />
+      <ScrollArea>
+        <StaffTable
+          headings={[
+            { display: "ID", sortable: true },
+            { display: "Description", sortable: true },
+            { display: "Brand", sortable: true },
+            { display: "Number of products", sortable: true },
+            { display: "View", className: " justify-end", sortable: false },
+          ]}
+          rows={[
+            dataForTable,
+            dataForTable,
+            dataForTable,
+            dataForTable,
+            dataForTable,
+            dataForTable,
+          ].flat()}
+        />
+      </ScrollArea>
     </div>
   );
 };
