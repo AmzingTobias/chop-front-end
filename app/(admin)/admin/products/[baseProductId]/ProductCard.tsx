@@ -1,9 +1,15 @@
 import { IProductEntryWithImages } from "@/app/data/products";
 import Image from "next/image";
+import Link from "next/link";
 
-const ProductCard: React.FC<IProductEntryWithImages> = (props) => {
+interface IProductCardProps extends IProductEntryWithImages {
+  baseProductId: number;
+}
+
+const ProductCard: React.FC<IProductCardProps> = (props) => {
   return (
-    <div
+    <Link
+      href={`/admin/products/${props.baseProductId}/${props.productId}`}
       className="w-fit hover:opacity-80 cursor-pointer"
       style={{ maxWidth: props.imageWidth }}
     >
@@ -20,7 +26,7 @@ const ProductCard: React.FC<IProductEntryWithImages> = (props) => {
         <h4>Price: £{props.productPrice.toFixed(2)}</h4>
         <h4>{props.productAvailable ? "Available" : "Unavailable"}</h4>
       </div>
-    </div>
+    </Link>
   );
 };
 

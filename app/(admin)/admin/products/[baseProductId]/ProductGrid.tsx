@@ -89,7 +89,11 @@ const ProductGrid: React.FC<IProductGridProps> = ({ baseProductId }) => {
         <ScrollArea>
           <div className="max-h-full flex flex-row flex-wrap items-start gap-6 w-full ">
             {filteredProducts.map((product) => (
-              <ProductCard key={product.productId} {...product} />
+              <ProductCard
+                key={product.productId}
+                baseProductId={baseProductId}
+                {...product}
+              />
             ))}
           </div>
         </ScrollArea>

@@ -45,7 +45,7 @@ const BaseProductsTable = () => {
             className: "last:text-right",
             display: (
               <Link
-                href={`/admin/base-products/${product.id}`}
+                href={`/admin/products/${product.id}`}
                 className="bg-secondary p-2 rounded-md items-center hover:bg-secondary/80"
               >
                 View products

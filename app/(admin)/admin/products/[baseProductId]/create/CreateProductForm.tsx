@@ -103,7 +103,7 @@ const CreateProductForm: React.FC<ICreateProductFormProps> = ({
     <div className="flex flex-col w-full">
       <Button
         className="bg-accent hover:bg-opacity-80"
-        onClick={() => router.push(`/admin/base-products/${baseProductId}`)}
+        onClick={() => router.push(`/admin/products/${baseProductId}`)}
       >
         Return
       </Button>
@@ -156,7 +156,7 @@ const CreateProductForm: React.FC<ICreateProductFormProps> = ({
                   idOfProductCreated !== undefined
                 ) {
                   router.push(
-                    `/admin/base-products/${baseProductId}/${idOfProductCreated}`
+                    `/admin/products/${baseProductId}/${idOfProductCreated}`
                   );
                 }
               }}
