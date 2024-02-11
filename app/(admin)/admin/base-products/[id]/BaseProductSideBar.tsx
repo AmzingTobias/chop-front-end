@@ -54,12 +54,12 @@ const BaseProductSideBar: React.FC<IBaseProductBar> = ({
         >
           Back
         </Link>
-        <Button
-          variant={"secondary"}
-          className="items-start justify-normal p-2"
+        <Link
+          className="w-full bg-secondary hover:opacity-80 text-secondary-foreground rounded-md p-2"
+          href={`/admin/base-products/${baseProductId}/create`}
         >
-          Add new product
-        </Button>
+          Create new product
+        </Link>
       </div>
       <hr className="border-[1px] border-accent bg-accent" />
       <ScrollArea className="pr-4">

@@ -35,7 +35,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} flex flex-row bg-accent-foreground max-h-screen`}
+        className={`${inter.className} flex flex-row bg-accent-foreground max-h-screen max-w-full w-full overflow-x-clip`}
       >
         <Sidebar navLinks={adminNavLinks} />
         {children}
