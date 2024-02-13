@@ -49,12 +49,6 @@ const BaseProductSideBar: React.FC<IBaseProductBar> = ({
     <div className="h-full flex flex-col gap-4 w-full">
       <div className="flex flex-col gap-2">
         <Link
-          className="w-full bg-accent hover:opacity-80 text-accent-foreground rounded-md p-2"
-          href={"/admin/products"}
-        >
-          Back
-        </Link>
-        <Link
           className="w-full bg-secondary hover:opacity-80 text-secondary-foreground rounded-md p-2"
           href={`/admin/products/${baseProductId}/create`}
         >
