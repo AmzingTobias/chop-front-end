@@ -1,6 +1,7 @@
 export type TBrandEntry = {
   id: number;
   name: string;
+  productCount: number;
 };
 
 export const getAllBrands = (): Promise<TBrandEntry[]> => {
@@ -42,6 +43,28 @@ export const updateBrandIdForBaseProduct = (
           resolve(true);
         } else {
           reject("Response failed");
+        }
+      })
+      .catch((err) => reject(err));
+  });
+};
+
+export const createNewBrand = (brandName: string): Promise<true> => {
+  return new Promise((resolve, reject) => {
+    fetch(`${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/brands`, {
+      headers: {
+        "Content-type": "application/json",
+      },
+      mode: "cors",
+      credentials: "include",
+      method: "POST",
+      body: JSON.stringify({ name: brandName }),
+    })
+      .then((response) => {
+        if (response.ok) {
+          resolve(true);
+        } else {
+          reject("Error creating brand");
         }
       })
       .catch((err) => reject(err));
