@@ -12,6 +12,7 @@ export interface IProductEntry {
   available: boolean;
   stock_count: number;
   price: number;
+  baseProductId?: number;
 }
 
 export interface IProductEntryWithImages {
@@ -27,6 +28,7 @@ export interface IProductEntryWithImages {
   image: TImageDetails;
   imageWidth: number;
   imageHeight: number;
+  baseProductId?: number;
 }
 
 export interface IProductQuestionAnswer {
@@ -208,6 +210,7 @@ export const mapProductsToImages = async (
         brandId: product.brandId,
         brandName: product.brandName,
         productPageLink: `/product/${product.id}`,
+        baseProductId: product.baseProductId,
         image: {
           primaryLink:
             images.length > 0
