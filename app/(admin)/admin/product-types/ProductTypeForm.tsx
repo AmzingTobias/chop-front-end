@@ -13,25 +13,25 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 
-export const brandSchema = z.object({
+export const productTypeSchema = z.object({
   name: z.string().min(3, {
-    message: "Brand name must be at least 3 characters.",
+    message: "Product type name must be at least 3 characters.",
   }),
 });
 
-interface IBrandFormProps {
+interface IProductTypeFormProps {
   defaultValues?: { name: string };
-  onFormSubmit: SubmitHandler<z.infer<typeof brandSchema>>;
+  onFormSubmit: SubmitHandler<z.infer<typeof productTypeSchema>>;
   submitBtnText: string;
 }
 
-const BrandForm: React.FC<IBrandFormProps> = ({
+const ProductTypeForm: React.FC<IProductTypeFormProps> = ({
   defaultValues = { name: "" },
   onFormSubmit,
   submitBtnText,
 }) => {
-  const form = useForm<z.infer<typeof brandSchema>>({
-    resolver: zodResolver(brandSchema),
+  const form = useForm<z.infer<typeof productTypeSchema>>({
+    resolver: zodResolver(productTypeSchema),
     defaultValues: defaultValues,
   });
 
@@ -45,10 +45,10 @@ const BrandForm: React.FC<IBrandFormProps> = ({
             <FormItem>
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input placeholder="Brand name..." {...field} />
+                <Input placeholder="Product type name..." {...field} />
               </FormControl>
               <FormDescription>
-                This is the name for the new brand
+                This is the name for the product type
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -60,4 +60,4 @@ const BrandForm: React.FC<IBrandFormProps> = ({
   );
 };
 
-export default BrandForm;
+export default ProductTypeForm;

@@ -778,6 +778,7 @@ export const getProductIdsWithBaseId = (
 export type TProductType = {
   id: number;
   type: string;
+  productCount: number;
 };
 
 export const getProductTypes = (): Promise<TProductType[]> => {
@@ -1130,6 +1131,33 @@ export const updateProductAvailability = (
           resolve(true);
         } else {
           reject("Failed to update product's availability");
+        }
+      })
+      .catch((err) => reject(err));
+  });
+};
+
+export const createNewProductType = (typeName: string): Promise<true> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/product-types`,
+      {
+        headers: {
+          "Content-type": "application/json",
+        },
+        mode: "cors",
+        credentials: "include",
+        method: "POST",
+        body: JSON.stringify({
+          "product-type-name": typeName,
+        }),
+      }
+    )
+      .then((response) => {
+        if (response.ok) {
+          resolve(true);
+        } else {
+          reject("Failed to create product type");
         }
       })
       .catch((err) => reject(err));

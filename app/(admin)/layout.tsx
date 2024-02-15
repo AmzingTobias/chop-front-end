@@ -17,6 +17,7 @@ const adminNavLinks: TNavigationLinks[] = [
   { path: "/admin", displayName: "Overview" },
   { path: "/admin/products", displayName: "Products" },
   { path: "/admin/brands", displayName: "Brands" },
+  { path: "/admin/product-types", displayName: "Product Types" },
 ];
 
 export default async function RootLayout({
