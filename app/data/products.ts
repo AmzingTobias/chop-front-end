@@ -1163,3 +1163,86 @@ export const createNewProductType = (typeName: string): Promise<true> => {
       .catch((err) => reject(err));
   });
 };
+
+export const getBaseProductsWithProductType = (
+  productTypeId: number
+): Promise<TBaseProduct[]> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/product-types/${productTypeId}/base-products`,
+      {
+        headers: {
+          "Content-type": "application/json",
+        },
+        mode: "cors",
+        credentials: "include",
+        method: "GET",
+      }
+    )
+      .then((response) => {
+        if (response.ok) {
+          response
+            .json()
+            .then((data) => resolve(data))
+            .catch((err) => reject(err));
+        } else {
+          reject("Failed to get base products");
+        }
+      })
+      .catch((err) => reject(err));
+  });
+};
+
+export const updateProductTypeName = (
+  productTypeId: number,
+  productTypeName: string
+): Promise<true> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/product-types/${productTypeId}`,
+      {
+        headers: {
+          "Content-type": "application/json",
+        },
+        mode: "cors",
+        credentials: "include",
+        method: "PUT",
+        body: JSON.stringify({
+          "product-type-name": productTypeName,
+        }),
+      }
+    )
+      .then((response) => {
+        if (response.ok) {
+          resolve(true);
+        } else {
+          reject("Failed to update product type");
+        }
+      })
+      .catch((err) => reject(err));
+  });
+};
+
+export const deleteProductType = (productTypeId: number): Promise<true> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/product-types/${productTypeId}`,
+      {
+        headers: {
+          "Content-type": "application/json",
+        },
+        mode: "cors",
+        credentials: "include",
+        method: "DELETE",
+      }
+    )
+      .then((response) => {
+        if (response.ok) {
+          resolve(true);
+        } else {
+          reject("Failed to delete product type");
+        }
+      })
+      .catch((err) => reject(err));
+  });
+};
