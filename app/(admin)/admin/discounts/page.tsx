@@ -2,9 +2,9 @@ import DiscountsContent from "./DiscountsContent";
 
 const Page = () => {
   return (
-    <div>
+    <main className="w-full h-screen max-h-screen overflow-clip flex flex-row p-4">
       <DiscountsContent />
-    </div>
+    </main>
   );
 };
 

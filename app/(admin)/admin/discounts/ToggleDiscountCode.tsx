@@ -1,4 +1,4 @@
-import { toggleDiscountCodeActive } from "@/app/data/discounts";
+import { updateDiscountCode } from "@/app/data/discounts";
 import { Input } from "@/components/ui/input";
 
 interface IToggleDiscountCodeProps {
@@ -13,7 +13,7 @@ const ToggleDiscountCode: React.FC<IToggleDiscountCodeProps> = ({
   return (
     <Input
       onChange={(event) =>
-        toggleDiscountCodeActive(codeId, event.currentTarget.checked)
+        updateDiscountCode(codeId, { active: event.currentTarget.checked })
       }
       className="scale-50"
       type="checkbox"

@@ -25,9 +25,12 @@ const ProductTypesTable: React.FC<IProductTypesTableProps> = ({
       filteredProductTypes.map((productType) => ({
         id: productType.id,
         cells: [
-          { display: productType.id },
-          { display: productType.type },
-          { display: productType.productCount },
+          { display: productType.id, sortValue: productType.id },
+          { display: productType.type, sortValue: productType.type },
+          {
+            display: productType.productCount,
+            sortValue: productType.productCount,
+          },
           {
             className: "last:text-right",
             display: (
@@ -38,6 +41,7 @@ const ProductTypesTable: React.FC<IProductTypesTableProps> = ({
                 View type
               </Link>
             ),
+            sortValue: undefined,
           },
         ],
       }))

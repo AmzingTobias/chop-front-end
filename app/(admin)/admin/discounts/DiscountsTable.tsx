@@ -6,6 +6,9 @@ import StaffTable, { TTableRow } from "@/components/StaffTable";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useEffect, useState } from "react";
 import ToggleDiscountCode from "./ToggleDiscountCode";
+import ToggleDiscountCodeStackable from "./ToggleStackable";
+import EditPercentOff from "./EditPercentOff";
+import EditRemainingUses from "./EditRemainingUses";
 
 interface IDiscountTableProps {
   discountCodesFetched: TDiscountCodeEntry[];
@@ -25,11 +28,30 @@ const DiscountsTable: React.FC<IDiscountTableProps> = ({
       filteredDiscountCodes.map((discountCode) => ({
         id: discountCode.id,
         cells: [
-          { display: discountCode.id },
-          { display: discountCode.code },
-          { display: new Date(discountCode.createdOn).toDateString() },
-          { display: `${discountCode.percent}%` },
-          { display: discountCode.stackable ? "True" : "False" },
+          { display: discountCode.id, sortValue: discountCode.id },
+          { display: discountCode.code, sortValue: discountCode.code },
+          {
+            display: new Date(discountCode.createdOn).toLocaleDateString(),
+            sortValue: new Date(discountCode.createdOn).getUTCDate(),
+          },
+          {
+            display: (
+              <EditPercentOff
+                codeId={discountCode.id}
+                fetchedPercentOff={discountCode.percent}
+              />
+            ),
+            sortValue: discountCode.percent,
+          },
+          {
+            display: (
+              <ToggleDiscountCodeStackable
+                stackable={discountCode.stackable}
+                codeId={discountCode.id}
+              />
+            ),
+            sortValue: discountCode.stackable ? 1 : 0,
+          },
           {
             display: (
               <ToggleDiscountCode
@@ -37,8 +59,18 @@ const DiscountsTable: React.FC<IDiscountTableProps> = ({
                 codeId={discountCode.id}
               />
             ),
+            sortValue: discountCode.active ? 1 : 0,
           },
-          { display: discountCode.remainingUses },
+          {
+            display: (
+              <EditRemainingUses
+                codeId={discountCode.id}
+                fetchedRemainingUses={discountCode.remainingUses}
+              />
+            ),
+            sortValue: discountCode.remainingUses,
+            className: "justify-end",
+          },
         ],
       }))
     );

@@ -22,9 +22,9 @@ const BrandsTable: React.FC<IBrandsTableProps> = ({ brandsFetched }) => {
       filteredBrands.map((brand) => ({
         id: brand.id,
         cells: [
-          { display: brand.id },
-          { display: brand.name },
-          { display: brand.productCount },
+          { display: brand.id, sortValue: brand.id },
+          { display: brand.name, sortValue: brand.name },
+          { display: brand.productCount, sortValue: brand.productCount },
           {
             className: "last:text-right",
             display: (
@@ -35,6 +35,7 @@ const BrandsTable: React.FC<IBrandsTableProps> = ({ brandsFetched }) => {
                 View brand
               </Link>
             ),
+            sortValue: undefined,
           },
         ],
       }))

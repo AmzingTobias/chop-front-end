@@ -37,10 +37,10 @@ const BaseProductsTable = () => {
       filteredBaseProducts.map((product) => ({
         id: product.id,
         cells: [
-          { display: product.id },
-          { display: product.description },
-          { display: product.brandName },
-          { display: product.productCount },
+          { display: product.id, sortValue: product.id },
+          { display: product.description, sortValue: product.description },
+          { display: product.brandName, sortValue: product.brandName },
+          { display: product.productCount, sortValue: product.productCount },
           {
             className: "last:text-right",
             display: (
@@ -51,6 +51,7 @@ const BaseProductsTable = () => {
                 View products
               </Link>
             ),
+            sortValue: undefined,
           },
         ],
       }))

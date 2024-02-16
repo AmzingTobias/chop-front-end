@@ -79,9 +79,14 @@ export const getAllDiscountCodes = (): Promise<TDiscountCodeEntry[]> => {
   });
 };
 
-export const toggleDiscountCodeActive = (
+export const updateDiscountCode = (
   codeId: number,
-  active: boolean
+  options: {
+    percentOff?: number;
+    stackable?: boolean;
+    active?: boolean;
+    remainingUses?: number;
+  }
 ): Promise<true> => {
   return new Promise((resolve, reject) => {
     fetch(
@@ -93,14 +98,19 @@ export const toggleDiscountCodeActive = (
         mode: "cors",
         credentials: "include",
         method: "PUT",
-        body: JSON.stringify({ active }),
+        body: JSON.stringify({
+          active: options.active,
+          stackable: options.stackable,
+          percent: options.percentOff,
+          remainingUses: options.remainingUses,
+        }),
       }
     )
       .then((response) => {
         if (response.ok) {
           resolve(true);
         } else {
-          reject("Error toggling discount activity");
+          reject("Error updating discount code");
         }
       })
       .catch((err) => reject(err));

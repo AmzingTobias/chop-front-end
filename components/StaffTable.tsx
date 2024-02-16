@@ -21,6 +21,7 @@ type TTableHeading = {
 };
 type TTableEntry = {
   className?: string;
+  sortValue: string | number | undefined;
   display: string | number | ReactNode;
 };
 export type TTableRow = {
@@ -43,8 +44,8 @@ const StaffTable: React.FC<ITableProps> = ({ headings, rows, caption }) => {
 
   useEffect(() => {
     const sortedRows = [...rows].sort((a, b) => {
-      const aElement = a.cells[sortedBy.headingIndex].display;
-      const bElement = b.cells[sortedBy.headingIndex].display;
+      const aElement = a.cells[sortedBy.headingIndex].sortValue;
+      const bElement = b.cells[sortedBy.headingIndex].sortValue;
 
       if (typeof aElement === "number" && typeof bElement === "number") {
         return sortedBy.desc ? aElement - bElement : bElement - aElement;
