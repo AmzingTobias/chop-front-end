@@ -32,7 +32,7 @@ const DiscountsTable: React.FC<IDiscountTableProps> = ({
           { display: discountCode.code, sortValue: discountCode.code },
           {
             display: new Date(discountCode.createdOn).toLocaleDateString(),
-            sortValue: new Date(discountCode.createdOn).getUTCDate(),
+            sortValue: new Date(discountCode.createdOn),
           },
           {
             display: (

@@ -3,26 +3,36 @@
 import { TDiscountCodeEntry, getAllDiscountCodes } from "@/app/data/discounts";
 import { useEffect, useState } from "react";
 import DiscountsTable from "./DiscountsTable";
+import Sidebar from "./Sidebar";
 
 const DiscountsContent = () => {
   const useDiscounts = () => {
     const [discounts, setDiscounts] = useState<TDiscountCodeEntry[]>([]);
-    useEffect(() => {
+    const refreshCodes = () => {
       getAllDiscountCodes()
         .then((codes) => setDiscounts(codes))
         .catch((err) => {
           console.error(err);
           setDiscounts([]);
         });
+    };
+
+    useEffect(() => {
+      refreshCodes();
     }, []);
-    return discounts;
+    return { discounts, refreshCodes };
   };
 
-  const discountCodes = useDiscounts();
+  const { discounts: discountCodes, refreshCodes } = useDiscounts();
 
   return (
-    <div>
-      <DiscountsTable discountCodesFetched={discountCodes} />
+    <div className="w-full flex flex-row">
+      <div className="pr-6 w-full">
+        <DiscountsTable discountCodesFetched={discountCodes} />
+      </div>
+      <div className="min-w-fit border-l-2 border-accent pl-6">
+        <Sidebar discountCodes={discountCodes} refreshCodes={refreshCodes} />
+      </div>
     </div>
   );
 };

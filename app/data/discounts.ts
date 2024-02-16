@@ -116,3 +116,40 @@ export const updateDiscountCode = (
       .catch((err) => reject(err));
   });
 };
+
+export const createNewDiscountCode = (
+  code: string,
+  percent: number,
+  uses: number,
+  active: boolean,
+  stackable: boolean
+): Promise<true> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/discounts/code`,
+      {
+        headers: {
+          "Content-type": "application/json",
+        },
+        mode: "cors",
+        credentials: "include",
+        method: "POST",
+        body: JSON.stringify({
+          code,
+          percent,
+          uses,
+          active,
+          stackable,
+        }),
+      }
+    )
+      .then((response) => {
+        if (response.ok) {
+          resolve(true);
+        } else {
+          reject("Error creating discount code");
+        }
+      })
+      .catch((err) => reject(err));
+  });
+};

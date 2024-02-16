@@ -21,7 +21,7 @@ type TTableHeading = {
 };
 type TTableEntry = {
   className?: string;
-  sortValue: string | number | undefined;
+  sortValue: string | number | Date | undefined;
   display: string | number | ReactNode;
 };
 export type TTableRow = {
@@ -53,6 +53,14 @@ const StaffTable: React.FC<ITableProps> = ({ headings, rows, caption }) => {
         return sortedBy.desc
           ? aElement.localeCompare(bElement)
           : bElement.localeCompare(aElement);
+      } else if (
+        typeof aElement !== "undefined" &&
+        typeof bElement !== "undefined"
+      ) {
+        // Will be a date
+        return sortedBy.desc
+          ? (aElement as any) - (bElement as any)
+          : (bElement as any) - (aElement as any);
       } else {
         // Decide how to handle other data types or return 0 if no sorting is needed.
         return 0;
