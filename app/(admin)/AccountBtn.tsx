@@ -11,13 +11,30 @@ import {
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { BiExit, BiSolidUser } from "react-icons/bi";
+import { TAccountDetails, getAccountDetails } from "../data/auth";
 
 interface IAccountBtnProps {
   email: string;
 }
 
 const AccountBtn: React.FC<IAccountBtnProps> = ({ email }) => {
-  const [username, domain] = email.split("@");
+  const useAccountDetails = () => {
+    const [account, setAccount] = useState<TAccountDetails | null>(null);
+    useEffect(() => {
+      getAccountDetails()
+        .then((account) => setAccount(account))
+        .catch((err) => {
+          console.error(err);
+          setAccount(null);
+        });
+    }, []);
+    return account;
+  };
+
+  const account = useAccountDetails();
+
+  const [username, domain] =
+    account === null ? ["", ""] : account.email.split("@");
   const [menuOpen, setMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   useEffect(() => {

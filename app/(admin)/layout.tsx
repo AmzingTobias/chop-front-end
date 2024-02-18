@@ -16,6 +16,7 @@ export const metadata: Metadata = {
 
 const adminNavLinks: TNavigationLinks[] = [
   { path: "/admin", displayName: "Overview" },
+  { path: "/admin/accounts", displayName: "Accounts" },
   { path: "/admin/products", displayName: "Products" },
   { path: "/admin/products/search", displayName: "Search products" },
   { path: "/admin/brands", displayName: "Brands" },
