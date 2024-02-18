@@ -5,6 +5,7 @@ import { cookies } from "next/headers";
 import { EAccountTypes, getAccountTypeFromCookie } from "@/app/data/auth";
 import Sidebar from "./Sidebar";
 import { TNavigationLinks } from "../data/navigationLinks";
+import RedirectToLogin from "./RedirectToLogin";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -33,7 +34,7 @@ export default async function RootLayout({
     : undefined;
 
   if (accountTypeLoggedIn !== EAccountTypes.admin) {
-    return null;
+    return <RedirectToLogin />;
   }
 
   return (
