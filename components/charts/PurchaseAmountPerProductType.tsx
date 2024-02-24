@@ -7,25 +7,24 @@ import {
   ChartOptions,
   registerables,
 } from "chart.js";
-import { Doughnut } from "react-chartjs-2";
+import { Doughnut, Pie } from "react-chartjs-2";
 import SectionHeading from "@/app/components/SectionHeading";
 import { DateRange } from "react-day-picker";
 import DatePicker from "./DatePicker";
 
-type TProductViewHistory = {
-  productId: number;
-  name: string;
-  viewCount: number;
+type TPurchasePerProductType = {
+  productType: string;
+  total: number;
 };
 const fetchData = (
   startDate?: Date,
   endDate?: Date
-): Promise<TProductViewHistory[]> => {
+): Promise<TPurchasePerProductType[]> => {
   return new Promise((resolve, reject) => {
     fetch(
       `${
         process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS
-      }/v1/analytics/product-view-history${startDate || endDate ? "?" : ""}${
+      }/v1/analytics/product-type${startDate || endDate ? "?" : ""}${
         startDate ? "startDate=" + startDate.toISOString().split("T")[0] : ""
       }${startDate && endDate ? "&" : ""}${
         endDate ? "endDate=" + endDate.toISOString().split("T")[0] : ""
@@ -50,9 +49,9 @@ const fetchData = (
   });
 };
 
-const ProductViewHistory = () => {
+const PurchaseAmountPerProductType = () => {
   const useData = () => {
-    const [data, setData] = useState<TProductViewHistory[]>([]);
+    const [data, setData] = useState<TPurchasePerProductType[]>([]);
     const refreshData = useCallback(
       (startDate?: Date, endDate?: Date) => {
         fetchData(startDate, endDate)
@@ -61,10 +60,10 @@ const ProductViewHistory = () => {
               const topValues = dataFetched.slice(0, 5);
               const otherCount = dataFetched
                 .slice(5)
-                .reduce((sum, entry) => sum + entry.viewCount, 0);
-              const condensedData: TProductViewHistory[] = [
+                .reduce((sum, entry) => sum + entry.total, 0);
+              const condensedData: TPurchasePerProductType[] = [
                 ...topValues,
-                { name: "Other", productId: -1, viewCount: otherCount },
+                { productType: "Other", total: otherCount },
               ];
               setData(condensedData);
             } else {
@@ -83,22 +82,22 @@ const ProductViewHistory = () => {
     }, [refreshData]);
     return { data, refreshData };
   };
-  const { data: productViewHistoryData, refreshData } = useData();
+  const { data: productTypePurchaseData, refreshData } = useData();
   const [dateRange, setDateRange] = useState<DateRange | undefined>({
     from: new Date(new Date().setMonth(new Date().getMonth() - 1)),
     to: new Date(),
   });
-  useState(productViewHistoryData);
+  useState(productTypePurchaseData);
 
   useEffect(() => {
     refreshData(dateRange?.from, dateRange?.to);
   }, [dateRange, refreshData]);
 
-  const chartData: ChartData<"doughnut"> = {
-    labels: productViewHistoryData.map((entry) => entry.name),
+  const chartData: ChartData<"pie"> = {
+    labels: productTypePurchaseData.map((entry) => entry.productType),
     datasets: [
       {
-        data: productViewHistoryData.map((entry) => entry.viewCount),
+        data: productTypePurchaseData.map((entry) => entry.total),
         backgroundColor: [
           "rgba(255, 99, 132, 0.2)",
           "rgba(54, 162, 235, 0.2)",
@@ -119,7 +118,7 @@ const ProductViewHistory = () => {
     ],
   };
 
-  const chartOptions: ChartOptions<"doughnut"> = {
+  const chartOptions: ChartOptions<"pie"> = {
     plugins: {
       legend: {
         display: true,
@@ -135,8 +134,8 @@ const ProductViewHistory = () => {
 
   return (
     <div className=" h-fit w-full bg-accent text-accent-foreground p-4 rounded-md flex flex-col gap-2">
-      <SectionHeading text="View history" />
-      <Doughnut data={chartData} options={chartOptions} />
+      <SectionHeading text="Purchases per type" />
+      <Pie data={chartData} options={chartOptions} />
       <div className="flex flex-row gap-4 w-full justify-center">
         <DatePicker
           dateRange={dateRange}
@@ -148,4 +147,4 @@ const ProductViewHistory = () => {
   );
 };
 
-export default ProductViewHistory;
+export default PurchaseAmountPerProductType;
