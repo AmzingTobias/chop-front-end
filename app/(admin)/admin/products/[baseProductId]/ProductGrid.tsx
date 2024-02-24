@@ -91,8 +91,8 @@ const ProductGrid: React.FC<IProductGridProps> = ({ baseProductId }) => {
             {filteredProducts.map((product) => (
               <ProductCard
                 key={product.productId}
-                baseProductId={baseProductId}
                 {...product}
+                baseProductId={baseProductId}
               />
             ))}
           </div>
