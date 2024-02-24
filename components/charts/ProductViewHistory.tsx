@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   ChartData,
   Chart as ChartJS,
@@ -53,30 +53,31 @@ const fetchData = (
 const ProductViewHistory = () => {
   const useData = () => {
     const [data, setData] = useState<TProductViewHistory[]>([]);
-    const refreshData = (startDate?: Date, endDate?: Date) => {
-      fetchData(startDate, endDate)
-        .then((dataFetched) => {
-          console.log(dataFetched.length);
-          if (dataFetched.length > 5) {
-            const topValues = dataFetched.slice(0, 5);
-            const otherCount = dataFetched
-              .slice(5)
-              .reduce((sum, entry) => sum + entry.viewCount, 0);
-            const condensedData: TProductViewHistory[] = [
-              ...topValues,
-              { name: "Other", productId: -1, viewCount: otherCount },
-            ];
-            setData(condensedData);
-          } else {
-            setData(dataFetched);
-          }
-        })
-
-        .catch((err) => {
-          console.error(err);
-          setData([]);
-        });
-    };
+    const refreshData = useCallback(
+      (startDate?: Date, endDate?: Date) => {
+        fetchData(startDate, endDate)
+          .then((dataFetched) => {
+            if (dataFetched.length > 5) {
+              const topValues = dataFetched.slice(0, 5);
+              const otherCount = dataFetched
+                .slice(5)
+                .reduce((sum, entry) => sum + entry.viewCount, 0);
+              const condensedData: TProductViewHistory[] = [
+                ...topValues,
+                { name: "Other", productId: -1, viewCount: otherCount },
+              ];
+              setData(condensedData);
+            } else {
+              setData(dataFetched);
+            }
+          })
+          .catch((err) => {
+            console.error(err);
+            setData([]);
+          });
+      },
+      [setData, fetchData]
+    );
     useEffect(() => {
       refreshData();
     }, []);
@@ -84,8 +85,8 @@ const ProductViewHistory = () => {
   };
   const { data: productViewHistoryData, refreshData } = useData();
   const [dateRange, setDateRange] = useState<DateRange | undefined>({
-    from: new Date(),
-    to: new Date(new Date().setMonth(new Date().getMonth() - 1)),
+    from: new Date(new Date().setMonth(new Date().getMonth() - 1)),
+    to: new Date(),
   });
   useState(productViewHistoryData);
 
@@ -136,7 +137,7 @@ const ProductViewHistory = () => {
     <div className=" h-fit w-full bg-accent text-accent-foreground p-4 rounded-md flex flex-col gap-2">
       <SectionHeading text="View history" />
       <Doughnut data={chartData} options={chartOptions} />
-      <div className="flex flex-row gap-2 w-full justify-center">
+      <div className="flex flex-row gap-4 w-full justify-center">
         <DatePicker
           dateRange={dateRange}
           fromDate={undefined}
