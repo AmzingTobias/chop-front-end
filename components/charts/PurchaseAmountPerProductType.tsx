@@ -1,16 +1,11 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import {
-  ChartData,
-  Chart as ChartJS,
-  ChartOptions,
-  registerables,
-} from "chart.js";
-import { Doughnut, Pie } from "react-chartjs-2";
+import { Chart as ChartJS, registerables } from "chart.js";
 import SectionHeading from "@/app/components/SectionHeading";
 import { DateRange } from "react-day-picker";
 import DatePicker from "./DatePicker";
+import PurchasePieChart from "./PurchasePieChart";
 
 type TPurchasePerProductType = {
   productType: string;
@@ -93,49 +88,15 @@ const PurchaseAmountPerProductType = () => {
     refreshData(dateRange?.from, dateRange?.to);
   }, [dateRange, refreshData]);
 
-  const chartData: ChartData<"pie"> = {
-    labels: productTypePurchaseData.map((entry) => entry.productType),
-    datasets: [
-      {
-        data: productTypePurchaseData.map((entry) => entry.total),
-        backgroundColor: [
-          "rgba(255, 99, 132, 0.2)",
-          "rgba(54, 162, 235, 0.2)",
-          "rgba(255, 206, 86, 0.2)",
-          "rgba(75, 192, 192, 0.2)",
-          "rgba(153, 102, 255, 0.2)",
-          "rgba(255, 159, 64, 0.2)",
-        ],
-        borderColor: [
-          "rgba(255, 99, 132, 1)",
-          "rgba(54, 162, 235, 1)",
-          "rgba(255, 206, 86, 1)",
-          "rgba(75, 192, 192, 1)",
-          "rgba(153, 102, 255, 1)",
-          "rgba(255, 159, 64, 1)",
-        ],
-      },
-    ],
-  };
-
-  const chartOptions: ChartOptions<"pie"> = {
-    plugins: {
-      legend: {
-        display: true,
-        labels: {
-          color: "#FFFFFF",
-        },
-        onClick: () => {},
-      },
-    },
-  };
-
   ChartJS.register(...registerables);
 
   return (
     <div className=" h-fit w-full bg-accent text-accent-foreground p-4 rounded-md flex flex-col gap-2">
       <SectionHeading text="Purchases per type" />
-      <Pie data={chartData} options={chartOptions} />
+      <PurchasePieChart
+        data={productTypePurchaseData.map((entry) => entry.total)}
+        labels={productTypePurchaseData.map((entry) => entry.productType)}
+      />
       <div className="flex flex-row gap-4 w-full justify-center">
         <DatePicker
           dateRange={dateRange}
