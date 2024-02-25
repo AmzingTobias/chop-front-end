@@ -33,14 +33,23 @@ interface ITableProps {
   headings: TTableHeading[];
   rows: TTableRow[];
   caption?: String;
+  defaultSortedBy?: {
+    headingIndex: number;
+    desc: boolean;
+  };
 }
 
-const StaffTable: React.FC<ITableProps> = ({ headings, rows, caption }) => {
+const StaffTable: React.FC<ITableProps> = ({
+  headings,
+  rows,
+  caption,
+  defaultSortedBy = { headingIndex: 0, desc: true },
+}) => {
   const [filteredRows, setFilteredRows] = useState<TTableRow[]>([...rows]);
   const [sortedBy, setSortedBy] = useState<{
     headingIndex: number;
     desc: boolean;
-  }>({ headingIndex: 0, desc: true });
+  }>(defaultSortedBy);
 
   useEffect(() => {
     const sortedRows = [...rows].sort((a, b) => {

@@ -1,18 +1,14 @@
 "use client";
 
-import { FaSearch } from "react-icons/fa";
 import noProductImage from "@/public/no-product.png";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useRef, useState } from "react";
-import { useRouter } from "next/navigation";
 import {
   IProductEntryWithImages,
   mapProductsToImages,
   searchForProducts,
 } from "@/app/data/products";
 import Image from "next/image";
-import Link from "next/link";
 
 interface IProductSearchbarProps {
   setProductIdSelected: React.Dispatch<
