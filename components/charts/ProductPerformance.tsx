@@ -214,7 +214,7 @@ const ProductPerformance = () => {
 
   return (
     <div className="max-h-full w-full bg-accent text-accent-foreground p-4 rounded-md">
-      <SectionHeading text="Purchases" />
+      <SectionHeading text="Product performance" />
       <ProductSearchbar
         setProductIdSelected={setProductIdForPerformance}
         showResultsOnInputChange
@@ -231,31 +231,33 @@ const ProductPerformance = () => {
         </div>
       )}
       <div className="flex w-full gap-2 flex-col">
-        <RadioGroup
-          defaultValue="0"
-          className="flex flex-row text-secondary w-full justify-center"
-          onValueChange={(value) => {
-            const chartValue = filterOptions.find(
-              (option) => option.value === value
-            );
-            if (chartValue !== undefined) {
-              setChartValue(chartValue.chartValue);
-            }
-          }}
-        >
-          {filterOptions.map((option, index) => (
-            <div key={index} className="flex items-center space-x-2">
-              <RadioGroupItem
-                className="text-secondary border-secondary"
-                value={option.value}
-                id={`${option.value}-radio-group-per-product`}
-              />
-              <Label htmlFor={`${option.value}-radio-group-per-product`}>
-                {option.display}
-              </Label>
-            </div>
-          ))}
-        </RadioGroup>
+        {purchaseData.length > 0 && (
+          <RadioGroup
+            defaultValue="0"
+            className="flex flex-row text-secondary w-full justify-center"
+            onValueChange={(value) => {
+              const chartValue = filterOptions.find(
+                (option) => option.value === value
+              );
+              if (chartValue !== undefined) {
+                setChartValue(chartValue.chartValue);
+              }
+            }}
+          >
+            {filterOptions.map((option, index) => (
+              <div key={index} className="flex items-center space-x-2">
+                <RadioGroupItem
+                  className="text-secondary border-secondary"
+                  value={option.value}
+                  id={`${option.value}-radio-group-per-product`}
+                />
+                <Label htmlFor={`${option.value}-radio-group-per-product`}>
+                  {option.display}
+                </Label>
+              </div>
+            ))}
+          </RadioGroup>
+        )}
         <div className="flex flex-row gap-2 w-full justify-center">
           <DatePicker
             dateRange={dateRange}
