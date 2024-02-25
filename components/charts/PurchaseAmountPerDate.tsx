@@ -216,9 +216,9 @@ const PurchaseAmountPerDate = () => {
               <RadioGroupItem
                 className="text-secondary border-secondary"
                 value={option.value}
-                id={`${option.value}-radio-group`}
+                id={`${option.value}-radio-group-per-date`}
               />
-              <Label htmlFor={`${option.value}-radio-group`}>
+              <Label htmlFor={`${option.value}-radio-group-per-date`}>
                 {option.display}
               </Label>
             </div>

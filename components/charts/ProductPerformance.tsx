@@ -224,7 +224,7 @@ const ProductPerformance = () => {
       {purchaseData.length > 0 ? (
         <Line data={chartData} options={chartOptions} />
       ) : (
-        <div className="w-full h-screen flex items-center justify-center">
+        <div className="w-full flex items-center justify-center py-12">
           <h2 className="text-4xl italic">{`${
             productIdForPerformance ? "No purchase data" : "Select a product"
           }`}</h2>
@@ -248,9 +248,9 @@ const ProductPerformance = () => {
               <RadioGroupItem
                 className="text-secondary border-secondary"
                 value={option.value}
-                id={`${option.value}-radio-group`}
+                id={`${option.value}-radio-group-per-product`}
               />
-              <Label htmlFor={`${option.value}-radio-group`}>
+              <Label htmlFor={`${option.value}-radio-group-per-product`}>
                 {option.display}
               </Label>
             </div>

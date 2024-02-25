@@ -101,6 +101,9 @@ export const ProductSearchbar: React.FC<IProductSearchbarProps> = ({
                     className="flex flex-col hover:opacity-80 cursor-pointer"
                     onClick={() => {
                       setSearchInFocus(false);
+                      if (inputRef.current !== null) {
+                        inputRef.current.value = product.productName;
+                      }
                       setProductIdSelected(`${product.productId}`);
                     }}
                   >
