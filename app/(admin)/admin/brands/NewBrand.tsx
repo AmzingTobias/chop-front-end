@@ -35,7 +35,7 @@ const NewBrand: React.FC<INewBrandProps> = ({ refreshBrands }) => {
   return (
     <>
       <BrandForm
-        submitBtnText="Create product"
+        submitBtnText="Create brand"
         onFormSubmit={createBrandFormSubmit}
       />
       <AlertDialog open={brandCreatedAlert} onOpenChange={setBrandCreatedAlert}>
