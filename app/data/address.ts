@@ -229,3 +229,28 @@ export const createNewAddress = (
       });
   });
 };
+
+export const getAddressWithId = (
+  addressId: number
+): Promise<TCustomerAddress | null> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/auth/address/${addressId}`,
+      {
+        mode: "cors",
+        credentials: "include",
+      }
+    )
+      .then((response) =>
+        response
+          .json()
+          .then((data) => resolve(data["address"]))
+          .catch((err) => {
+            reject(err);
+          })
+      )
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};

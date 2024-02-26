@@ -191,3 +191,58 @@ export const getAllPossibleOrderStatuses = (): Promise<TOrderStatus[]> => {
       .catch((err) => reject(err));
   });
 };
+
+export const getOrderWithId = (orderId: number): Promise<TOrderEntry> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/orders/${orderId}`,
+      {
+        mode: "cors",
+        credentials: "include",
+      }
+    )
+      .then((response) => {
+        if (response.ok)
+          response
+            .json()
+            .then((json) => resolve(json["order"]))
+            .catch((err) => reject(err));
+        else {
+          response
+            .text()
+            .then((responseText) => reject(responseText))
+            .catch((err) => reject(err));
+        }
+      })
+      .catch((err) => reject(err));
+  });
+};
+
+export const updateOrderStatus = (
+  orderId: number,
+  orderStatusId: number
+): Promise<true> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/orders/${orderId}/status`,
+      {
+        headers: {
+          "Content-type": "application/json",
+        },
+        mode: "cors",
+        credentials: "include",
+        method: "POST",
+        body: JSON.stringify({ orderStatusId: orderStatusId }),
+      }
+    )
+      .then(async (response) => {
+        if (response.ok) {
+          resolve(true);
+        } else {
+          console.log(await response.text());
+          reject("Couldn't update order status");
+        }
+      })
+      .catch((err) => reject(err));
+  });
+};
