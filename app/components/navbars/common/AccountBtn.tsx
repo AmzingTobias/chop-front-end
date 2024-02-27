@@ -13,13 +13,15 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useState } from "react";
 
-const AccountBtn: React.FC<{ loggedIn: boolean }> = ({ loggedIn }) => {
+const AccountBtn: React.FC<{ customerLoggedIn: boolean }> = ({
+  customerLoggedIn,
+}) => {
   const textStyles = "text-md";
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <div className="hover:cursor-pointer hover:opacity-80">
-      {loggedIn ? (
+      {customerLoggedIn ? (
         <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen}>
           <DropdownMenuTrigger className="flex focus:outline-none">
             <BiSolidUser />
