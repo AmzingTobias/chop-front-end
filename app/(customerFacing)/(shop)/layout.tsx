@@ -26,7 +26,7 @@ export default async function ShopLayout({
     : undefined;
 
   return (
-    <>
+    <div>
       <Navigation
         minorNavbarBtns={await getProductTypesNavLinks()}
         accountTypeLoggedIn={accountTypeLoggedIn}
@@ -40,6 +40,6 @@ export default async function ShopLayout({
         </div>
       </div>
       <Footer />
-    </>
+    </div>
   );
 }
