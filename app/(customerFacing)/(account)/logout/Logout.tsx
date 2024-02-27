@@ -17,6 +17,7 @@ const Logout: React.FC<ILogoutProps> = ({ accountLoggedIn }) => {
       fetch(
         `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/auth/logout`,
         {
+          mode: "cors",
           method: "POST",
           credentials: "include",
         }
