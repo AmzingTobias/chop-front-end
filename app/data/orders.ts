@@ -239,8 +239,7 @@ export const updateOrderStatus = (
         if (response.ok) {
           resolve(true);
         } else {
-          console.log(await response.text());
-          reject("Couldn't update order status");
+          reject(await response.text());
         }
       })
       .catch((err) => reject(err));
