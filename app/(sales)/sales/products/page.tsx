@@ -1,6 +1,6 @@
-import { EAccountTypes, getAccountTypeFromCookie } from "@/app/data/auth";
-import BaseProductsTable from "./BaseProductsTable";
 import { cookies } from "next/headers";
+import BaseProductsTable from "../../../(admin)/admin/products/BaseProductsTable";
+import { EAccountTypes, getAccountTypeFromCookie } from "@/app/data/auth";
 
 const Page = () => {
   const authCookie = cookies().get("auth");
@@ -8,7 +8,7 @@ const Page = () => {
     ? getAccountTypeFromCookie(authCookie.value)
     : undefined;
 
-  if (accountTypeLoggedIn !== EAccountTypes.admin) {
+  if (accountTypeLoggedIn !== EAccountTypes.sales) {
     return null;
   }
 

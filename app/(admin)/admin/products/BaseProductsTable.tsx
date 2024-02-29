@@ -1,5 +1,6 @@
 "use client";
 
+import { EAccountTypes } from "@/app/data/auth";
 import { TBaseProduct, getAllBaseProducts } from "@/app/data/products";
 import SearchBar from "@/components/SearchBar";
 import StaffTable, { TTableRow } from "@/components/StaffTable";
@@ -7,7 +8,13 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-const BaseProductsTable = () => {
+interface IBaseProductsTableProps {
+  accountTypeLoggedIn: EAccountTypes.admin | EAccountTypes.sales;
+}
+
+const BaseProductsTable: React.FC<IBaseProductsTableProps> = ({
+  accountTypeLoggedIn,
+}) => {
   const useBaseProducts = () => {
     const [baseProducts, setBaseProducts] = useState<TBaseProduct[]>([]);
     useEffect(() => {
@@ -45,7 +52,11 @@ const BaseProductsTable = () => {
             className: "last:text-right",
             display: (
               <Link
-                href={`/admin/products/${product.id}`}
+                href={`/${
+                  accountTypeLoggedIn === EAccountTypes.admin
+                    ? "admin"
+                    : "sales"
+                }/products/${product.id}`}
                 className="bg-secondary p-2 rounded-md items-center hover:bg-secondary/80"
               >
                 View products
@@ -56,7 +67,7 @@ const BaseProductsTable = () => {
         ],
       }))
     );
-  }, [filteredBaseProducts]);
+  }, [filteredBaseProducts, accountTypeLoggedIn]);
 
   return (
     <div className="flex flex-col gap-2 p-2 overflow-y-scroll">

@@ -4,8 +4,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
@@ -13,11 +11,7 @@ import { useEffect, useState } from "react";
 import { BiExit, BiSolidUser } from "react-icons/bi";
 import { TAccountDetails, getAccountDetails } from "../data/auth";
 
-interface IAccountBtnProps {
-  email: string;
-}
-
-const AccountBtn: React.FC<IAccountBtnProps> = ({ email }) => {
+const AccountBtn = () => {
   const useAccountDetails = () => {
     const [account, setAccount] = useState<TAccountDetails | null>(null);
     useEffect(() => {
