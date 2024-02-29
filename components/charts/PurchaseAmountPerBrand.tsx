@@ -1,0 +1,111 @@
+"use client";
+
+import { useCallback, useEffect, useState } from "react";
+import { Chart as ChartJS, registerables } from "chart.js";
+import SectionHeading from "@/app/components/SectionHeading";
+import { DateRange } from "react-day-picker";
+import DatePicker from "./DatePicker";
+import PurchasePieChart from "./PurchasePieChart";
+
+type TPurchasePerBrand = {
+  brand: string;
+  purchaseCount: number;
+};
+const fetchData = (
+  startDate?: Date,
+  endDate?: Date
+): Promise<TPurchasePerBrand[]> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/analytics/brands${
+        startDate || endDate ? "?" : ""
+      }${
+        startDate ? "startDate=" + startDate.toISOString().split("T")[0] : ""
+      }${startDate && endDate ? "&" : ""}${
+        endDate ? "endDate=" + endDate.toISOString().split("T")[0] : ""
+      }`,
+      {
+        mode: "cors",
+        credentials: "include",
+        method: "GET",
+      }
+    )
+      .then((response) => {
+        if (response.ok) {
+          response
+            .json()
+            .then((data) => resolve(data))
+            .catch((err) => reject(err));
+        } else {
+          reject("Failed to get purchase analytics");
+        }
+      })
+      .catch((err) => reject(err));
+  });
+};
+
+const PurchaseAmountPerBrand = () => {
+  const useData = () => {
+    const [data, setData] = useState<TPurchasePerBrand[]>([]);
+    const refreshData = useCallback(
+      (startDate?: Date, endDate?: Date) => {
+        fetchData(startDate, endDate)
+          .then((dataFetched) => {
+            if (dataFetched.length > 5) {
+              const topValues = dataFetched.slice(0, 5);
+              const otherCount = dataFetched
+                .slice(5)
+                .reduce((sum, entry) => sum + entry.purchaseCount, 0);
+              const condensedData: TPurchasePerBrand[] = [
+                ...topValues,
+                { brand: "Other", purchaseCount: otherCount },
+              ];
+              setData(condensedData);
+            } else {
+              setData(dataFetched);
+            }
+          })
+          .catch((err) => {
+            console.error(err);
+            setData([]);
+          });
+      },
+      [setData]
+    );
+    useEffect(() => {
+      refreshData();
+    }, [refreshData]);
+    return { data, refreshData };
+  };
+  const { data: productTypePurchaseData, refreshData } = useData();
+  const [dateRange, setDateRange] = useState<DateRange | undefined>({
+    from: new Date(new Date().setMonth(new Date().getMonth() - 1)),
+    to: new Date(),
+  });
+  useState(productTypePurchaseData);
+
+  useEffect(() => {
+    refreshData(dateRange?.from, dateRange?.to);
+  }, [dateRange, refreshData]);
+
+  ChartJS.register(...registerables);
+
+  return (
+    <div className=" h-fit w-full bg-accent text-accent-foreground p-4 rounded-md flex flex-col gap-2">
+      <SectionHeading text="Purchases per brand" />
+      <PurchasePieChart
+        data={productTypePurchaseData.map((entry) => entry.purchaseCount)}
+        labels={productTypePurchaseData.map((entry) => entry.brand)}
+      />
+      <div className="flex flex-row gap-4 w-full justify-center">
+        <DatePicker
+          dateRange={dateRange}
+          fromDate={undefined}
+          setDateRange={setDateRange}
+        />
+      </div>
+    </div>
+  );
+};
+
+export default PurchaseAmountPerBrand;

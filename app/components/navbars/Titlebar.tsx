@@ -1,6 +1,6 @@
 import { AiOutlineMenu } from "react-icons/ai";
 import WebsiteTitle from "./common/Website-Title";
-import Searchbar from "../searchbars/Searchbar";
+import ProductSearchbar from "../searchbars/ProductSearchbar";
 import ShoppingCartBtn from "./common/ShoppingCartBtn";
 import AccountBtn from "./common/AccountBtn";
 import MobileOpenSearchPage from "./common/MobileOpenSearchPage";
@@ -34,7 +34,10 @@ const Titlebar: React.FC<ITitlebarProps> = ({
         </div>
         <div className="items-baseline hidden w-full md:flex">
           <div className="w-full lg:w-1/2 text-background">
-            <Searchbar showResultsOnInputChange={true} searchResultLimit={3} />
+            <ProductSearchbar
+              showResultsOnInputChange={true}
+              searchResultLimit={3}
+            />
           </div>
         </div>
         <div className="flex items-center justify-end visible w-full mr-2 sm:mx-2 lg:mx-4 xl:mx-6 md:w-fit">
@@ -45,7 +48,9 @@ const Titlebar: React.FC<ITitlebarProps> = ({
             />
           </div>
           <div className="mr-6">
-            <AccountBtn loggedIn={accountTypeLoggedIn !== undefined} />
+            <AccountBtn
+              customerLoggedIn={accountTypeLoggedIn === EAccountTypes.customer}
+            />
           </div>
           <ShoppingCartBtn />
         </div>

@@ -49,3 +49,59 @@ export const getCustomerIdFromCookie = (
   }
   return undefined;
 };
+
+export type TAccountDetailsEntry = {
+  id: number;
+  email: string;
+  type: number | null;
+};
+
+export const getAllAccounts = (): Promise<TAccountDetailsEntry[]> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/auth/accounts`,
+      {
+        mode: "cors",
+        credentials: "include",
+      }
+    )
+      .then((response) => {
+        if (response.ok)
+          response
+            .json()
+            .then((json) => resolve(json))
+            .catch((err) => reject(err));
+        else {
+          response
+            .text()
+            .then((responseText) => reject(responseText))
+            .catch((err) => reject(err));
+        }
+      })
+      .catch((err) => reject(err));
+  });
+};
+
+export type TAccountDetails = {
+  email: string;
+};
+
+export const getAccountDetails = (): Promise<TAccountDetails | null> => {
+  return new Promise((resolve, reject) => {
+    fetch(`${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/auth/`, {
+      credentials: "include",
+      method: "GET",
+    })
+      .then((response) => {
+        if (response.ok) {
+          response
+            .json()
+            .then((data) => resolve(data))
+            .catch((err) => reject(err));
+        } else {
+          resolve(null);
+        }
+      })
+      .catch((err) => reject(err));
+  });
+};

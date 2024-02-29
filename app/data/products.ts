@@ -1,6 +1,7 @@
 import { TImageDetails } from "../components/product-cards/common/ProductImageWithHover";
 import { getProductImages } from "./images";
 import noProductImage from "../../public/no-product.png";
+import { Description } from "@radix-ui/react-alert-dialog";
 
 export interface IProductEntry {
   id: number;
@@ -11,6 +12,7 @@ export interface IProductEntry {
   available: boolean;
   stock_count: number;
   price: number;
+  baseProductId?: number;
 }
 
 export interface IProductEntryWithImages {
@@ -26,6 +28,7 @@ export interface IProductEntryWithImages {
   image: TImageDetails;
   imageWidth: number;
   imageHeight: number;
+  baseProductId?: number;
 }
 
 export interface IProductQuestionAnswer {
@@ -207,6 +210,7 @@ export const mapProductsToImages = async (
         brandId: product.brandId,
         brandName: product.brandName,
         productPageLink: `/product/${product.id}`,
+        baseProductId: product.baseProductId,
         image: {
           primaryLink:
             images.length > 0
@@ -710,5 +714,538 @@ export const removeProductFromViewHistory = (
       .catch((err) => {
         reject(err);
       });
+  });
+};
+
+export type TBaseProduct = {
+  id: number;
+  brandName: string;
+  description: string;
+  productCount: number;
+};
+
+export const getAllBaseProducts = (): Promise<TBaseProduct[]> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/products/base`,
+      {
+        headers: {
+          "Content-type": "application/json",
+        },
+        mode: "cors",
+        credentials: "include",
+      }
+    )
+      .then((response) => {
+        if (response.ok) {
+          response
+            .json()
+            .then((data) => resolve(data))
+            .catch((err) => reject(err));
+        } else {
+          reject("Server error");
+        }
+      })
+      .catch((err) => reject(err));
+  });
+};
+
+export const getProductIdsWithBaseId = (
+  baseProductId: number
+): Promise<{ id: number }[]> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/products/base/${baseProductId}`,
+      {
+        headers: {
+          "Content-type": "application/json",
+        },
+        mode: "cors",
+        credentials: "include",
+      }
+    )
+      .then((response) => {
+        if (response.ok) {
+          response
+            .json()
+            .then((data) => resolve(data))
+            .catch((err) => reject(err));
+        } else {
+          reject("Server error");
+        }
+      })
+      .catch((err) => reject(err));
+  });
+};
+
+export type TProductType = {
+  id: number;
+  type: string;
+  productCount: number;
+};
+
+export const getProductTypes = (): Promise<TProductType[]> => {
+  return new Promise((resolve, reject) => {
+    fetch(`${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/product-types`)
+      .then((response) => {
+        if (response.ok) {
+          response
+            .json()
+            .then((data) => resolve(data))
+            .catch((err) => reject(err));
+        } else {
+          reject("Response failed");
+        }
+      })
+      .catch((err) => reject(err));
+  });
+};
+
+export const updateBaseProduct = (
+  baseProductId: number,
+  description: string
+): Promise<boolean> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/products/base/${baseProductId}`,
+      {
+        headers: {
+          "Content-type": "application/json",
+        },
+        mode: "cors",
+        credentials: "include",
+        method: "put",
+        body: JSON.stringify({
+          description,
+        }),
+      }
+    )
+      .then((response) => {
+        resolve(response.ok);
+      })
+      .catch((err) => reject(err));
+  });
+};
+
+export const getAssignedProductTypes = (
+  baseProductId: number
+): Promise<TProductType[]> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/products/base/${baseProductId}/product-types`,
+      {
+        headers: {
+          "Content-type": "application/json",
+        },
+        mode: "cors",
+        credentials: "include",
+      }
+    )
+      .then((response) => {
+        if (response.ok) {
+          response
+            .json()
+            .then((data) => resolve(data))
+            .catch((err) => reject(err));
+        } else {
+          reject("Response failed");
+        }
+      })
+      .catch((err) => reject(err));
+  });
+};
+
+export const addProductTypeToBaseProduct = (
+  baseProductId: number,
+  productTypeId: number
+): Promise<boolean> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/products/base/${baseProductId}/product-types`,
+      {
+        headers: {
+          "Content-type": "application/json",
+        },
+        mode: "cors",
+        credentials: "include",
+        method: "post",
+        body: JSON.stringify({
+          "product-type-ids": [productTypeId],
+        }),
+      }
+    )
+      .then((response) => {
+        resolve(response.ok);
+      })
+      .catch((err) => reject(err));
+  });
+};
+
+export const removeProductTypeFromBaseProduct = (
+  baseProductId: number,
+  productTypeId: number
+): Promise<boolean> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/products/base/${baseProductId}/product-types`,
+      {
+        headers: {
+          "Content-type": "application/json",
+        },
+        mode: "cors",
+        credentials: "include",
+        method: "delete",
+        body: JSON.stringify({
+          "product-type-ids": [productTypeId],
+        }),
+      }
+    )
+      .then((response) => {
+        resolve(response.ok);
+      })
+      .catch((err) => reject(err));
+  });
+};
+
+export const createProductRequest = (
+  baseProductId: number,
+  productName: string,
+  productDescription: string,
+  price: number,
+  stockCount: number,
+  available: boolean
+): Promise<{ created: boolean; productId?: number }> => {
+  return new Promise((resolve, reject) => {
+    fetch(`${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/products`, {
+      headers: {
+        "Content-type": "application/json",
+      },
+      mode: "cors",
+      credentials: "include",
+      method: "post",
+      body: JSON.stringify({
+        name: productName,
+        price: price,
+        "base-id": baseProductId,
+        description: productDescription,
+        available: available,
+        stockCount: stockCount,
+      }),
+    })
+      .then((response) => {
+        if (response.ok) {
+          response.json().then((data) => {
+            resolve({ created: true, productId: data.productId });
+          });
+        } else {
+          reject("Failed to create product");
+        }
+      })
+      .catch((err) => reject(err));
+  });
+};
+
+export const addImageToProduct = (
+  productId: number,
+  imageFile: File
+): Promise<boolean> => {
+  return new Promise((resolve, reject) => {
+    const formData = new FormData();
+    formData.append("image", imageFile);
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/images/product/${productId}`,
+      {
+        mode: "cors",
+        credentials: "include",
+        body: formData,
+        method: "POST",
+      }
+    )
+      .then((response) => {
+        if (response.ok) {
+          resolve(true);
+        } else {
+          reject("Couldn't add image to product");
+        }
+      })
+      .catch((err) => reject(err));
+  });
+};
+
+export const deleteProduct = (): Promise<true> => {
+  return new Promise((resolve, reject) => {
+    fetch(`${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/products`, {
+      mode: "cors",
+      credentials: "include",
+      method: "DELETE",
+    })
+      .then((response) => {
+        if (response.ok) {
+          resolve(true);
+        } else {
+          reject("Failed to delete product");
+        }
+      })
+      .catch((err) => reject(err));
+  });
+};
+
+export const updateProductName = (
+  productId: number,
+  name: string
+): Promise<true> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/products/${productId}/name`,
+      {
+        headers: {
+          "Content-type": "application/json",
+        },
+        mode: "cors",
+        credentials: "include",
+        method: "put",
+        body: JSON.stringify({
+          name: name,
+        }),
+      }
+    )
+      .then((response) => {
+        if (response.ok) {
+          resolve(true);
+        } else {
+          reject("Failed to update product's name");
+        }
+      })
+      .catch((err) => reject(err));
+  });
+};
+
+export const updateProductDescription = (
+  productId: number,
+  description: string
+): Promise<true> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/products/${productId}/description`,
+      {
+        headers: {
+          "Content-type": "application/json",
+        },
+        mode: "cors",
+        credentials: "include",
+        method: "put",
+        body: JSON.stringify({
+          description: description,
+        }),
+      }
+    )
+      .then((response) => {
+        if (response.ok) {
+          resolve(true);
+        } else {
+          reject("Failed to update product's description");
+        }
+      })
+      .catch((err) => reject(err));
+  });
+};
+
+export const updateProductPrice = (
+  productId: number,
+  price: number
+): Promise<true> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/products/${productId}/price`,
+      {
+        headers: {
+          "Content-type": "application/json",
+        },
+        mode: "cors",
+        credentials: "include",
+        method: "put",
+        body: JSON.stringify({
+          price: price,
+        }),
+      }
+    )
+      .then((response) => {
+        if (response.ok) {
+          resolve(true);
+        } else {
+          reject("Failed to update product's price");
+        }
+      })
+      .catch((err) => reject(err));
+  });
+};
+
+export const updateProductStock = (
+  productId: number,
+  stockCount: number
+): Promise<true> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/products/${productId}/stock`,
+      {
+        headers: {
+          "Content-type": "application/json",
+        },
+        mode: "cors",
+        credentials: "include",
+        method: "put",
+        body: JSON.stringify({
+          stock: stockCount,
+        }),
+      }
+    )
+      .then((response) => {
+        if (response.ok) {
+          resolve(true);
+        } else {
+          reject("Failed to update product's stock");
+        }
+      })
+      .catch((err) => reject(err));
+  });
+};
+
+export const updateProductAvailability = (
+  productId: number,
+  available: boolean
+): Promise<true> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/products/${productId}/available`,
+      {
+        headers: {
+          "Content-type": "application/json",
+        },
+        mode: "cors",
+        credentials: "include",
+        method: "put",
+        body: JSON.stringify({
+          available: available,
+        }),
+      }
+    )
+      .then((response) => {
+        if (response.ok) {
+          resolve(true);
+        } else {
+          reject("Failed to update product's availability");
+        }
+      })
+      .catch((err) => reject(err));
+  });
+};
+
+export const createNewProductType = (typeName: string): Promise<true> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/product-types`,
+      {
+        headers: {
+          "Content-type": "application/json",
+        },
+        mode: "cors",
+        credentials: "include",
+        method: "POST",
+        body: JSON.stringify({
+          "product-type-name": typeName,
+        }),
+      }
+    )
+      .then((response) => {
+        if (response.ok) {
+          resolve(true);
+        } else {
+          reject("Failed to create product type");
+        }
+      })
+      .catch((err) => reject(err));
+  });
+};
+
+export const getBaseProductsWithProductType = (
+  productTypeId: number
+): Promise<TBaseProduct[]> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/product-types/${productTypeId}/base-products`,
+      {
+        headers: {
+          "Content-type": "application/json",
+        },
+        mode: "cors",
+        credentials: "include",
+        method: "GET",
+      }
+    )
+      .then((response) => {
+        if (response.ok) {
+          response
+            .json()
+            .then((data) => resolve(data))
+            .catch((err) => reject(err));
+        } else {
+          reject("Failed to get base products");
+        }
+      })
+      .catch((err) => reject(err));
+  });
+};
+
+export const updateProductTypeName = (
+  productTypeId: number,
+  productTypeName: string
+): Promise<true> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/product-types/${productTypeId}`,
+      {
+        headers: {
+          "Content-type": "application/json",
+        },
+        mode: "cors",
+        credentials: "include",
+        method: "PUT",
+        body: JSON.stringify({
+          "product-type-name": productTypeName,
+        }),
+      }
+    )
+      .then((response) => {
+        if (response.ok) {
+          resolve(true);
+        } else {
+          reject("Failed to update product type");
+        }
+      })
+      .catch((err) => reject(err));
+  });
+};
+
+export const deleteProductType = (productTypeId: number): Promise<true> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/product-types/${productTypeId}`,
+      {
+        headers: {
+          "Content-type": "application/json",
+        },
+        mode: "cors",
+        credentials: "include",
+        method: "DELETE",
+      }
+    )
+      .then((response) => {
+        if (response.ok) {
+          resolve(true);
+        } else {
+          reject("Failed to delete product type");
+        }
+      })
+      .catch((err) => reject(err));
   });
 };

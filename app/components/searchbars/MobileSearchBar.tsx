@@ -1,4 +1,4 @@
-import Searchbar from "./Searchbar";
+import ProductSearchbar from "./ProductSearchbar";
 
 interface IMobileSearchBar {
   display: boolean;
@@ -15,7 +15,7 @@ const MobileSearchBar: React.FC<IMobileSearchBar> = ({
       className={`p-4 border-t-2 rounded-none bg-accent border-secondary/80 text-accent-foreground ${className}`}
     >
       <div className="w-full">
-        <Searchbar showResultsOnInputChange={false} />
+        <ProductSearchbar showResultsOnInputChange={false} />
       </div>
     </div>
   );
