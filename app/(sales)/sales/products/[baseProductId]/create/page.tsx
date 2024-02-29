@@ -1,6 +1,6 @@
-import { EAccountTypes, getAccountTypeFromCookie } from "@/app/data/auth";
-import CreateProductForm from "./CreateProductForm";
+import { getAccountTypeFromCookie, EAccountTypes } from "@/app/data/auth";
 import { cookies } from "next/headers";
+import CreateProductForm from "../../../../../(admin)/admin/products/[baseProductId]/create/CreateProductForm";
 
 const Page = ({ params }: { params: { baseProductId: number } }) => {
   const authCookie = cookies().get("auth");
@@ -8,7 +8,7 @@ const Page = ({ params }: { params: { baseProductId: number } }) => {
     ? getAccountTypeFromCookie(authCookie.value)
     : undefined;
 
-  if (accountTypeLoggedIn !== EAccountTypes.admin) {
+  if (accountTypeLoggedIn !== EAccountTypes.sales) {
     return null;
   }
   return (
