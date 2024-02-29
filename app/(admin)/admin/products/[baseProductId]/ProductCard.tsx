@@ -1,15 +1,19 @@
+import { EAccountTypes } from "@/app/data/auth";
 import { IProductEntryWithImages } from "@/app/data/products";
 import Image from "next/image";
 import Link from "next/link";
 
 interface IProductCardProps extends IProductEntryWithImages {
   baseProductId: number;
+  accountTypeLoggedIn: EAccountTypes.admin | EAccountTypes.sales;
 }
 
 const ProductCard: React.FC<IProductCardProps> = (props) => {
   return (
     <Link
-      href={`/admin/products/${props.baseProductId}/${props.productId}`}
+      href={`/${
+        props.accountTypeLoggedIn === EAccountTypes.sales ? "sales" : "admin"
+      }/products/${props.baseProductId}/${props.productId}`}
       className="w-fit hover:opacity-80 cursor-pointer"
       style={{ maxWidth: props.imageWidth }}
     >

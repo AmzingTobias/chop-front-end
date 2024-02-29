@@ -9,8 +9,13 @@ import SearchBar from "@/components/SearchBar";
 import { useState } from "react";
 import ProductCard from "../[baseProductId]/ProductCard";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { EAccountTypes } from "@/app/data/auth";
 
-const SearchGrid = () => {
+interface ISearchGridProps {
+  accountTypeLoggedIn: EAccountTypes.admin | EAccountTypes.sales;
+}
+
+const SearchGrid: React.FC<ISearchGridProps> = ({ accountTypeLoggedIn }) => {
   const [searchResults, setSearchResults] = useState<IProductEntryWithImages[]>(
     []
   );
@@ -56,6 +61,7 @@ const SearchGrid = () => {
                 <ProductCard
                   key={product.productId}
                   baseProductId={product.baseProductId}
+                  accountTypeLoggedIn={accountTypeLoggedIn}
                   {...product}
                 />
               ) : (

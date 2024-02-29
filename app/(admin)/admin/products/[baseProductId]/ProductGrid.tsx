@@ -11,12 +11,17 @@ import { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import SearchBar from "@/components/SearchBar";
+import { EAccountTypes } from "@/app/data/auth";
 
 interface IProductGridProps {
+  accountTypeLoggedIn: EAccountTypes.admin | EAccountTypes.sales;
   baseProductId: number;
 }
 
-const ProductGrid: React.FC<IProductGridProps> = ({ baseProductId }) => {
+const ProductGrid: React.FC<IProductGridProps> = ({
+  baseProductId,
+  accountTypeLoggedIn,
+}) => {
   const useProducts = () => {
     const [productIds, setProductIds] = useState<{ id: number }[]>([]);
     const [productsWithImages, setProductsWithImages] = useState<
@@ -90,6 +95,7 @@ const ProductGrid: React.FC<IProductGridProps> = ({ baseProductId }) => {
           <div className="max-h-full flex flex-row flex-wrap items-start gap-6 w-full ">
             {filteredProducts.map((product) => (
               <ProductCard
+                accountTypeLoggedIn={accountTypeLoggedIn}
                 key={product.productId}
                 {...product}
                 baseProductId={baseProductId}

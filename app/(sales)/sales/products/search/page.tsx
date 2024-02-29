@@ -1,6 +1,6 @@
-import { getAccountTypeFromCookie, EAccountTypes } from "@/app/data/auth";
+import { EAccountTypes, getAccountTypeFromCookie } from "@/app/data/auth";
+import SearchGrid from "../../../../(admin)/admin/products/search/SearchGrid";
 import { cookies } from "next/headers";
-import SearchGrid from "./SearchGrid";
 
 const Page = () => {
   const authCookie = cookies().get("auth");
@@ -8,7 +8,7 @@ const Page = () => {
     ? getAccountTypeFromCookie(authCookie.value)
     : undefined;
 
-  if (accountTypeLoggedIn !== EAccountTypes.admin) {
+  if (accountTypeLoggedIn !== EAccountTypes.sales) {
     return null;
   }
 
