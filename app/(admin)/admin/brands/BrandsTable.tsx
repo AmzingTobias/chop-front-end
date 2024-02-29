@@ -1,5 +1,6 @@
 "use client";
 
+import { EAccountTypes } from "@/app/data/auth";
 import { TBrandEntry } from "@/app/data/brands";
 import SearchBar from "@/components/SearchBar";
 import StaffTable, { TTableRow } from "@/components/StaffTable";
@@ -8,10 +9,14 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 interface IBrandsTableProps {
+  accountTypeLoggedIn: EAccountTypes.admin | EAccountTypes.sales;
   brandsFetched: TBrandEntry[];
 }
 
-const BrandsTable: React.FC<IBrandsTableProps> = ({ brandsFetched }) => {
+const BrandsTable: React.FC<IBrandsTableProps> = ({
+  brandsFetched,
+  accountTypeLoggedIn,
+}) => {
   const [filteredBrands, setFilteredBrands] = useState(brandsFetched);
   const [dataForTable, setDataForTable] = useState<TTableRow[]>([]);
   useEffect(() => {
@@ -29,7 +34,11 @@ const BrandsTable: React.FC<IBrandsTableProps> = ({ brandsFetched }) => {
             className: "last:text-right",
             display: (
               <Link
-                href={`/admin/brands/${brand.id}`}
+                href={`/${
+                  accountTypeLoggedIn === EAccountTypes.admin
+                    ? "admin"
+                    : "sales"
+                }/brands/${brand.id}`}
                 className="bg-secondary p-2 rounded-md items-center hover:bg-secondary/80"
               >
                 View brand
@@ -40,7 +49,7 @@ const BrandsTable: React.FC<IBrandsTableProps> = ({ brandsFetched }) => {
         ],
       }))
     );
-  }, [filteredBrands]);
+  }, [filteredBrands, accountTypeLoggedIn]);
 
   return (
     <div className="flex flex-col gap-2 p-2 max-h-full">

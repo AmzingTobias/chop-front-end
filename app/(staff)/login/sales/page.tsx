@@ -11,10 +11,9 @@ const Page = () => {
     ? getAccountTypeFromCookie(authCookie.value)
     : undefined;
 
-  if (accountTypeLoggedIn === EAccountTypes.admin) {
-    redirect("/admin");
+  if (accountTypeLoggedIn === EAccountTypes.sales) {
+    redirect("/sales/products");
     return null;
-    // return <Login adminLoggedIn={accountTypeLoggedIn !== undefined} />;
   }
 
   return (
@@ -23,7 +22,7 @@ const Page = () => {
       <div className="flex max-w-[856px] w-full py-8 pb-16 rounded-md bg-accent shadow-md justify-center">
         <div className="flex flex-col w-9/12">
           <AccountFormSwitch
-            active={0}
+            active={1}
             tabs={[
               { display: "ADMIN", linkPath: "/login/admin" },
               { display: "SALES", linkPath: "/login/sales" },
@@ -33,7 +32,7 @@ const Page = () => {
           />
           <br className="my-1.5" />
           <Suspense>
-            <StaffLoginForm type="admin" />
+            <StaffLoginForm type="sales" />
           </Suspense>
         </div>
       </div>

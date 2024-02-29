@@ -1,6 +1,6 @@
 import { getProductTypes } from "@/app/data/products";
-import BaseProductSideBar from "./BaseProductSideBar";
-import ProductGrid from "./ProductGrid";
+import BaseProductSideBar from "../../../../(admin)/admin/products/[baseProductId]/BaseProductSideBar";
+import ProductGrid from "../../../../(admin)/admin/products/[baseProductId]/ProductGrid";
 import { getAccountTypeFromCookie, EAccountTypes } from "@/app/data/auth";
 import { cookies } from "next/headers";
 
@@ -11,7 +11,7 @@ const Page = async ({ params }: { params: { baseProductId: number } }) => {
     ? getAccountTypeFromCookie(authCookie.value)
     : undefined;
 
-  if (accountTypeLoggedIn !== EAccountTypes.admin) {
+  if (accountTypeLoggedIn !== EAccountTypes.sales) {
     return null;
   }
   return (

@@ -1,22 +1,19 @@
 import { getAccountTypeFromCookie, EAccountTypes } from "@/app/data/auth";
 import { cookies } from "next/headers";
-import ProductTypeProductContent from "./ProductTypeProductContent";
+import ProductTypesContent from "../../../(admin)/admin/product-types/ProductTypesContent";
 
-const Page = ({ params }: { params: { productTypeId: number } }) => {
+const Page = () => {
   const authCookie = cookies().get("auth");
   const accountTypeLoggedIn = authCookie
     ? getAccountTypeFromCookie(authCookie.value)
     : undefined;
 
-  if (accountTypeLoggedIn !== EAccountTypes.admin) {
+  if (accountTypeLoggedIn !== EAccountTypes.sales) {
     return null;
   }
   return (
     <main className="w-full h-screen max-h-screen overflow-clip flex flex-row p-4">
-      <ProductTypeProductContent
-        productTypeId={params.productTypeId}
-        accountTypeLoggedIn={accountTypeLoggedIn}
-      />
+      <ProductTypesContent accountTypeLoggedIn={accountTypeLoggedIn} />
     </main>
   );
 };

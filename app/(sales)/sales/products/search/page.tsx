@@ -1,5 +1,5 @@
 import { EAccountTypes, getAccountTypeFromCookie } from "@/app/data/auth";
-import BaseProductsTable from "./BaseProductsTable";
+import SearchGrid from "../../../../(admin)/admin/products/search/SearchGrid";
 import { cookies } from "next/headers";
 
 const Page = () => {
@@ -8,13 +8,15 @@ const Page = () => {
     ? getAccountTypeFromCookie(authCookie.value)
     : undefined;
 
-  if (accountTypeLoggedIn !== EAccountTypes.admin) {
+  if (accountTypeLoggedIn !== EAccountTypes.sales) {
     return null;
   }
 
   return (
-    <main className="flex flex-col gap-8 p-2 w-full">
-      <BaseProductsTable accountTypeLoggedIn={accountTypeLoggedIn} />
+    <main className="w-full h-screen max-h-screen overflow-clip flex flex-row p-6">
+      <div className="pr-6 w-full">
+        <SearchGrid accountTypeLoggedIn={accountTypeLoggedIn} />
+      </div>
     </main>
   );
 };

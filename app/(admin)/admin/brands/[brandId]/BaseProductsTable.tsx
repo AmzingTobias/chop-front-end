@@ -1,5 +1,6 @@
 "use client";
 
+import { EAccountTypes } from "@/app/data/auth";
 import { TBaseProduct } from "@/app/data/products";
 import SearchBar from "@/components/SearchBar";
 import StaffTable, { TTableRow } from "@/components/StaffTable";
@@ -8,11 +9,13 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 interface IBaseProductTableProps {
+  accountTypeLoggedIn: EAccountTypes.admin | EAccountTypes.sales;
   fetchedBaseProducts: TBaseProduct[];
 }
 
 const BaseProductsTable: React.FC<IBaseProductTableProps> = ({
   fetchedBaseProducts,
+  accountTypeLoggedIn,
 }) => {
   const [filteredBaseProducts, setFilteredBaseProducts] =
     useState(fetchedBaseProducts);
@@ -36,7 +39,11 @@ const BaseProductsTable: React.FC<IBaseProductTableProps> = ({
             className: "last:text-right",
             display: (
               <Link
-                href={`/admin/products/${product.id}`}
+                href={`/${
+                  accountTypeLoggedIn === EAccountTypes.admin
+                    ? "admin"
+                    : "sales"
+                }/products/${product.id}`}
                 className="bg-secondary p-2 rounded-md items-center hover:bg-secondary/80"
               >
                 View products
@@ -47,7 +54,7 @@ const BaseProductsTable: React.FC<IBaseProductTableProps> = ({
         ],
       }))
     );
-  }, [filteredBaseProducts]);
+  }, [filteredBaseProducts, accountTypeLoggedIn]);
 
   if (fetchedBaseProducts.length === 0) {
     return (

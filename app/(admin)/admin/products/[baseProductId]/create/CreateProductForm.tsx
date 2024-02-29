@@ -7,10 +7,8 @@ import { z } from "zod";
 import {
   AlertDialog,
   AlertDialogAction,
-  AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
-  AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
@@ -18,6 +16,7 @@ import { Loader2 } from "lucide-react";
 import { addImageToProduct, createProductRequest } from "@/app/data/products";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { EAccountTypes } from "@/app/data/auth";
 
 enum ECreateProductStatus {
   IDLE,
@@ -29,10 +28,12 @@ enum ECreateProductStatus {
 
 interface ICreateProductFormProps {
   baseProductId: number;
+  accountTypeLoggedIn: EAccountTypes.admin | EAccountTypes.sales;
 }
 
 const CreateProductForm: React.FC<ICreateProductFormProps> = ({
   baseProductId,
+  accountTypeLoggedIn,
 }) => {
   const [imagesToUpload, setImagesToUpload] = useState<File[]>([]);
   const [createStatus, setCreateStatus] = useState<ECreateProductStatus>(
@@ -103,7 +104,13 @@ const CreateProductForm: React.FC<ICreateProductFormProps> = ({
     <div className="flex flex-col w-full gap-2">
       <Button
         className="bg-accent hover:bg-opacity-80 mx-2"
-        onClick={() => router.push(`/admin/products/${baseProductId}`)}
+        onClick={() =>
+          router.push(
+            `/${
+              accountTypeLoggedIn === EAccountTypes.admin ? "admin" : "sales"
+            }/products/${baseProductId}`
+          )
+        }
       >
         Return
       </Button>
@@ -160,7 +167,11 @@ const CreateProductForm: React.FC<ICreateProductFormProps> = ({
                   idOfProductCreated !== undefined
                 ) {
                   router.push(
-                    `/admin/products/${baseProductId}/${idOfProductCreated}`
+                    `/${
+                      accountTypeLoggedIn === EAccountTypes.admin
+                        ? "admin"
+                        : "sales"
+                    }/products/${baseProductId}/${idOfProductCreated}`
                   );
                 }
               }}

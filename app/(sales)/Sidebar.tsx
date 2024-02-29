@@ -1,6 +1,6 @@
 import { TNavigationLinks } from "@/app/data/navigationLinks";
-import NavigationLinks from "./NavigationLinks";
-import AccountBtn from "./AccountBtn";
+import NavigationLinks from "../(admin)/NavigationLinks";
+import AccountBtn from "../(admin)/AccountBtn";
 import WebsiteTitle from "../components/navbars/common/Website-Title";
 import { Suspense } from "react";
 
@@ -13,7 +13,7 @@ const Sidebar: React.FC<ISidebarProps> = ({ navLinks }) => {
     <Suspense>
       <div className="w-[200px] flex-col h-screen bg-accent text-primary p-3">
         <div className="h-full flex flex-col gap-4 flex-grow">
-          <WebsiteTitle onClickLink="/admin/" />
+          <WebsiteTitle onClickLink="/sales/products" />
           <hr className="bg-primary border-primary" />
           <NavigationLinks navLinks={navLinks} />
           <AccountBtn />

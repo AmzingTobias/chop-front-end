@@ -11,16 +11,17 @@ import Link from "next/link";
 import UpdateBaseProductBrand from "./UpdateBaseProductBrand";
 import UpdateBaseProductProductType from "./UpdateBaseProductProductType";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Button } from "@/components/ui/button";
+import { EAccountTypes } from "@/app/data/auth";
 
 interface IBaseProductBar {
   baseProductId: number;
   productTypes: TProductType[];
+  accountTypeLoggedIn: EAccountTypes.admin | EAccountTypes.sales;
 }
 
 const BaseProductSideBar: React.FC<IBaseProductBar> = ({
   baseProductId,
-  productTypes,
+  accountTypeLoggedIn,
 }) => {
   const useBaseProduct = () => {
     const [baseProduct, setBaseProduct] = useState<TBaseProduct>();
@@ -50,7 +51,9 @@ const BaseProductSideBar: React.FC<IBaseProductBar> = ({
       <div className="flex flex-col gap-2">
         <Link
           className="w-full bg-secondary hover:opacity-80 text-secondary-foreground rounded-md p-2"
-          href={`/admin/products/${baseProductId}/create`}
+          href={`/${
+            accountTypeLoggedIn === EAccountTypes.admin ? "admin" : "sales"
+          }/products/${baseProductId}/create`}
         >
           Create new product
         </Link>
