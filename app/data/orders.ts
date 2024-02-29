@@ -1,6 +1,5 @@
 import { TImageDetails } from "../components/product-cards/common/ProductImageWithHover";
 import { getProductImages } from "./images";
-import { IProductEntryWithImages } from "./products";
 
 export type TOrderEntry = {
   // The id of the order
