@@ -1,5 +1,6 @@
 "use client";
 
+import { EAccountTypes } from "@/app/data/auth";
 import { TProductType } from "@/app/data/products";
 import SearchBar from "@/components/SearchBar";
 import StaffTable, { TTableRow } from "@/components/StaffTable";
@@ -8,11 +9,13 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 interface IProductTypesTableProps {
+  accountTypeLoggedIn: EAccountTypes.admin | EAccountTypes.sales;
   productTypesFetched: TProductType[];
 }
 
 const ProductTypesTable: React.FC<IProductTypesTableProps> = ({
   productTypesFetched,
+  accountTypeLoggedIn,
 }) => {
   const [filteredProductTypes, setFilteredProductTypes] =
     useState(productTypesFetched);
@@ -35,7 +38,11 @@ const ProductTypesTable: React.FC<IProductTypesTableProps> = ({
             className: "last:text-right",
             display: (
               <Link
-                href={`/admin/product-types/${productType.id}`}
+                href={`/${
+                  accountTypeLoggedIn === EAccountTypes.admin
+                    ? "admin"
+                    : "sales"
+                }/product-types/${productType.id}`}
                 className="bg-secondary p-2 rounded-md items-center hover:bg-secondary/80"
               >
                 View type
@@ -46,7 +53,7 @@ const ProductTypesTable: React.FC<IProductTypesTableProps> = ({
         ],
       }))
     );
-  }, [filteredProductTypes]);
+  }, [filteredProductTypes, accountTypeLoggedIn]);
 
   return (
     <div className="flex flex-col gap-2 p-2 max-h-full">
