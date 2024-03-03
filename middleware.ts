@@ -48,5 +48,5 @@ const ensureUserLoggedIn = async (request: NextRequest) => {
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ["/settings", "/favourites", "/checkout, /orders"],
+  matcher: ["/settings", "/favourites", "/checkout", "/orders", "/support"],
 };
