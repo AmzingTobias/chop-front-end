@@ -1,27 +1,11 @@
 "use client";
 
-import SectionHeading from "@/app/components/SectionHeading";
-import { TTicketInfoEntry, getTicketWithId } from "@/app/data/support";
-import { useEffect, useState } from "react";
+import { TTicketInfoEntry } from "@/app/data/support";
 
 interface ITicketTitleProps {
-  ticketId: number;
+  ticketInfo: TTicketInfoEntry | null;
 }
-const TicketTitle: React.FC<ITicketTitleProps> = ({ ticketId }) => {
-  const useTicketInfo = () => {
-    const [ticketInfo, setTicketInfo] = useState<TTicketInfoEntry | null>(null);
-    useEffect(() => {
-      getTicketWithId(ticketId)
-        .then((ticket) => setTicketInfo(ticket))
-        .catch((err) => {
-          console.error(err);
-          setTicketInfo(null);
-        });
-    }, []);
-    return ticketInfo;
-  };
-  const ticketInfo = useTicketInfo();
-
+const TicketTitle: React.FC<ITicketTitleProps> = ({ ticketInfo }) => {
   if (ticketInfo === null) {
     return null;
   }
@@ -29,7 +13,15 @@ const TicketTitle: React.FC<ITicketTitleProps> = ({ ticketId }) => {
   return (
     <div className="w-full flex flex-col items-end">
       <div className="flex flex-row gap-2">
-        {ticketInfo.lastUpdate !== null && (
+        {ticketInfo.closedOn !== null && (
+          <h4>
+            Ticket closed:{" "}
+            <span className="font-semibold">
+              {new Date(ticketInfo.closedOn).toLocaleDateString()}
+            </span>
+          </h4>
+        )}
+        {ticketInfo.lastUpdate !== null && ticketInfo.closedOn === null && (
           <h4>
             Ticket last updated:{" "}
             <span className="font-semibold">

@@ -112,3 +112,52 @@ export const getCommentsForTicket = (
       });
   });
 };
+
+export const addCommentToTicket = (
+  ticketId: number,
+  comment: string
+): Promise<true> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/support/${ticketId}/comments`,
+      {
+        headers: {
+          "Content-type": "application/json",
+        },
+        mode: "cors",
+        credentials: "include",
+        method: "POST",
+        body: JSON.stringify({ comment: comment }),
+      }
+    )
+      .then(async (response) => {
+        if (response.ok) {
+          resolve(true);
+        } else {
+          reject(await response.text());
+        }
+      })
+      .catch((err) => reject(err));
+  });
+};
+
+export const setTicketAsClosed = (ticketId: number): Promise<true> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/support/${ticketId}/close`,
+      {
+        mode: "cors",
+        credentials: "include",
+        method: "POST",
+      }
+    )
+      .then(async (response) => {
+        if (response.ok) {
+          resolve(true);
+        } else {
+          reject(await response.text());
+        }
+      })
+      .catch((err) => reject(err));
+  });
+};

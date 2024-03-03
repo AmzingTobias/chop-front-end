@@ -1,7 +1,6 @@
 import { getAccountIdFromCookie } from "@/app/data/auth";
 import { cookies } from "next/headers";
-import TicketComments from "./TicketComments";
-import TicketTitle from "./TicketTitle";
+import TicketDetails from "./TicketDetails";
 import SectionHeading from "@/app/components/SectionHeading";
 
 export default async function Page({
@@ -21,8 +20,7 @@ export default async function Page({
     <div className="w-full flex flex-col gap-4">
       <SectionHeading text={`Ticket #${params.ticketId}`} />
       <div className="flex flex-col gap-4">
-        <TicketTitle ticketId={params.ticketId} />
-        <TicketComments
+        <TicketDetails
           ticketId={params.ticketId}
           loggedInAccountId={accountId}
         />
