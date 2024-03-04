@@ -11,7 +11,7 @@ const TicketsList: React.FC<ITicketListProps> = ({
   ticketsToDisplay,
 }) => {
   return (
-    <div className="w-full flex flex-col gap-2">
+    <div className="w-full flex flex-col gap-4">
       <SectionHeading text={sectionHeadingText} />
       {ticketsToDisplay.map((ticket) => (
         <Ticket key={ticket.id} {...ticket} />

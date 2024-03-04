@@ -161,3 +161,30 @@ export const setTicketAsClosed = (ticketId: number): Promise<true> => {
       .catch((err) => reject(err));
   });
 };
+
+export const createTicket = (ticketTitle: string): Promise<number> => {
+  return new Promise((resolve, reject) => {
+    fetch(`${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/support/`, {
+      headers: {
+        "Content-type": "application/json",
+      },
+      mode: "cors",
+      credentials: "include",
+      method: "POST",
+      body: JSON.stringify({ title: ticketTitle }),
+    })
+      .then(async (response) => {
+        if (response.ok) {
+          response
+            .json()
+            .then((jsonData) => {
+              resolve(jsonData["ticketId"]);
+            })
+            .catch((err) => reject(err));
+        } else {
+          reject(await response.text());
+        }
+      })
+      .catch((err) => reject(err));
+  });
+};

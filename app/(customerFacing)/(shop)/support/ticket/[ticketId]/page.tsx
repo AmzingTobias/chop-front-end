@@ -17,7 +17,7 @@ export default async function Page({
     return null;
   }
   return (
-    <div className="w-full flex flex-col gap-4">
+    <main className="w-full flex flex-col gap-4">
       <SectionHeading text={`Ticket #${params.ticketId}`} />
       <div className="flex flex-col gap-4">
         <TicketDetails
@@ -25,6 +25,6 @@ export default async function Page({
           loggedInAccountId={accountId}
         />
       </div>
-    </div>
+    </main>
   );
 }

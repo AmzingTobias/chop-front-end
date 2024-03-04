@@ -17,7 +17,7 @@ const TicketTitle: React.FC<ITicketTitleProps> = ({ ticketInfo }) => {
           <h4>
             Ticket closed:{" "}
             <span className="font-semibold">
-              {new Date(ticketInfo.closedOn).toLocaleDateString()}
+              {new Date(ticketInfo.closedOn).toLocaleString()}
             </span>
           </h4>
         )}

@@ -26,17 +26,27 @@ const TicketsDisplay: React.FC<ITicketDisplayProps> = ({ accountId }) => {
   const tickets = useTickets();
   const ticketsAwaitingReply = tickets.filter(
     (ticket) =>
-      ticket.closedOn === null && ticket.mostRecentAuthorId === accountId
+      ticket.closedOn === null &&
+      (ticket.mostRecentAuthorId === accountId ||
+        ticket.mostRecentAuthorId === null)
   );
   const ticketsAwaitingCustomerReply = tickets.filter(
     (ticket) =>
-      ticket.closedOn === null && ticket.mostRecentAuthorId !== accountId
+      ticket.closedOn === null &&
+      ticket.mostRecentAuthorId !== accountId &&
+      ticket.mostRecentAuthorId !== null
   );
-  const ticketsClosed = tickets.filter((ticket) => ticket.closedOn !== null);
+  const ticketsClosed = tickets
+    .filter((ticket) => ticket.closedOn !== null)
+    .sort(
+      (a, b) =>
+        (new Date(b.closedOn as any) as any) -
+        (new Date(a.closedOn as any) as any)
+    );
 
   return (
     <div className="w-full flex flex-col md:flex-row gap-6">
-      <div className="w-full md:w-2/3 flex-col">
+      <div className="w-full md:w-2/3 flex flex-col gap-8">
         {ticketsAwaitingCustomerReply.length > 0 && (
           <TicketsList
             sectionHeadingText="Awaiting your reply"
