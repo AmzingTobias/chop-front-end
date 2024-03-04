@@ -85,15 +85,15 @@ const TicketDetails: React.FC<ITicketDetailsProps> = ({
       {ticketInfo.closedOn !== null ? (
         <TicketClosed />
       ) : (
-        <div className="flex flex-col items-end gap-4">
+        <div className="flex flex-col md:items-end gap-4">
           <AddComment
             refreshComments={refreshComments}
             ticketId={ticketId}
-            className="w-9/12"
+            className="w-full md:w-9/12"
           />
           <CloseTicket
             setTicketClosed={updateTicketAsClosed}
-            className="w-9/12"
+            className="w-full md:w-9/12"
           />
         </div>
       )}

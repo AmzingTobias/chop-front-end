@@ -35,8 +35,8 @@ const TicketsDisplay: React.FC<ITicketDisplayProps> = ({ accountId }) => {
   const ticketsClosed = tickets.filter((ticket) => ticket.closedOn !== null);
 
   return (
-    <div className="w-full flex flex-row gap-6">
-      <div className="w-2/3 flex-col">
+    <div className="w-full flex flex-col md:flex-row gap-6">
+      <div className="w-full md:w-2/3 flex-col">
         {ticketsAwaitingCustomerReply.length > 0 && (
           <TicketsList
             sectionHeadingText="Awaiting your reply"
@@ -56,7 +56,7 @@ const TicketsDisplay: React.FC<ITicketDisplayProps> = ({ accountId }) => {
           />
         )}
       </div>
-      <div className="w-1/3">
+      <div className="w-full md:w-1/3">
         <TicketsStatus
           numberOfTicketsAwaitingCustomerReply={
             ticketsAwaitingCustomerReply.length
