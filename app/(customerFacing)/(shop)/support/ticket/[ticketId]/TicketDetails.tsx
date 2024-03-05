@@ -2,7 +2,7 @@
 
 import {
   TTicketComment,
-  TTicketInfoEntry,
+  ITicketInfoEntry,
   getCommentsForTicket,
   getTicketWithId,
   setTicketAsClosed,
@@ -40,7 +40,7 @@ const TicketDetails: React.FC<ITicketDetailsProps> = ({
   };
 
   const useTicketInfo = () => {
-    const [ticketInfo, setTicketInfo] = useState<TTicketInfoEntry | null>(null);
+    const [ticketInfo, setTicketInfo] = useState<ITicketInfoEntry | null>(null);
     const refreshTicketInfo = () => {
       getTicketWithId(ticketId)
         .then((ticket) => setTicketInfo(ticket))

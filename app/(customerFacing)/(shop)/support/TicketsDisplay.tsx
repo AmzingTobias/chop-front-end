@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { TTicketInfoEntry, getAllTicketsForCustomer } from "@/app/data/support";
+import { ITicketInfoEntry, getAllTicketsForCustomer } from "@/app/data/support";
 import TicketsList from "./TicketsList";
 import TicketsStatus from "./TicketsStatus";
 
@@ -11,7 +11,7 @@ interface ITicketDisplayProps {
 
 const TicketsDisplay: React.FC<ITicketDisplayProps> = ({ accountId }) => {
   const useTickets = () => {
-    const [tickets, setTickets] = useState<TTicketInfoEntry[]>([]);
+    const [tickets, setTickets] = useState<ITicketInfoEntry[]>([]);
     useEffect(() => {
       getAllTicketsForCustomer()
         .then((ticketsFetched) => setTickets(ticketsFetched))

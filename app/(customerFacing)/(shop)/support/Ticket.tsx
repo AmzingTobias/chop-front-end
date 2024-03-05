@@ -1,8 +1,8 @@
-import { TTicketInfoEntry } from "@/app/data/support";
+import { ITicketInfoEntry } from "@/app/data/support";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
-interface ITicketProps extends TTicketInfoEntry {}
+interface ITicketProps extends ITicketInfoEntry {}
 
 const Ticket: React.FC<ITicketProps> = (props) => {
   return (

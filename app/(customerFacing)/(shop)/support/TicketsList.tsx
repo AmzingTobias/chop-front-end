@@ -1,10 +1,10 @@
 import SectionHeading from "@/app/components/SectionHeading";
-import { TTicketInfoEntry } from "@/app/data/support";
+import { ITicketInfoEntry } from "@/app/data/support";
 import Ticket from "./Ticket";
 
 interface ITicketListProps {
   sectionHeadingText: string;
-  ticketsToDisplay: TTicketInfoEntry[];
+  ticketsToDisplay: ITicketInfoEntry[];
 }
 const TicketsList: React.FC<ITicketListProps> = ({
   sectionHeadingText,

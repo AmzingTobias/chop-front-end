@@ -1,16 +1,46 @@
 import { headers } from "next/headers";
 
-export type TTicketInfoEntry = {
+export interface ITicketInfoEntry {
   id: number;
   createdOn: Date;
   closedOn: Date | null;
   mostRecentAuthorId: number | null;
-  firstComment: string | null;
   lastUpdate: Date | null;
+  firstComment: string | null;
   title: string;
+}
+
+export interface ITicketInfoEntryStaff extends ITicketInfoEntry {
+  assignedSupportId: number | null;
+}
+
+export const getAllTickets = (): Promise<ITicketInfoEntryStaff[]> => {
+  return new Promise((resolve, reject) => {
+    fetch(`${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/support`, {
+      mode: "cors",
+      credentials: "include",
+    })
+      .then(async (response) => {
+        if (!response.ok) {
+          reject(await response.text());
+        } else {
+          response
+            .json()
+            .then((jsonData) => {
+              resolve(jsonData);
+            })
+            .catch((err) => {
+              reject(err);
+            });
+        }
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
 };
 
-export const getAllTicketsForCustomer = (): Promise<TTicketInfoEntry[]> => {
+export const getAllTicketsForCustomer = (): Promise<ITicketInfoEntry[]> => {
   return new Promise((resolve, reject) => {
     fetch(`${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/support`, {
       headers: {
@@ -41,7 +71,7 @@ export const getAllTicketsForCustomer = (): Promise<TTicketInfoEntry[]> => {
 
 export const getTicketWithId = (
   ticketId: number
-): Promise<TTicketInfoEntry | null> => {
+): Promise<ITicketInfoEntry | null> => {
   return new Promise((resolve, reject) => {
     fetch(
       `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/support/${ticketId}`,

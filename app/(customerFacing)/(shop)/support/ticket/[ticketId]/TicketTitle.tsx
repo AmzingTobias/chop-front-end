@@ -1,9 +1,9 @@
 "use client";
 
-import { TTicketInfoEntry } from "@/app/data/support";
+import { ITicketInfoEntry } from "@/app/data/support";
 
 interface ITicketTitleProps {
-  ticketInfo: TTicketInfoEntry | null;
+  ticketInfo: ITicketInfoEntry | null;
 }
 const TicketTitle: React.FC<ITicketTitleProps> = ({ ticketInfo }) => {
   if (ticketInfo === null) {
