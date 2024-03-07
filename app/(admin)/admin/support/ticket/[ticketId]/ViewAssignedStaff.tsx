@@ -57,6 +57,7 @@ const ViewAssignedStaff: React.FC<IViewAssignedStaffProps> = ({
               assignedSupportStaff={assignedStaffId}
               ticketId={ticketId}
               refreshAssignedSupportStaff={fetchAssignedStaffId}
+              btnText="Unassign support staff"
             />
           )
         ) : assignedStaffId === null ? (
@@ -72,6 +73,7 @@ const ViewAssignedStaff: React.FC<IViewAssignedStaffProps> = ({
               assignedSupportStaff={assignedStaffId}
               ticketId={ticketId}
               refreshAssignedSupportStaff={fetchAssignedStaffId}
+              btnText="Unassign self"
             />
           )
         )}

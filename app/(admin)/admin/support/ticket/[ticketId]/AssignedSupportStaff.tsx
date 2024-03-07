@@ -21,12 +21,14 @@ interface IAssignedSupportStaffProps {
   assignedSupportStaff: TSupportAccount;
   ticketId: number;
   refreshAssignedSupportStaff: () => void;
+  btnText: "Unassign support staff" | "Unassign self";
 }
 
 const AssignedSupportStaff: React.FC<IAssignedSupportStaffProps> = ({
   assignedSupportStaff,
   ticketId,
   refreshAssignedSupportStaff,
+  btnText,
 }) => {
   const [confirmUnassign, setConfirmUnassign] = useState(false);
   const [disableUnassignBtn, setDisableUnassignBtn] = useState(false);
@@ -50,14 +52,17 @@ const AssignedSupportStaff: React.FC<IAssignedSupportStaffProps> = ({
         {disableUnassignBtn && (
           <Loader2 className="w-4 h-4 mr-2 animate-spin" />
         )}
-        Unassign support staff
+        {btnText}
       </Button>
       <AlertDialog open={confirmUnassign} onOpenChange={setConfirmUnassign}>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Confirm unassign</AlertDialogTitle>
             <AlertDialogDescription className="text-accent-foreground/90">
-              Are you sure you want to unassign {assignedSupportStaff.email}{" "}
+              Are you sure you want to unassign{" "}
+              {btnText === "Unassign self"
+                ? "yourself"
+                : assignedSupportStaff.email}{" "}
               from the ticket
             </AlertDialogDescription>
           </AlertDialogHeader>
