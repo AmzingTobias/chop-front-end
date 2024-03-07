@@ -60,7 +60,7 @@ const Orders: React.FC<IOrdersProps> = ({ ticketId, accountTypeLoggedIn }) => {
         display: (
           <Link
             href={`/${
-              accountTypeLoggedIn === EAccountTypes.admin ? "admin" : "sales"
+              accountTypeLoggedIn === EAccountTypes.admin ? "admin" : "support"
             }/orders/${order.id}`}
             className="bg-secondary p-2 rounded-md items-center hover:bg-secondary/80"
           >
