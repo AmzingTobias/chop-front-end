@@ -80,6 +80,7 @@ const SupportTicketTable: React.FC<ISupportTicketTableProps> = ({
       />
       <div className="max-h-full h-full overflow-y-scroll">
         <StaffTable
+          defaultSortedBy={{ headingIndex: 2, desc: false }}
           headings={[
             { display: "ID", sortable: true },
             { display: "Title", sortable: true },
