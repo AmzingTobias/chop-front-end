@@ -1,17 +1,23 @@
 import TicketDetails from "@/app/(customerFacing)/(shop)/support/ticket/[ticketId]/TicketDetails";
 import SectionHeading from "@/app/components/SectionHeading";
-import { getAccountTypeFromCookie, EAccountTypes } from "@/app/data/auth";
+import {
+  getAccountTypeFromCookie,
+  EAccountTypes,
+  getSupportIdFromCookie,
+} from "@/app/data/auth";
 import { cookies } from "next/headers";
-import ViewAssignedStaff from "./ViewAssignedStaff";
-import Orders from "./Orders";
+import ViewAssignedStaff from "@/app/(admin)/admin/support/ticket/[ticketId]/ViewAssignedStaff";
+import Orders from "@/app/(admin)/admin/support/ticket/[ticketId]/Orders";
 
 const Page = async ({ params }: { params: { ticketId: number } }) => {
   const authCookie = cookies().get("auth");
   const accountTypeLoggedIn = authCookie
     ? getAccountTypeFromCookie(authCookie.value)
     : undefined;
-
-  if (accountTypeLoggedIn !== EAccountTypes.admin) {
+  const supportId = authCookie
+    ? getSupportIdFromCookie(authCookie.value)
+    : undefined;
+  if (accountTypeLoggedIn !== EAccountTypes.support) {
     return null;
   }
   return (
@@ -20,6 +26,11 @@ const Page = async ({ params }: { params: { ticketId: number } }) => {
         <SectionHeading text={`Ticket #${params.ticketId}`} />
         <ViewAssignedStaff
           ticketId={params.ticketId}
+          supportIdLoggedIn={
+            accountTypeLoggedIn === EAccountTypes.support
+              ? supportId
+              : undefined
+          }
           accountTypeLoggedIn={accountTypeLoggedIn}
         />
         <TicketDetails

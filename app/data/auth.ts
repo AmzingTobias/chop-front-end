@@ -61,6 +61,21 @@ export const getCustomerIdFromCookie = (
   return undefined;
 };
 
+export const getSupportIdFromCookie = (
+  authCookie: string
+): number | undefined => {
+  const decodedToken = jwtDecode<authTokenPayload>(authCookie);
+  if (
+    decodedToken.accountType !== undefined &&
+    decodedToken.accountTypeId !== undefined
+  ) {
+    if (decodedToken.accountType === EAccountTypes.support) {
+      return decodedToken.accountTypeId;
+    }
+  }
+  return undefined;
+};
+
 export type TAccountDetailsEntry = {
   id: number;
   email: string;
