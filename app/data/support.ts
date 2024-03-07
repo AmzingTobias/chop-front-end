@@ -343,3 +343,34 @@ export const assignSupportStaffToTicket = (
       });
   });
 };
+
+export const getCustomerIdForTicket = (
+  ticketId: number
+): Promise<number | null> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/support/${ticketId}/customer`,
+      {
+        mode: "cors",
+        credentials: "include",
+      }
+    )
+      .then(async (response) => {
+        if (!response.ok) {
+          reject(await response.text());
+        } else {
+          response
+            .json()
+            .then((jsonData) => {
+              resolve(jsonData["customerId"]);
+            })
+            .catch((err) => {
+              reject(err);
+            });
+        }
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};

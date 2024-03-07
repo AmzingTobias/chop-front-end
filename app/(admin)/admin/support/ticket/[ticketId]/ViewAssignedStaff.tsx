@@ -31,8 +31,8 @@ const ViewAssignedStaff: React.FC<IViewAssignedStaffProps> = ({ ticketId }) => {
   const { assignedStaffId, fetchAssignedStaffId } = useAssignedStaff();
 
   return (
-    <div className="w-full flex justify-end">
-      <div className="rounded-md shadow-md p-2 items-center">
+    <div className="w-full flex justify-center">
+      <div className="p-2 items-center">
         {assignedStaffId === null ? (
           <AssignSupportStaff
             ticketId={ticketId}

@@ -18,12 +18,19 @@ export type TOrderEntry = {
   shippingAddressId: number;
 };
 
-export const getCustomersOrders = (): Promise<TOrderEntry[]> => {
+export const getCustomersOrders = (
+  customerId?: number
+): Promise<TOrderEntry[]> => {
   return new Promise((resolve, reject) => {
-    fetch(`${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/orders/`, {
-      mode: "cors",
-      credentials: "include",
-    })
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/orders${
+        customerId === undefined ? "" : `?customerId=${customerId}`
+      }`,
+      {
+        mode: "cors",
+        credentials: "include",
+      }
+    )
       .then((response) => {
         if (response.ok)
           response

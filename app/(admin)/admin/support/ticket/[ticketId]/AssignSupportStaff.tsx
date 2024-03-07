@@ -44,13 +44,12 @@ const AssignSupportStaff: React.FC<IAssignSupportStaffProps> = ({
   const [disableAssignBtn, setDisableAssignBtn] = useState(false);
 
   return (
-    <div className="min-w-[300px] flex flex-col gap-2">
-      <h3 className="text-center">Assign support staff</h3>
+    <div className=" flex flex-row gap-2">
       <Select
         value={selectedAccountId === "" ? undefined : selectedAccountId}
         onValueChange={setSelectedAccountId}
       >
-        <SelectTrigger>
+        <SelectTrigger className="min-w-[300px]">
           <SelectValue placeholder="Select an account type" />
         </SelectTrigger>
         <SelectContent>
