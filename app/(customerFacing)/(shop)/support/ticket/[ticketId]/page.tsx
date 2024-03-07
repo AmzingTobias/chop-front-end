@@ -1,4 +1,7 @@
-import { getAccountIdFromCookie } from "@/app/data/auth";
+import {
+  getAccountIdFromCookie,
+  getAccountTypeFromCookie,
+} from "@/app/data/auth";
 import { cookies } from "next/headers";
 import TicketDetails from "./TicketDetails";
 import SectionHeading from "@/app/components/SectionHeading";
@@ -9,11 +12,11 @@ export default async function Page({
   params: { ticketId: number };
 }) {
   const authCookie = cookies().get("auth");
-  const accountId = authCookie
-    ? getAccountIdFromCookie(authCookie.value)
+  const accountType = authCookie
+    ? getAccountTypeFromCookie(authCookie.value)
     : undefined;
 
-  if (accountId === undefined) {
+  if (accountType === undefined) {
     return null;
   }
   return (
@@ -22,7 +25,7 @@ export default async function Page({
       <div className="flex flex-col gap-4">
         <TicketDetails
           ticketId={params.ticketId}
-          loggedInAccountId={accountId}
+          loggedInAccountType={accountType}
         />
       </div>
     </main>

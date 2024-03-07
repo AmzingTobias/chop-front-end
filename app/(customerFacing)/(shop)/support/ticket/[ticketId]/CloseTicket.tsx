@@ -1,5 +1,6 @@
 "use client";
 
+import { EAccountTypes } from "@/app/data/auth";
 import { setTicketAsClosed } from "@/app/data/support";
 import {
   AlertDialog,
@@ -19,11 +20,13 @@ import { useState } from "react";
 interface ICloseTicketProps {
   setTicketClosed: () => void;
   className?: string;
+  loggedInAccountType: EAccountTypes.admin | EAccountTypes.customer;
 }
 
 const CloseTicket: React.FC<ICloseTicketProps> = ({
   className,
   setTicketClosed,
+  loggedInAccountType,
 }) => {
   const [confirmTicketClose, setConfirmTicketClose] = useState(false);
 
@@ -36,7 +39,9 @@ const CloseTicket: React.FC<ICloseTicketProps> = ({
           setConfirmTicketClose(true);
         }}
       >
-        Close ticket
+        {loggedInAccountType === EAccountTypes.customer
+          ? "Close ticket"
+          : "Force close ticket"}
       </Button>
       <AlertDialog
         open={confirmTicketClose}

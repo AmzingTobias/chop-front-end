@@ -13,15 +13,16 @@ import AddComment from "./AddComment";
 import CloseTicket from "./CloseTicket";
 import TicketTitle from "./TicketTitle";
 import TicketClosed from "./TickedClosed";
+import { EAccountTypes } from "@/app/data/auth";
 
 interface ITicketDetailsProps {
   ticketId: number;
-  loggedInAccountId: number;
+  loggedInAccountType: EAccountTypes;
 }
 
 const TicketDetails: React.FC<ITicketDetailsProps> = ({
   ticketId,
-  loggedInAccountId,
+  loggedInAccountType,
 }) => {
   const useTicketComments = () => {
     const [comments, setComments] = useState<TTicketComment[]>([]);
@@ -73,11 +74,14 @@ const TicketDetails: React.FC<ITicketDetailsProps> = ({
 
   return (
     <div className="flex flex-col gap-6 w-full">
-      <TicketTitle ticketInfo={ticketInfo} />
+      <TicketTitle
+        ticketInfo={ticketInfo}
+        loggedInAccountType={loggedInAccountType}
+      />
       {ticketComments.map((comments) => (
         <Comment
           key={comments.id}
-          loggedInAccountId={loggedInAccountId}
+          loggedInAccountType={loggedInAccountType}
           {...comments}
         />
       ))}
@@ -91,10 +95,14 @@ const TicketDetails: React.FC<ITicketDetailsProps> = ({
             ticketId={ticketId}
             className="w-full md:w-9/12"
           />
-          <CloseTicket
-            setTicketClosed={updateTicketAsClosed}
-            className="w-full md:w-9/12"
-          />
+          {loggedInAccountType === EAccountTypes.customer ||
+            (loggedInAccountType === EAccountTypes.admin && (
+              <CloseTicket
+                setTicketClosed={updateTicketAsClosed}
+                className="w-full md:w-9/12"
+                loggedInAccountType={loggedInAccountType}
+              />
+            ))}
         </div>
       )}
     </div>
