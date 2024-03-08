@@ -14,16 +14,8 @@ export const metadata: Metadata = {
   description: "chop, an ecommerce solution",
 };
 
-const adminNavLinks: TNavigationLinks[] = [
-  { path: "/admin", displayName: "Overview" },
-  { path: "/admin/accounts", displayName: "Accounts" },
-  { path: "/admin/orders", displayName: "Orders" },
-  { path: "/admin/products", displayName: "Products" },
-  { path: "/admin/products/search", displayName: "Search products" },
-  { path: "/admin/brands", displayName: "Brands" },
-  { path: "/admin/product-types", displayName: "Product types" },
-  { path: "/admin/discounts", displayName: "Discount codes" },
-  { path: "/admin/support", displayName: "Support tickets" },
+const salesNavLinks: TNavigationLinks[] = [
+  { path: "/support/support/ticket", displayName: "Support tickets" },
 ];
 
 export default async function RootLayout({
@@ -36,7 +28,7 @@ export default async function RootLayout({
     ? getAccountTypeFromCookie(authCookie.value)
     : undefined;
 
-  if (accountTypeLoggedIn !== EAccountTypes.admin) {
+  if (accountTypeLoggedIn !== EAccountTypes.support) {
     return <RedirectToLogin />;
   }
 
@@ -45,7 +37,7 @@ export default async function RootLayout({
       <body
         className={`${inter.className} flex flex-row bg-accent-foreground max-h-screen max-w-full w-full overflow-x-clip`}
       >
-        <Sidebar navLinks={adminNavLinks} />
+        <Sidebar navLinks={salesNavLinks} />
         {children}
       </body>
     </html>

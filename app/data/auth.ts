@@ -23,6 +23,7 @@ export const enum EAccountTypes {
 interface authTokenPayload extends JwtPayload {
   accountType?: EAccountTypes;
   accountTypeId?: number;
+  user_id?: number;
 }
 
 export const getAccountTypeFromCookie = (
@@ -31,6 +32,16 @@ export const getAccountTypeFromCookie = (
   const decodedToken = jwtDecode<authTokenPayload>(authCookie);
   if (decodedToken.accountType !== undefined) {
     return decodedToken.accountType;
+  }
+  return undefined;
+};
+
+export const getAccountIdFromCookie = (
+  authCookie: string
+): number | undefined => {
+  const decodedToken = jwtDecode<authTokenPayload>(authCookie);
+  if (decodedToken.user_id !== undefined) {
+    return decodedToken.user_id;
   }
   return undefined;
 };
@@ -44,6 +55,21 @@ export const getCustomerIdFromCookie = (
     decodedToken.accountTypeId !== undefined
   ) {
     if (decodedToken.accountType === EAccountTypes.customer) {
+      return decodedToken.accountTypeId;
+    }
+  }
+  return undefined;
+};
+
+export const getSupportIdFromCookie = (
+  authCookie: string
+): number | undefined => {
+  const decodedToken = jwtDecode<authTokenPayload>(authCookie);
+  if (
+    decodedToken.accountType !== undefined &&
+    decodedToken.accountTypeId !== undefined
+  ) {
+    if (decodedToken.accountType === EAccountTypes.support) {
       return decodedToken.accountTypeId;
     }
   }
