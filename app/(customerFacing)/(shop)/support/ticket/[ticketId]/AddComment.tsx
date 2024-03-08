@@ -44,7 +44,10 @@ const AddComment: React.FC<IAddCommentProps> = ({
 
   function onSubmit(values: z.infer<typeof ticketCommentSchema>) {
     addCommentToTicket(ticketId, values.comment)
-      .then(() => refreshComments())
+      .then(() => {
+        refreshComments();
+        commentForm.reset();
+      })
       .catch((err) => {
         console.error(err);
         commentForm.setError("comment", { message: "Failed to add comment" });
