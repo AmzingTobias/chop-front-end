@@ -3,13 +3,16 @@
 import { TOrderEntry, TOrderStatus, getAllOrders } from "@/app/data/orders";
 import { useEffect, useState } from "react";
 import OrdersTable from "./OrdersTable";
+import { EAccountTypes } from "@/app/data/auth";
 
 interface IOrdersContentProps {
   allOrderStatusTypes: TOrderStatus[];
+  accountTypeLoggedIn: EAccountTypes.admin | EAccountTypes.warehouse;
 }
 
 const OrdersContent: React.FC<IOrdersContentProps> = ({
   allOrderStatusTypes,
+  accountTypeLoggedIn,
 }) => {
   const useOrders = () => {
     const [fetchedOrders, setFetchedOrders] = useState<TOrderEntry[]>([]);
@@ -31,6 +34,7 @@ const OrdersContent: React.FC<IOrdersContentProps> = ({
   return (
     <div className="w-full">
       <OrdersTable
+        accountTypeLoggedIn={accountTypeLoggedIn}
         orders={fetchedOrders}
         allOrderStatusTypes={allOrderStatusTypes}
       />

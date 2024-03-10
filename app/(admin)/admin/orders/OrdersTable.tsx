@@ -6,15 +6,18 @@ import { useEffect, useState } from "react";
 import FilterByOrderStatus from "./FilterByOrderStatus";
 import SearchBar from "@/components/SearchBar";
 import SectionHeading from "@/app/components/SectionHeading";
+import { EAccountTypes } from "@/app/data/auth";
 
 interface IOrdersTableProps {
   orders: TOrderEntry[];
   allOrderStatusTypes: TOrderStatus[];
+  accountTypeLoggedIn: EAccountTypes.admin | EAccountTypes.warehouse;
 }
 
 const OrdersTable: React.FC<IOrdersTableProps> = ({
   orders,
   allOrderStatusTypes,
+  accountTypeLoggedIn,
 }) => {
   const [filterByStatus, setFilterByStatus] = useState<string>();
   const [filteredOrders, setFilteredOrders] = useState(orders);
@@ -41,7 +44,11 @@ const OrdersTable: React.FC<IOrdersTableProps> = ({
               className: "last:text-right",
               display: (
                 <Link
-                  href={`/admin/orders/${order.id}`}
+                  href={`/${
+                    accountTypeLoggedIn === EAccountTypes.admin
+                      ? "admin"
+                      : "warehouse"
+                  }/orders/${order.id}`}
                   className="bg-secondary p-2 rounded-md items-center hover:bg-secondary/80"
                 >
                   View order
@@ -53,7 +60,7 @@ const OrdersTable: React.FC<IOrdersTableProps> = ({
         };
       })
     );
-  }, [filteredOrders]);
+  }, [filteredOrders, accountTypeLoggedIn]);
 
   const updateStatusFilter = (value: string) => {
     if (value === "All") {
