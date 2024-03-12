@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { BiUser, BiSolidUser, BiExit } from "react-icons/bi";
 import { BsBasket, BsGear, BsHeartFill } from "react-icons/bs";
+import { GrContact } from "react-icons/gr";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -59,6 +60,17 @@ const AccountBtn: React.FC<{ customerLoggedIn: boolean }> = ({
               >
                 <BsGear />
                 Settings
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem className={textStyles}>
+              <Link
+                onClick={() => setMenuOpen(false)}
+                href={"/support"}
+                className="flex flex-row items-center gap-1.5 w-full cursor-pointer"
+              >
+                <GrContact />
+                Contact us
               </Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator />

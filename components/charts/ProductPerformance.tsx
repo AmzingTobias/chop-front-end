@@ -136,8 +136,8 @@ const ProductPerformance = () => {
         dateRange !== undefined &&
         dateRange.from !== undefined &&
         dateRange?.to !== undefined
-          ? new Date(data.placedOn).getDate() >= dateRange.from.getDate() &&
-            new Date(data.placedOn).getDate() <= dateRange.to.getDate()
+          ? new Date(data.placedOn).getTime() >= dateRange.from.getTime() &&
+            new Date(data.placedOn).getTime() <= dateRange.to.getTime()
           : true
       )
     );

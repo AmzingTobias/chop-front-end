@@ -124,9 +124,9 @@ const PurchaseAmountPerDate = () => {
       purchaseData.filter((data) =>
         dateRange !== undefined &&
         dateRange.from !== undefined &&
-        dateRange?.to !== undefined
-          ? new Date(data.placedOn).getDate() >= dateRange.from.getDate() &&
-            new Date(data.placedOn).getDate() <= dateRange.to.getDate()
+        dateRange.to !== undefined
+          ? new Date(data.placedOn).getTime() >= dateRange.from.getTime() &&
+            new Date(data.placedOn).getTime() <= dateRange.to.getTime()
           : true
       )
     );
@@ -195,7 +195,7 @@ const PurchaseAmountPerDate = () => {
   ChartJS.register(...registerables);
 
   return (
-    <div className="max-h-full w-full bg-accent text-accent-foreground p-4 rounded-md">
+    <div className="min-h-fit w-full bg-accent text-accent-foreground p-4 rounded-md">
       <SectionHeading text="Purchases" />
       <Bar data={barChartData} options={barChartOptions} />
       <div className="flex w-full gap-2 flex-col">

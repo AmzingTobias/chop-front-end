@@ -58,7 +58,7 @@ const FOOTER_CONTENTS: IFooterColumnContentsProps[] = [
   {
     colName: "Help & Information",
     navLinks: [
-      { display: "Contact us", link: "/" },
+      { display: "Contact us", link: "/support" },
       { display: "Track an order", link: "/" },
       { display: "Delivery & Returns", link: "/" },
     ],

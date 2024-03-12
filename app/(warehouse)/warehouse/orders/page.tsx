@@ -1,7 +1,7 @@
 import { getAllPossibleOrderStatuses } from "@/app/data/orders";
-import OrdersContent from "./OrdersContent";
-import { getAccountTypeFromCookie, EAccountTypes } from "@/app/data/auth";
+import OrdersContent from "@/app/(admin)/admin/orders/OrdersContent";
 import { cookies } from "next/headers";
+import { EAccountTypes, getAccountTypeFromCookie } from "@/app/data/auth";
 
 const Page = async () => {
   const allOrderStatusTypes = await getAllPossibleOrderStatuses();
@@ -10,9 +10,10 @@ const Page = async () => {
     ? getAccountTypeFromCookie(authCookie.value)
     : undefined;
 
-  if (accountTypeLoggedIn !== EAccountTypes.admin) {
+  if (accountTypeLoggedIn !== EAccountTypes.warehouse) {
     return null;
   }
+
   return (
     <main className="w-full h-screen max-h-screen overflow-clip flex p-2">
       <OrdersContent

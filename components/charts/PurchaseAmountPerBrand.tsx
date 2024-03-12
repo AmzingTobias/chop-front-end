@@ -93,10 +93,16 @@ const PurchaseAmountPerBrand = () => {
   return (
     <div className=" h-fit w-full bg-accent text-accent-foreground p-4 rounded-md flex flex-col gap-2">
       <SectionHeading text="Purchases per brand" />
-      <PurchasePieChart
-        data={productTypePurchaseData.map((entry) => entry.purchaseCount)}
-        labels={productTypePurchaseData.map((entry) => entry.brand)}
-      />
+      {productTypePurchaseData.length > 0 ? (
+        <PurchasePieChart
+          data={productTypePurchaseData.map((entry) => entry.purchaseCount)}
+          labels={productTypePurchaseData.map((entry) => entry.brand)}
+        />
+      ) : (
+        <div className="w-full flex items-center justify-center py-12">
+          <h2 className="text-4xl italic">{`${"No data"}`}</h2>
+        </div>
+      )}
       <div className="flex flex-row gap-4 w-full justify-center">
         <DatePicker
           dateRange={dateRange}
