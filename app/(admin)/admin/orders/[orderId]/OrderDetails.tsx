@@ -20,7 +20,7 @@ const OrderDetails: React.FC<IOrderDetailsProps> = ({
   possibleOrderStatuses,
 }) => {
   const useOrderInfo = () => {
-    const [orderInfo, setOrderInfo] = useState<TOrderEntry>();
+    const [orderInfo, setOrderInfo] = useState<TOrderEntry | null>(null);
     const [addressUsedForOrder, setAddressUsedForOrder] =
       useState<TCustomerAddress | null>(null);
     useEffect(() => {
@@ -28,11 +28,11 @@ const OrderDetails: React.FC<IOrderDetailsProps> = ({
         .then((info) => setOrderInfo(info))
         .catch((err) => {
           console.error(err);
-          setOrderInfo(undefined);
+          setOrderInfo(null);
         });
     }, []);
     useEffect(() => {
-      if (orderInfo !== undefined) {
+      if (orderInfo !== null) {
         getAddressWithId(orderInfo.shippingAddressId)
           .then((address) => setAddressUsedForOrder(address))
           .catch((err) => {
@@ -46,7 +46,7 @@ const OrderDetails: React.FC<IOrderDetailsProps> = ({
 
   const { orderInfo, addressUsedForOrder } = useOrderInfo();
 
-  if (orderInfo === undefined) {
+  if (orderInfo === null) {
     return null;
   }
 
