@@ -59,22 +59,14 @@ const FOOTER_CONTENTS: IFooterColumnContentsProps[] = [
     colName: "Help & Information",
     navLinks: [
       { display: "Contact us", link: "/support" },
-      { display: "Track an order", link: "/" },
-      { display: "Delivery & Returns", link: "/" },
+      { display: "Delivery & Returns", link: "/delivery" },
     ],
   },
   {
     colName: "About chop",
     navLinks: [
-      { display: "About us", link: "/" },
+      { display: "About us", link: "/about" },
       { display: "Staff login", link: "/login/admin" },
-    ],
-  },
-  {
-    colName: "More from chop",
-    navLinks: [
-      { display: "Gift vouchers", link: "/" },
-      { display: "Mobile app", link: "/" },
     ],
   },
 ];
