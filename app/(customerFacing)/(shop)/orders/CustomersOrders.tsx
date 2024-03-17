@@ -33,12 +33,12 @@ const CustomersOrders = () => {
             key={order.id}
             className="w-full flex-col space-y-4 mt-0 p-6 bg-primary flex shadow-md rounded-sm"
           >
-            <div className="flex flex-row items-center gap-4 w-full">
+            <div className="flex flex-row  gap-4 w-full">
               <div className="flex flex-col text-xl min-w-fit">
                 <h2>Order #{order.id}</h2>
                 <h3 className={`font-bold`}>{order.status}</h3>
               </div>
-              <div className="flex flex-col text-xl items-end w-full">
+              <div className="flex flex-col text-xl items-end w-full text-end">
                 <h2 className="min-w-fit font-light">
                   Placed on: {new Date(order.placed_on).toLocaleString()}
                 </h2>
