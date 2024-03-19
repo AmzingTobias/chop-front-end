@@ -86,6 +86,7 @@ export default async function Home() {
             width: homewareBanner.width,
             altText: "Text",
           }}
+          link="/product-type/13"
         />
         <AdBanner
           className="md:hidden"
@@ -95,6 +96,7 @@ export default async function Home() {
             width: homewareMobileAdBanner.width,
             altText: "Text",
           }}
+          link="/product-type/13"
         />
         <ProductCarousel
           customerLoggedIn={accountTypeLoggedIn === EAccountTypes.customer}
@@ -112,6 +114,7 @@ export default async function Home() {
             width: technologyBanner.width,
             altText: "Text",
           }}
+          link="/product-type/1"
         />
         <AdBanner
           className="md:hidden"
@@ -121,6 +124,7 @@ export default async function Home() {
             width: technologyMobileAdBanner.width,
             altText: "Text",
           }}
+          link="/product-type/1"
         />
         <ProductCarousel
           customerLoggedIn={accountTypeLoggedIn === EAccountTypes.customer}
