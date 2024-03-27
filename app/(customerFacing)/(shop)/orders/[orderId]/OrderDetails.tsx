@@ -90,7 +90,7 @@ const OrderDetails: React.FC<IOrderDetailsProps> = ({ orderId }) => {
         return 25;
       case "Dispatched":
         return 50;
-      case "Shipped":
+      case "Out for delivery":
         return 75;
       case "Delivered":
         return 100;
