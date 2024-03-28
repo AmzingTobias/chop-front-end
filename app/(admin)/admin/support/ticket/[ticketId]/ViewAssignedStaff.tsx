@@ -9,6 +9,7 @@ import AssignedSupportStaff from "./AssignedSupportStaff";
 import AssignSupportStaff from "./AssignSupportStaff";
 import { EAccountTypes } from "@/app/data/auth";
 import ClaimTicket from "./ClaimTicket";
+import TicketLogs from "./TicketLogs";
 
 interface IViewAssignedStaffProps {
   ticketId: number;
@@ -44,7 +45,7 @@ const ViewAssignedStaff: React.FC<IViewAssignedStaffProps> = ({
   }
 
   return (
-    <div className="w-full flex justify-center">
+    <div className="w-full flex flex-col items-center justify-center">
       <div className="p-2 items-center">
         {accountTypeLoggedIn === EAccountTypes.admin ? (
           assignedStaffId === null ? (
@@ -78,6 +79,7 @@ const ViewAssignedStaff: React.FC<IViewAssignedStaffProps> = ({
           )
         )}
       </div>
+      <TicketLogs ticketId={ticketId} />
     </div>
   );
 };

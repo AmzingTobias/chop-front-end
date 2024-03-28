@@ -129,7 +129,6 @@ const SupportTicketsSearch: React.FC<ISpportTicketsSearchProps> = ({
         <Label>Show: </Label>
         <div className="flex flex-row items-center gap-2">
           <Input
-            defaultChecked
             id="show-closed-checkbox"
             className="w-fit scale-110"
             type="checkbox"
@@ -140,7 +139,6 @@ const SupportTicketsSearch: React.FC<ISpportTicketsSearchProps> = ({
         </div>
         <div className="flex flex-row items-center gap-2">
           <Input
-            defaultChecked
             id="show-assigned-checkbox"
             className="w-fit scale-110"
             type="checkbox"
