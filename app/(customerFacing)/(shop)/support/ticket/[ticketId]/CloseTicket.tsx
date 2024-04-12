@@ -11,7 +11,6 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -29,7 +28,6 @@ const CloseTicket: React.FC<ICloseTicketProps> = ({
   loggedInAccountType,
 }) => {
   const [confirmTicketClose, setConfirmTicketClose] = useState(false);
-
   return (
     <>
       <Button

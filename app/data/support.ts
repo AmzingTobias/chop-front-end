@@ -374,3 +374,34 @@ export const getCustomerIdForTicket = (
       });
   });
 };
+
+export type TTicketLog = {
+  id: number;
+  type: string;
+  email: string;
+  comment: string;
+  timestamp: Date;
+};
+
+export const getLogsForTicket = (ticketId: number): Promise<TTicketLog[]> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/support/${ticketId}/logs`,
+      {
+        mode: "cors",
+        credentials: "include",
+      }
+    )
+      .then(async (response) => {
+        if (!response.ok) {
+          reject(await response.text());
+        } else {
+          response
+            .json()
+            .then((jsonData) => resolve(jsonData))
+            .catch((err) => reject(err));
+        }
+      })
+      .catch((err) => reject(err));
+  });
+};

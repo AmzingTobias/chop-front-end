@@ -198,7 +198,9 @@ export const getAllPossibleOrderStatuses = (): Promise<TOrderStatus[]> => {
   });
 };
 
-export const getOrderWithId = (orderId: number): Promise<TOrderEntry> => {
+export const getOrderWithId = (
+  orderId: number
+): Promise<TOrderEntry | null> => {
   return new Promise((resolve, reject) => {
     fetch(
       `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/orders/${orderId}`,
