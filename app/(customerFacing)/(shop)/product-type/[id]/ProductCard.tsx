@@ -39,7 +39,7 @@ const ProductCard: React.FC<IProductCardProps> = ({
         <div className="flex flex-col p-2 max-h-[250px] w-full">
           <div className="flex flex-row items-start">
             <Link href={productPageLink}>
-              <h2 className="text-md md:text-2xl font-semibold hover:underline">
+              <h2 className="text-md md:text-2xl font-semibold hover:underline line-clamp-3">
                 {productName}
               </h2>
             </Link>
@@ -56,7 +56,10 @@ const ProductCard: React.FC<IProductCardProps> = ({
             {brandName}
           </Link>
           {/* TODO - Turn to elipises */}
-          <p className="hidden md:flex font-light italic overflow-hidden line-clamp-1">
+          <p
+            className="hidden md:line-clamp-1 lg:line-clamp-2 xl:line-clamp-3 2xl:line-clamp-4 md:overflow-hidden md:font-light md:italic"
+            style={{ display: "-moz-initial" }}
+          >
             {productDescription}
           </p>
           <div className="flex flex-col mt-auto ml-auto items-end w-fit">
