@@ -20,9 +20,7 @@ const TicketLogs: React.FC<ITicketLogsProps> = ({ ticketId }) => {
     const [logs, setLogs] = useState<TTicketLog[]>([]);
     useEffect(() => {
       getLogsForTicket(ticketId)
-        .then((logs) =>
-          setLogs([logs, logs, logs, logs, logs, logs, logs].flat())
-        )
+        .then((logs) => setLogs(logs))
         .catch((err) => {
           console.error(err);
           setLogs([]);
