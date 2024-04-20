@@ -12,7 +12,10 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { EAccountTypes } from "@/app/data/auth";
 
 interface ISearchGridProps {
-  accountTypeLoggedIn: EAccountTypes.admin | EAccountTypes.sales;
+  accountTypeLoggedIn:
+    | EAccountTypes.admin
+    | EAccountTypes.sales
+    | EAccountTypes.warehouse;
 }
 
 const SearchGrid: React.FC<ISearchGridProps> = ({ accountTypeLoggedIn }) => {

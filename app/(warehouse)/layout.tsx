@@ -16,6 +16,7 @@ export const metadata: Metadata = {
 
 const warehouseNavLinks: TNavigationLinks[] = [
   { path: "/warehouse/orders", displayName: "Orders" },
+  { path: "/warehouse/products/search", displayName: "Search products" },
 ];
 
 export default async function RootLayout({

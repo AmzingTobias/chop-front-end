@@ -310,6 +310,42 @@ export const getProductQuestionsWithAnswers = (
   });
 };
 
+export const deleteProductQuestion = (questionId: number): Promise<boolean> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/products/questions/`,
+      {
+        headers: {
+          "Content-type": "application/json",
+        },
+        method: "DELETE",
+        mode: "cors",
+        credentials: "include",
+        body: JSON.stringify({ questionId }),
+      }
+    )
+      .then((response) => resolve(response.ok))
+      .catch((err) => reject(err));
+  });
+};
+
+export const deleteProductQuestionAnswer = (
+  answerId: number
+): Promise<boolean> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/products/questions/answer/${answerId}`,
+      {
+        method: "DELETE",
+        mode: "cors",
+        credentials: "include",
+      }
+    )
+      .then((response) => resolve(response.ok))
+      .catch((err) => reject(err));
+  });
+};
+
 export const getProductIdsOfFavouriteProducts = (): Promise<number[]> => {
   return new Promise((resolve, reject) => {
     fetch(
@@ -481,6 +517,20 @@ export const getReviewsForProduct = (
       .catch((err) => {
         reject(err);
       });
+  });
+};
+
+export const deleteReviewForProduct = (reviewId: number): Promise<boolean> => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/products/reviews/${reviewId}`,
+      {
+        method: "DELETE",
+        credentials: "include",
+      }
+    )
+      .then((response) => resolve(response.ok))
+      .catch((err) => reject(err));
   });
 };
 
