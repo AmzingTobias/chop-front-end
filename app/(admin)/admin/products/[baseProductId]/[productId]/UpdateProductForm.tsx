@@ -112,7 +112,7 @@ const UpdateProductForm: React.FC<IUpdateProductFormProps> = ({
   };
 
   return (
-    <div className="w-full h-screen">
+    <div className="w-full">
       <FormDetails
         submitFormText="Update product"
         handleOnSubmit={handleUpdateBtnClick}

@@ -24,10 +24,10 @@ const ProductCard: React.FC<IProductCardProps> = (props) => {
           props.accountTypeLoggedIn === EAccountTypes.sales ? "sales" : "admin"
         }/products/${props.baseProductId}/${props.productId}`;
   return (
-    <div className="w-fit ">
+    <div className="w-fit">
       <Link
         href={productLink}
-        className="w-fit hover:opacity-80 cursor-pointer"
+        className="block w-fit hover:opacity-80 cursor-pointer"
         style={{ maxWidth: props.imageWidth }}
       >
         <Image
