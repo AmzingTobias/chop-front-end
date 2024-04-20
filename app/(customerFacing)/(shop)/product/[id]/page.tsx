@@ -123,13 +123,21 @@ const ProductPage = async ({ params }: { params: { id: number } }) => {
       <div className="flex flex-col space-y-4">
         <SectionHeading text="Questions asked by customers" />
         <div className="flex flex-col space-y-6">
-          {productQuestions.length > 0 && (
+          {productQuestions.length > 0 ? (
             <ProductQuestions
               questions={productQuestions}
               accountTypeLoggedIn={accountTypeLoggedIn}
             />
+          ) : (
+            <div className="w-full flex items-center justify-center my-6">
+              <h2 className="text-3xl italic font-light">
+                No questions asked yet
+              </h2>
+            </div>
           )}
-          <AskAProductQuestionForm productId={params.id} />
+          {customerId !== undefined && (
+            <AskAProductQuestionForm productId={params.id} />
+          )}
         </div>
       </div>
       <div className="flex flex-col space-y-4">
