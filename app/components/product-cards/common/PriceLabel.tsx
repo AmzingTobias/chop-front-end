@@ -12,7 +12,6 @@ const PriceLabel: React.FC<IPriceLabel> = ({
   className = "",
 }) => {
   const priceLabelStyles = cn("text-lg font-medium", className);
-
   return (
     <div>
       {discountPrice === undefined ? (
