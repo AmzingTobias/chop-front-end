@@ -93,6 +93,7 @@ export type TBasketEntry = {
   price: number;
   quantity: number;
   productImageURL: string;
+  timeAdded: String;
 };
 
 export const getBasketContents = (): Promise<TBasketEntry[]> => {
@@ -126,6 +127,7 @@ export const getBasketContents = (): Promise<TBasketEntry[]> => {
                         productImages.length > 0
                           ? `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/images/products/${productEntry.id}/${productImages[0].fileName}`
                           : noProductImage.src,
+                      timeAdded: new Date().toISOString(),
                     };
                     return basketEntry;
                   }

@@ -23,6 +23,7 @@ const BasketContents: React.FC<IBasketContentsProps> = ({
         basketItems: {
           productId: number;
           quantity: number;
+          timeAdded: Date;
         }[];
       };
     }) => state.basket
@@ -37,6 +38,7 @@ const BasketContents: React.FC<IBasketContentsProps> = ({
       quantity: number;
       available: boolean;
       productStockCount: number;
+      timeAdded: Date;
     } | null>
   >([]);
 
@@ -69,6 +71,7 @@ const BasketContents: React.FC<IBasketContentsProps> = ({
             quantity: item.quantity,
             available: product.available,
             productStockCount: product.stock_count,
+            timeAdded: item.timeAdded,
           };
         })
       );
@@ -81,11 +84,17 @@ const BasketContents: React.FC<IBasketContentsProps> = ({
     }
   }, [loading, basketItems]);
 
+  console.log(basket);
+
   return (
     <div className="flex flex-col-reverse md:flex-row w-full space-y-4 space-y-reverse md:space-y-0 md:space-x-4 xl:space-x-12">
       <div className="flex flex-col space-y-4 md:space-y-8 w-full md:w-3/4">
         {basket
-          .sort((a, b) => b!.quantity - a!.quantity)
+          .sort(
+            (a, b) =>
+              (new Date(b!.timeAdded as any) as any) -
+              (new Date(a!.timeAdded as any) as any)
+          )
           .map(
             (product) =>
               product && (

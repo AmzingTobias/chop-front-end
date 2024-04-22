@@ -6,6 +6,7 @@ const initialState = {
   basketItems: [] as {
     productId: number;
     quantity: number;
+    timeAdded: Date;
   }[],
 };
 
@@ -24,7 +25,11 @@ const basketSlice = createSlice({
       } else {
         state.basketItems = [
           ...state.basketItems,
-          { productId: product.productId, quantity: action.payload.quantity },
+          {
+            productId: product.productId,
+            quantity: action.payload.quantity,
+            timeAdded: action.payload.timeAdded,
+          },
         ];
       }
     },
@@ -47,8 +52,12 @@ const basketSlice = createSlice({
     },
     applyBasketToCart: (state, action) => {
       state.basketItems = action.payload.basket.map(
-        (item: { productId: number; quantity: number }) => {
-          return { productId: item.productId, quantity: item.quantity };
+        (item: { productId: number; quantity: number; timeAdded: Date }) => {
+          return {
+            productId: item.productId,
+            quantity: item.quantity,
+            timeAdded: item.timeAdded,
+          };
         }
       );
     },
@@ -62,7 +71,11 @@ const basketSlice = createSlice({
     initialServerSideFetch: (state, action) => {
       if (state.basketItems.length === 0 || action.payload.basket.length > 0) {
         state.basketItems = action.payload.basket.map((item: TBasketEntry) => {
-          return { productId: item.productId, quantity: item.quantity };
+          return {
+            productId: item.productId,
+            quantity: item.quantity,
+            timeAdded: item.timeAdded,
+          };
         });
       } else {
         state.basketItems.map((basketItem) => {
