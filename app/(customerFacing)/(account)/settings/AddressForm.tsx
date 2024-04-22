@@ -39,7 +39,7 @@ const formSchema = z
   .object({
     firstAddressLine: z.string().min(1).trim(),
     secondAddressLine: z.string().trim(),
-    areaCode: z.string().max(10).trim(),
+    areaCode: z.string().min(3).max(10).trim(),
     state: z.string().min(1).trim(),
     countryId: z.coerce
       .number({ invalid_type_error: "Please select a country" })
@@ -136,7 +136,7 @@ const AddressForm: React.FC<IAddressFormProps> = ({
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-lg">
-                  Second line of address *
+                  Second line of address
                 </FormLabel>
                 <FormControl>
                   <Input
