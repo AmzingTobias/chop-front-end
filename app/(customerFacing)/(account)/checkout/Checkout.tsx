@@ -12,7 +12,6 @@ import PaymentInfo from "./PaymentInfo";
 import Basket from "./Basket";
 import { TBasketEntry, getBasketContents } from "@/app/data/basket";
 import ReviewOrder from "./ReviewOrder";
-import { TDiscountCodeValidation } from "@/app/data/discounts";
 import CustomerAddress from "@/app/components/CustomerAddress";
 
 const Checkout = () => {
@@ -73,10 +72,6 @@ const Checkout = () => {
 
   const basketContents = useBasket();
 
-  const [discountCodesBeingUsed, setDiscountCodesBeingUsed] = useState<
-    TDiscountCodeValidation[]
-  >([]);
-
   const {
     deliveryAddresses,
     refreshCustomerAddresses,
@@ -111,10 +106,11 @@ const Checkout = () => {
         <ChangeSection
           title="Payment method"
           centerContent={
-            <PaymentInfo
-              codesInUse={discountCodesBeingUsed}
-              setCodesInUse={setDiscountCodesBeingUsed}
-            />
+            <PaymentInfo />
+            // <PaymentInfo
+            //   codesInUse={discountCodesBeingUsed}
+            //   setCodesInUse={setDiscountCodesBeingUsed}
+            // />
           }
         />
         <hr className="bg-accent border-[1px] border-accent" />
@@ -127,7 +123,6 @@ const Checkout = () => {
             (prev, current) => prev + current.price * current.quantity,
             0
           )}
-          discountCodesBeingUsed={discountCodesBeingUsed}
           shippingAddress={selectedAddress}
         />
       </div>
