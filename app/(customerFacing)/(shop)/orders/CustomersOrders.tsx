@@ -4,6 +4,7 @@ import { TOrderEntry, getCustomersOrders } from "@/app/data/orders";
 import { useEffect, useState } from "react";
 import OrderSummary from "./OrderSummary";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 const CustomersOrders = () => {
   const useOrders = () => {
@@ -38,15 +39,12 @@ const CustomersOrders = () => {
                 <h2>Order #{order.id}</h2>
                 <h3 className={`font-bold`}>{order.status}</h3>
               </div>
-              <div className="flex flex-col text-xl items-end w-full text-end">
+              <div className="flex flex-col text-xl items-end w-full text-end gap-2">
                 <h2 className="min-w-fit font-light">
                   Placed on: {new Date(order.placed_on).toLocaleString()}
                 </h2>
-                <Link
-                  href={`/orders/${order.id}`}
-                  className={`underline hover:opacity-80 `}
-                >
-                  More details
+                <Link href={`/orders/${order.id}`}>
+                  <Button variant={"secondary"}>More details</Button>
                 </Link>
               </div>
             </div>
