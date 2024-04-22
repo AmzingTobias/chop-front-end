@@ -11,7 +11,7 @@ export default async function Page({
     <main className="flex flex-col w-full p-4 mx-auto max-w-screen-2xl gap-4">
       <OrderDetails orderId={params.orderId} />
       <Button className="w-fit self-end" variant={"secondary"}>
-        <Link href={"/orders"}>Return</Link>
+        <Link href={"/orders"}>Return to all orders</Link>
       </Button>
     </main>
   );
