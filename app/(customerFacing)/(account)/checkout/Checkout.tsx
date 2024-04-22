@@ -39,6 +39,8 @@ const Checkout = () => {
               );
               if (defaultAddress !== undefined) {
                 setSelectedAddress(defaultAddress);
+              } else if (addresses.length === 1) {
+                setSelectedAddress(addresses[0]);
               }
               setDataReceived(true);
             })
@@ -79,6 +81,12 @@ const Checkout = () => {
     setSelectedAddress,
     deliveryAddressDataReceived,
   } = useDeliveryAddress();
+
+  useEffect(() => {
+    if (deliveryAddresses.length === 1) {
+      setSelectedAddress(deliveryAddresses[0]);
+    }
+  }, [deliveryAddresses, setSelectedAddress]);
 
   if (!deliveryAddressDataReceived) {
     return null;
