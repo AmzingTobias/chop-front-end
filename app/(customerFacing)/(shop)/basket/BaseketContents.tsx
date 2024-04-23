@@ -84,8 +84,6 @@ const BasketContents: React.FC<IBasketContentsProps> = ({
     }
   }, [loading, basketItems]);
 
-  console.log(basket);
-
   return (
     <div className="flex flex-col-reverse md:flex-row w-full space-y-4 space-y-reverse md:space-y-0 md:space-x-4 xl:space-x-12">
       <div className="flex flex-col space-y-4 md:space-y-8 w-full md:w-3/4">

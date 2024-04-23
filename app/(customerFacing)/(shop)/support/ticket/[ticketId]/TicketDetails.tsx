@@ -71,7 +71,6 @@ const TicketDetails: React.FC<ITicketDetailsProps> = ({
       })
       .catch((err) => console.error(err));
   };
-  console.log(loggedInAccountType === EAccountTypes.customer);
   return (
     <div className="flex flex-col gap-6 w-full">
       <TicketTitle

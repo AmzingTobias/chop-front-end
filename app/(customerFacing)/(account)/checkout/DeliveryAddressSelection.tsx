@@ -16,12 +16,14 @@ interface IDeliveryAddressSelection {
   setSelectedAddress: React.Dispatch<
     SetStateAction<TCustomerAddress | undefined>
   >;
+  customerHasDefaultAddress: boolean;
 }
 
 const DeliveryAddressSelection: React.FC<IDeliveryAddressSelection> = ({
   addresses,
   refreshCustomerAddresses,
   setSelectedAddress,
+  customerHasDefaultAddress,
 }) => {
   const [availableCountries, setAvailableCountries] = useState<
     TShippingCountries[]
@@ -56,6 +58,7 @@ const DeliveryAddressSelection: React.FC<IDeliveryAddressSelection> = ({
       ))}
       <div className="bg-accent p-2 text-accent-foreground rounded-md">
         <AddressForm
+          customerHasDefaultAddress={customerHasDefaultAddress}
           refreshAddressData={refreshCustomerAddresses}
           countriesAvailable={availableCountries}
         />
