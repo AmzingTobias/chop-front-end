@@ -11,6 +11,10 @@ const LoginPage = () => {
     ? getAccountTypeFromCookie(authCookie.value)
     : undefined;
 
+  if (accountTypeLoggedIn !== undefined) {
+    <Login accountLoggedIn={accountTypeLoggedIn !== undefined} />;
+  }
+
   return (
     <main className="flex flex-col items-center w-full">
       <Login accountLoggedIn={accountTypeLoggedIn !== undefined} />
