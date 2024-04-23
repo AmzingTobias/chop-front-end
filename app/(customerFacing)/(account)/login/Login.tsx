@@ -12,7 +12,7 @@ const Login: React.FC<ILoginProps> = ({ accountLoggedIn }) => {
 
   useEffect(() => {
     if (accountLoggedIn) {
-      router.push("./");
+      window.location.reload();
     }
   }, [router, accountLoggedIn]);
 
