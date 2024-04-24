@@ -39,14 +39,15 @@ const CustomerLoginForm = () => {
       }
     )
       .then((response) => {
-        setLoginRequestPending(false);
         if (response.ok) {
-          router.refresh();
+          window.location.reload();
         } else if (response.status === 401) {
+          setLoginRequestPending(false);
           // Credentials invalid
           setEmailErrorMsg("Email or password invalid");
           setPasswordErrorMsg("Email or password invalid");
         } else {
+          setLoginRequestPending(false);
           // Server error
           console.error(response.status);
           setInternalError(true);
