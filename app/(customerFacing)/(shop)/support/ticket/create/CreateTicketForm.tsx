@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { addCommentToTicket, createTicket } from "@/app/data/support";
 
 const ticketCreateSchema = z.object({
@@ -28,10 +28,12 @@ const ticketCreateSchema = z.object({
 
 const CreateTicketForm = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const titleFromParams = searchParams.get("title");
   const createTicketForm = useForm<z.infer<typeof ticketCreateSchema>>({
     resolver: zodResolver(ticketCreateSchema),
     defaultValues: {
-      title: "",
+      title: titleFromParams === null ? "" : titleFromParams,
       comment: "",
     },
   });
