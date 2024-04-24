@@ -4,6 +4,8 @@ import {
   TCustomerAddress,
   TShippingCountries,
   createNewAddress,
+  serverSetDefaultAddress,
+  serverUpdateDefaultAddress,
 } from "@/app/data/address";
 import {
   AlertDialog,
@@ -39,11 +41,12 @@ const formSchema = z
   .object({
     firstAddressLine: z.string().min(1).trim(),
     secondAddressLine: z.string().trim(),
-    areaCode: z.string().max(10).trim(),
+    areaCode: z.string().min(3).max(10).trim(),
     state: z.string().min(1).trim(),
     countryId: z.coerce
       .number({ invalid_type_error: "Please select a country" })
       .nonnegative(),
+    default: z.boolean(),
   })
   .required()
   .partial({ secondAddressLine: true });
@@ -51,11 +54,13 @@ const formSchema = z
 interface IAddressFormProps {
   countriesAvailable: TShippingCountries[];
   refreshAddressData: () => void;
+  customerHasDefaultAddress: boolean;
 }
 
 const AddressForm: React.FC<IAddressFormProps> = ({
   countriesAvailable,
   refreshAddressData,
+  customerHasDefaultAddress,
 }) => {
   const [confirmBoxOpen, setConfirmBoxOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
@@ -73,6 +78,7 @@ const AddressForm: React.FC<IAddressFormProps> = ({
       secondAddressLine: "",
       areaCode: "",
       state: "",
+      default: !customerHasDefaultAddress,
     },
   });
 
@@ -89,8 +95,15 @@ const AddressForm: React.FC<IAddressFormProps> = ({
     };
     setAddressAddedLoading(true);
     createNewAddress(newAddress)
-      .then((created) => {
-        if (created) {
+      .then(async (addressId) => {
+        if (addressId !== undefined) {
+          if (values.default) {
+            if (customerHasDefaultAddress) {
+              await serverUpdateDefaultAddress(addressId);
+            } else {
+              await serverSetDefaultAddress(addressId);
+            }
+          }
           form.reset();
           form.setValue("countryId", values.countryId);
           refreshAddressData();
@@ -136,7 +149,7 @@ const AddressForm: React.FC<IAddressFormProps> = ({
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-lg">
-                  Second line of address *
+                  Second line of address
                 </FormLabel>
                 <FormControl>
                   <Input
@@ -224,7 +237,28 @@ const AddressForm: React.FC<IAddressFormProps> = ({
               </FormItem>
             )}
           />
-
+          <FormField
+            control={form.control}
+            name="default"
+            render={({ field }) => (
+              <FormItem className="flex flex-row items-center space-x-3 space-y-0">
+                <FormControl>
+                  <Input
+                    className="w-fit"
+                    type="checkbox"
+                    onChange={field.onChange}
+                    checked={field.value}
+                    disabled={field.disabled}
+                    ref={field.ref}
+                    onBlur={field.onBlur}
+                  />
+                </FormControl>
+                <FormLabel className="text-base">
+                  Set as default address
+                </FormLabel>
+              </FormItem>
+            )}
+          />
           <Button
             disabled={addressAddedLoading}
             type="submit"

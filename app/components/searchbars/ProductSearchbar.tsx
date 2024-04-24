@@ -85,14 +85,14 @@ export const ProductSearchbar: React.FC<IProductSearchbarProps> = ({
               if (showResultsOnInputChange) performSearch(event.target.value);
             }}
             type="text"
-            className={`bg-transparent ${
+            className={`bg-transparent placeholder:text-accent-foreground/90 ${
               searchInFocus && searchResults.length > 0 ? "rounded-b-none" : ""
             } ${
               variant === "accent"
                 ? "border-accent focus-visible:ring-accent"
                 : ""
             }`}
-            placeholder="Search"
+            placeholder="Search..."
           />
           <div className="w-full relative">
             {searchInFocus && searchResults.length > 0 && (

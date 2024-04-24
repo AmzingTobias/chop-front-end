@@ -12,6 +12,23 @@ const ProductImageDisplay: React.FC<IProductImageDisplayProps> = ({
   images,
 }) => {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [touchStartEvent, setTouchStartEvent] = useState<React.TouchEvent>();
+
+  const checkForSwipe = (event: React.TouchEvent) => {
+    if (touchStartEvent !== undefined) {
+      const xPositionOfTouch = touchStartEvent.touches[0].clientX;
+      const xPositionOfTouchLeave = event.changedTouches[0].clientX;
+      if (xPositionOfTouch > xPositionOfTouchLeave) {
+        // Increase image index
+        setActiveImageIndex((prev) =>
+          prev < images.length - 1 ? prev + 1 : prev
+        );
+      } else {
+        setActiveImageIndex((prev) => (prev > 0 ? prev - 1 : prev));
+      }
+      console.log(xPositionOfTouch, xPositionOfTouchLeave);
+    }
+  };
 
   if (images.length < 1) {
     return (
@@ -58,6 +75,8 @@ const ProductImageDisplay: React.FC<IProductImageDisplayProps> = ({
         alt="MAIN PRODUCT"
         width={400}
         height={530}
+        onTouchEnd={(event) => checkForSwipe(event)}
+        onTouchStart={(event) => setTouchStartEvent(event)}
         src={images[activeImageIndex]}
       />
     </div>

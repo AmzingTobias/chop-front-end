@@ -12,12 +12,14 @@ import PaymentInfo from "./PaymentInfo";
 import Basket from "./Basket";
 import { TBasketEntry, getBasketContents } from "@/app/data/basket";
 import ReviewOrder from "./ReviewOrder";
-import { TDiscountCodeValidation } from "@/app/data/discounts";
 import CustomerAddress from "@/app/components/CustomerAddress";
 
 const Checkout = () => {
   const useDeliveryAddress = () => {
     const [dataReceived, setDataReceived] = useState(false);
+    const [customerDefaultAddressId, setCustomerDefaultAddressId] = useState<
+      number | null
+    >(null);
     const [deliveryAddresses, setDeliveryAddresses] = useState<
       TCustomerAddress[]
     >([]);
@@ -25,7 +27,23 @@ const Checkout = () => {
 
     const refreshCustomerAddresses = () => {
       getCustomerAddresses()
-        .then((addresses) => setDeliveryAddresses(addresses))
+        .then((addresses) => {
+          setDeliveryAddresses(addresses);
+          getDefaultAddress().then((defaultAddressId) => {
+            setCustomerDefaultAddressId(defaultAddressId);
+            if (
+              defaultAddressId !== null &&
+              defaultAddressId !== customerDefaultAddressId
+            ) {
+              const defaultAddress = addresses.find(
+                (address) => address.id === defaultAddressId
+              );
+              if (defaultAddress !== undefined) {
+                setSelectedAddress(defaultAddress);
+              }
+            }
+          });
+        })
         .catch((_) => setDeliveryAddresses([]));
     };
 
@@ -39,7 +57,10 @@ const Checkout = () => {
                 (address) => address.id === defaultAddressId
               );
               if (defaultAddress !== undefined) {
+                setCustomerDefaultAddressId(defaultAddress.id);
                 setSelectedAddress(defaultAddress);
+              } else if (addresses.length === 1) {
+                setSelectedAddress(addresses[0]);
               }
               setDataReceived(true);
             })
@@ -53,6 +74,7 @@ const Checkout = () => {
       selectedAddress,
       setSelectedAddress,
       deliveryAddressDataReceived: dataReceived,
+      customerDefaultAddressId,
     };
   };
 
@@ -73,17 +95,20 @@ const Checkout = () => {
 
   const basketContents = useBasket();
 
-  const [discountCodesBeingUsed, setDiscountCodesBeingUsed] = useState<
-    TDiscountCodeValidation[]
-  >([]);
-
   const {
     deliveryAddresses,
     refreshCustomerAddresses,
     selectedAddress,
     setSelectedAddress,
     deliveryAddressDataReceived,
+    customerDefaultAddressId,
   } = useDeliveryAddress();
+
+  useEffect(() => {
+    if (deliveryAddresses.length === 1) {
+      setSelectedAddress(deliveryAddresses[0]);
+    }
+  }, [deliveryAddresses, setSelectedAddress]);
 
   if (!deliveryAddressDataReceived) {
     return null;
@@ -97,6 +122,7 @@ const Checkout = () => {
             addresses={deliveryAddresses}
             refreshCustomerAddresses={refreshCustomerAddresses}
             setSelectedAddress={setSelectedAddress}
+            customerHasDefaultAddress={customerDefaultAddressId !== null}
           />
         ) : (
           <ChangeSection
@@ -108,15 +134,7 @@ const Checkout = () => {
           />
         )}
         <hr className="bg-accent border-[1px] border-accent" />
-        <ChangeSection
-          title="Payment method"
-          centerContent={
-            <PaymentInfo
-              codesInUse={discountCodesBeingUsed}
-              setCodesInUse={setDiscountCodesBeingUsed}
-            />
-          }
-        />
+        <ChangeSection title="Payment method" centerContent={<PaymentInfo />} />
         <hr className="bg-accent border-[1px] border-accent" />
         <h3 className="font-bold">Review Items</h3>
         <Basket contents={basketContents} />
@@ -127,7 +145,6 @@ const Checkout = () => {
             (prev, current) => prev + current.price * current.quantity,
             0
           )}
-          discountCodesBeingUsed={discountCodesBeingUsed}
           shippingAddress={selectedAddress}
         />
       </div>

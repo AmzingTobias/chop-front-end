@@ -8,6 +8,7 @@ import {
 import { SetStateAction, useEffect, useState } from "react";
 import AddressForm from "../settings/AddressForm";
 import CustomerAddress from "@/app/components/CustomerAddress";
+import { Button } from "@/components/ui/button";
 
 interface IDeliveryAddressSelection {
   addresses: TCustomerAddress[];
@@ -15,12 +16,14 @@ interface IDeliveryAddressSelection {
   setSelectedAddress: React.Dispatch<
     SetStateAction<TCustomerAddress | undefined>
   >;
+  customerHasDefaultAddress: boolean;
 }
 
 const DeliveryAddressSelection: React.FC<IDeliveryAddressSelection> = ({
   addresses,
   refreshCustomerAddresses,
   setSelectedAddress,
+  customerHasDefaultAddress,
 }) => {
   const [availableCountries, setAvailableCountries] = useState<
     TShippingCountries[]
@@ -42,18 +45,20 @@ const DeliveryAddressSelection: React.FC<IDeliveryAddressSelection> = ({
           <div className="flex flex-row">
             <CustomerAddress address={address} />
             <div className="flex flex-col ml-auto justify-end">
-              <h3
-                className="text-secondary font-semibold underline cursor-pointer select-none"
+              <Button
+                variant={"secondary"}
+                className="text-secondary-foreground font-semibold cursor-pointer text-lg p-2 max-h-[32px]"
                 onClick={() => setSelectedAddress(address)}
               >
                 Select
-              </h3>
+              </Button>
             </div>
           </div>
         </div>
       ))}
       <div className="bg-accent p-2 text-accent-foreground rounded-md">
         <AddressForm
+          customerHasDefaultAddress={customerHasDefaultAddress}
           refreshAddressData={refreshCustomerAddresses}
           countriesAvailable={availableCountries}
         />

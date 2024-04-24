@@ -200,7 +200,7 @@ export const serverDeleteAddress = (addressId: number): Promise<boolean> => {
 
 export const createNewAddress = (
   address: TCustomerAddress
-): Promise<boolean> => {
+): Promise<number | undefined> => {
   return new Promise((resolve, reject) => {
     fetch(
       `${process.env.NEXT_PUBLIC_SERVER_API_HOST_ADDRESS}/v1/auth/address/`,
@@ -221,7 +221,14 @@ export const createNewAddress = (
       }
     )
       .then((response) => {
-        resolve(response.ok);
+        if (response.ok) {
+          response
+            .json()
+            .then((data) => resolve(data.id))
+            .catch((err) => reject(err));
+        } else {
+          resolve(undefined);
+        }
       })
       .catch((err) => {
         console.error(err);

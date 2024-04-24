@@ -90,6 +90,7 @@ const AddressBook = () => {
       })}
       <h2 className="text-3xl font-semibold underline">New address</h2>
       <AddressForm
+        customerHasDefaultAddress={defaultAddressId !== null}
         countriesAvailable={availableCountries}
         refreshAddressData={fetchData}
       />

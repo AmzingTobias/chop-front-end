@@ -1,3 +1,5 @@
+"use client";
+
 import { TCustomerAddress } from "@/app/data/address";
 import { TDiscountCodeValidation } from "@/app/data/discounts";
 import { clearBasket } from "@/app/redux/slices/basket.slice";
@@ -14,16 +16,15 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import OfferCode from "./OfferCode";
 
 interface IReviewOrderProps {
   totalPrice: number;
-  discountCodesBeingUsed: TDiscountCodeValidation[];
   shippingAddress: TCustomerAddress | undefined;
 }
 
 const ReviewOrder: React.FC<IReviewOrderProps> = ({
   totalPrice,
-  discountCodesBeingUsed,
   shippingAddress,
 }) => {
   const [buyBtnDisabled, setBuyBtnDisabled] = useState(
@@ -36,6 +37,10 @@ const ReviewOrder: React.FC<IReviewOrderProps> = ({
   useEffect(() => {
     setBuyBtnDisabled(shippingAddress === undefined);
   }, [shippingAddress]);
+
+  const [discountCodesBeingUsed, setDiscountCodesBeingUsed] = useState<
+    TDiscountCodeValidation[]
+  >([]);
 
   const discountedTotal = discountCodesBeingUsed.reduce(
     (prev, current) => prev - (current.percent / 100) * totalPrice,
@@ -82,13 +87,13 @@ const ReviewOrder: React.FC<IReviewOrderProps> = ({
 
   return (
     <div className="bg-accent text-accent-foreground w-full p-2 rounded-md shadow-md h-fit flex flex-col gap-2">
-      <Button
-        variant={"secondary"}
-        onClick={() => submitOrder()}
-        disabled={buyBtnDisabled}
-      >
-        Buy now
-      </Button>
+      <div className="flex flex-col gap-2">
+        <h4 className="text-2xl font-bold">Offer codes</h4>
+        <OfferCode
+          codesInUse={discountCodesBeingUsed}
+          setCodesInUse={setDiscountCodesBeingUsed}
+        />
+      </div>
       <hr className="border-accent-foreground border-[1px] bg-accent-foreground" />
       <div>
         <h4 className="text-2xl font-bold">Order summary</h4>
@@ -120,6 +125,14 @@ const ReviewOrder: React.FC<IReviewOrderProps> = ({
         </h4>
         <small className="text-primary">Order total includes VAT</small>
       </div>
+      <hr className="border-accent-foreground border-[1px] bg-accent-foreground" />
+      <Button
+        variant={"secondary"}
+        onClick={() => submitOrder()}
+        disabled={buyBtnDisabled}
+      >
+        Buy now
+      </Button>
       <AlertDialog open={orderFailed} onOpenChange={setOrderFailed}>
         <AlertDialogContent>
           <AlertDialogHeader>
